@@ -1,0 +1,58 @@
+{{left_sidebar_enabled,right_sidebar_enabled=False,False}}
+{{extend 'layout.html'}}
+
+{{block center}}
+{{#=BEAUTIFY(request.vars)}}
+
+<h3>Members<small> (Total members = {{=len(request.members)}})</small></h3>
+
+{{for i in range(len(request.members)):}}  {{#loop over all members}}
+	{{member_row = request.members[i]}}
+	<div class="media">
+	{{for j in range(len(member_row)):}}   {{#loop over list of dictionaries per member}}
+		{{member = member_row[j]}}
+		{{if j == 0:}}  {{# 1st dictionary is auth_user record}}
+			{{
+			s = ' | '
+			first_name = member['first_name'];
+			last_name = member['last_name'];
+			identity_photo = member['identity_photo'];
+			telephone = 'tel: '+ member['tel_number'] + s if member['tel_number'] else '';
+			mobile = 'mob: ' + member['mobile_number'] + s if member['mobile_number'] else '';
+			email = member['email']; email2 = member['email2'];
+			email = A(email,_href='mailto:'+email) if email else '';
+			email = email + s if (email and email2) else email
+			email2 = A(email2,_href='mailto:'+email2) if email2 else '';
+			short_description = member['short_description'];
+			}}
+			<a class="pull-left" href="#">
+				<img class="media-object" src="{{=URL('download',args=identity_photo)}}">
+			</a>
+			<div class="media-body">
+				<h4 class="media-heading">
+					{{=first_name}} {{=last_name}}
+					<small>{{=telephone}}</small>
+					<small>{{=mobile}}</small>
+					<small>{{=email}}</small>
+					<small>{{=email2}}</small>
+				</h4>
+			<table class='address_list'><tr>
+		{{elif j != 0:}}   {{# remaing dictionaries are addresses}}
+ 			<td class='address_list'>
+ 				<p>{{="{0}, {1}".format(member['number'],member['street'])}}</p>
+				<p class='underline'>{{="{0} - {1}".format(member['zip_code'],member['town'])}}</p>
+				<p>{{="{0}".format(member['country'])}}</p>
+				<p>{{="tel.: {0}".format(member['tel_number']) if member['tel_number'] else ''}}</p>
+ 			</td>
+		{{pass}}
+	{{pass}}  {{#loop over list of dictionaries per member}}
+	{{if short_description:}}
+		<td class='short_description'>
+			<p>{{=short_description}}</p>
+		</td>
+	{{pass}}
+	</tr></table>
+	</div><!--//<div class="media-body"> -->
+	</div><!--//<div class="media">-->
+{{pass}} {{#loop over all members}}
+{{end}}
