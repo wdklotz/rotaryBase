@@ -10,7 +10,7 @@
 # 	...DAS. Beide sind äquivalent.
 class AppVars:
 	items = dict (
-		version = "rotaryBase3v0.2.6a2",
+		version = "rotaryBase3v0.2.6a3",
 		title = "Rotary Intl. Gréoux-les-Bains"
 		)
 appVars = AppVars()
