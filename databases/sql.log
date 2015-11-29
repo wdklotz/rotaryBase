@@ -74,3 +74,8 @@ timestamp: 2014-07-30T09:36:05.236464
 ALTER TABLE address ADD tel_number CHAR(512);
 success!
 success!
+success!
+success!
+success!
+success!
+success!
