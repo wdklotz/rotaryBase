@@ -1,11 +1,10 @@
-{{left_sidebar_enabled,right_sidebar_enabled=False,False}}
+{{left_sidebar_enabled,right_sidebar_enabled, rotary_banner_enabled = False,False,False}}
 {{extend 'layout.html'}}
 
 {{block center}}
 {{#=BEAUTIFY(request.vars)}}
 
 <h3>Members<small> (Total members = {{=len(request.members)}})</small></h3>
-
 {{for i in range(len(request.members)):}}  {{#loop over all members}}
 	{{member_row = request.members[i]}}
 	<div class="media">
@@ -36,8 +35,9 @@
 					<small>{{=email}}</small>
 					<small>{{=email2}}</small>
 				</h4>
-			<table class='address_list'><tr>
-		{{elif j != 0:}}   {{# remaing dictionaries are addresses}}
+			<table class='address_list'>
+            <tr>
+            {{elif j != 0:}}   {{# remaing dictionaries are addresses}}
  			<td class='address_list'>
  				<p>{{="{0}, {1}".format(member['number'],member['street'])}}</p>
 				<p class='underline'>{{="{0} - {1}".format(member['zip_code'],member['town'])}}</p>
@@ -47,12 +47,11 @@
 		{{pass}}
 	{{pass}}  {{#loop over list of dictionaries per member}}
 	{{if short_description:}}
-		<td class='short_description'>
+		<tr class='short_description'>
 			<p>{{=short_description}}</p>
-		</td>
+		</tr>
 	{{pass}}
 	</tr></table>
-	</div><!--//<div class="media-body"> -->
-	</div><!--//<div class="media">-->
-{{pass}} {{#loop over all members}}
+	</div></div>
+{{pass #loop over all members}}
 {{end}}

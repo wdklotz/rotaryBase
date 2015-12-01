@@ -1,55 +1,72 @@
-{{left_sidebar_enabled,right_sidebar_enabled=True,True}}
+{{left_sidebar_enabled,right_sidebar_enabled, rotary_banner_enabled = True,True,True}}
 {{extend 'layout.html'}}
+<!-- =====================================left sidebar============================================ -->
+{{block left_sidebar}}
+        <div class="list-group">
+          <a href="#" class="list-group-item active">
+            <h4 class="list-group-item-heading">Invitations</h4>
+          </a>
+          <!-- <p class="list-group-item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
+          <a href="#" class="list-group-item active">
+            <h4 class="list-group-item-heading">Contact</h4>
+          </a>
+          <!-- <p class="list-group-item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
+          <a href="#" class="list-group-item active">
+            <h4 class="list-group-item-heading">Donate</h4>
+          </a>
+          <!-- <p class="list-group-item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
+          <a href="#" class="list-group-item active">
+            <h4 class="list-group-item-heading">Press</h4>
+          </a>
+          <!-- <p class="list-group-item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
+        </div>
+        <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">About</h3>
+          </div>
+          <div class="panel-body">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </div>
+        </div>
+        <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">Ethics</h3>
+          </div>
+          <div class="panel-body">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </div>
+        </div>
+{{end}}
 {{block center}}
 {{#=BEAUTIFY(request.vars)}}
 <!------------------------------ROW #1 --------------------------------------------------->
-<div class="row">
-	<div class="span3">
-		{{block 1.1}} <!--block 1.1 empty--> {{end}}
-	</div>
-	<div class="span3">
-		{{block 1.2}} <!--block 1.2 empty--> {{end}}
-	</div>
-	<div class="span3">
-		{{block 1.3}} <!--block 1.3 empty--> {{end}}
-	</div>
-</div><!--/row-->
-<!------------------------------ROW #2 --------------------------------------------------->
-<div class="row">
-	<div class="span3">
-		{{block 2.1}} <!--block 2.1 empty--> {{end}}
-	</div>
-	<div class="span3">
-		{{block 2.2}} <!--block 2.2 empty--> {{end}}
-	</div>
-	<div class="span3">
-		{{block 2.3}} <!--block 2.3 empty--> {{end}}
-	</div>
-</div><!--/row-->
+<div class="span3">
+    {{block 1.1}} <!--block 1.1 empty--> {{end}}
+</div>
+<div class="span3">
+    {{block 1.2}} <!--block 1.2 empty--> {{end}}
+</div>
+ <!------------------------------ROW #2 --------------------------------------------------->
+<div class="span3">
+    {{block 2.1}} <!--block 2.1 empty--> {{end}}
+</div>
+<div class="span3">
+    {{block 2.2}} <!--block 2.2 empty--> {{end}}
+</div>
 <!------------------------------ROW #3 --------------------------------------------------->
-<div class="row">
-	<div class="span3">
-		{{block 3.1}} <!--block 3.1 empty--> {{end}}
-	</div>
-	<div class="span3">
-		{{block 3.2}} <!--block 3.2 empty--> {{end}}
-	</div>
-	<div class="span3">
-		{{block 3.3}} <!--block 3.3 empty--> {{end}}
-	</div>
-</div><!--/row-->
+<div class="span3">
+    {{block 3.1}} <!--block 3.1 empty--> {{end}}
+</div>
+<div class="span3">
+    {{block 3.2}} <!--block 3.2 empty--> {{end}}
+</div>
 <!------------------------------ROW #4 --------------------------------------------------->
-<div class="row">
-	<div class="span3">
-		{{block 4.1}} <!--block 4.1 empty--> {{end}}
-	</div>
-	<div class="span3">
-		{{block 4.2}} <!--block 4.2 empty--> {{end}}
-	</div>
-	<div class="span3">
-		{{block 4.3}} <!--block 4.3 empty--> {{end}}
-	</div>
-</div><!--/row-->
+<div class="span3">
+    {{block 4.1}} <!--block 4.1 empty--> {{end}}
+</div>
+<div class="span3">
+    {{block 4.2}} <!--block 4.2 empty--> {{end}}
+</div>
 {{end}}
 
 {{block 1.1}}
@@ -72,7 +89,7 @@
 				  <a class="btn btn-default" href="{{=URL('fluid')}}#row1" role="button">View details &raquo;</a></p>
 			  </div>
 {{end}}
-{{block 1.3}}
+{{block 2.1}}
 			<h2 class='top_actuality_header'><img src="{{=URL('static','images/french_flag.png')}}"/> 
 			Action espoir en tête</h2>
 			  <div class='transparent'>
@@ -82,7 +99,7 @@
 					<a class="btn btn-default" href="{{=URL('fluid')}}#row3" role="button">View details &raquo;</a></p>
 			  </div>
 {{end}}
-{{block 2.1}}
+{{block 2.2}}
 			<h2 class='top_actuality_header'><img src="{{=URL('static','images/english_flag.png')}}"/> 
 			A World Project</h2>
 			  <div class='transparent'>
@@ -92,7 +109,7 @@
 					<a class="btn btn-default" href="http://www.endpolio.org/">View details &raquo;</a></p>
 			  </div>
 {{end}}
-{{block 2.2}}
+{{block 3.1}}
 			<h2 class='top_actuality_header'><img src="{{=URL('static','images/english_flag.png')}}"/> 
 			Saving Mr Banks</h2>
 			  <div class='transparent'>
@@ -102,7 +119,7 @@
 					<a class="btn btn-default" href="{{=URL('fluid')}}#row3" role="button">View details &raquo;</a></p>
 			  </div>
 {{end}}
-{{block 2.3}}
+{{block 3.2}}
 			<h2 class='top_actuality_header'>
 			<!--img src="{{=URL('static','images/french_flag.png')}}"/--> 
 			<img src="{{=URL('static','images/construction.png')}}"></h2>
@@ -113,7 +130,7 @@
 					<a class="btn btn-default" href="{{=URL('fluid')}}#row6" role="button">View details &raquo;</a></p>
 			  </div>
 {{end}}
-{{block 3.1}}
+{{block 4.1}}
               <h2 class='top_actuality_header'>
 			  <!--img src="{{=URL('static','images/french_flag.png')}}"/--> 
 			  <img src="{{=URL('static','images/construction.png')}}"></h2>
@@ -124,51 +141,7 @@
 					<a class="btn btn-default" href="{{=URL('fluid')}}#row6" role="button">View details &raquo;</a></p>
 			  </div>
 {{end}}
-{{block 3.2}}
-              <h2 class='top_actuality_header'>
-			  <!--img src="{{=URL('static','images/french_flag.png')}}"/--> 
-			  <img src="{{=URL('static','images/construction.png')}}"></h2>
-			  <div class='transparent'>
-				  <p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac diam sed mauris euismod iaculis sed sit amet velit. Mauris adipiscing ...</p>
-				  <p>
-					<a class="btn btn-default" href="{{=URL('fluid')}}#row6" role="button">View details &raquo;</a></p>
-			  </div>
-{{end}}
-{{#block 3.3}}
-              <h2 class='top_actuality_header'>
-			  <!--img src="{{=URL('static','images/french_flag.png')}}"/--> 
-			  <img src="{{=URL('static','images/construction.png')}}"></h2>
-			  <div class='transparent'>
-				  <p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac diam sed mauris euismod iaculis sed sit amet velit. Mauris adipiscing ...</p>
-				  <p>
-					<a class="btn btn-default" href="{{=URL('fluid')}}#row5" role="button">View details &raquo;</a></p>
-			  </div>
-{{#end}}
-{{#block 4.1}}
-              <h2 class='top_actuality_header'>
-			  <!--img src="{{=URL('static','images/french_flag.png')}}"/--> 
-			  <img src="{{=URL('static','images/construction.png')}}"></h2>
-			  <div class='transparent'>
-				  <p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac diam sed mauris euismod iaculis sed sit amet velit. Mauris adipiscing ...</p>
-				  <p>
-					<a class="btn btn-default" href="{{=URL('fluid')}}#row6" role="button">View details &raquo;</a></p>
-			  </div>
-{{#end}}
-{{#block 4.2}}
-              <h2 class='top_actuality_header'>
-			  <!--img src="{{=URL('static','images/french_flag.png')}}"/--> 
-			  <img src="{{=URL('static','images/construction.png')}}"></h2>
-			  <div class='transparent'>
-				  <p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac diam sed mauris euismod iaculis sed sit amet velit. Mauris adipiscing ...</p>
-				  <p>
-					<a class="btn btn-default" href="{{=URL('fluid')}}#row6" role="button">View details &raquo;</a></p>
-			  </div>
-{{#end}}
-{{block 4.3}}
+{{block 4.2}}
               <h2 class='top_actuality_header'>
 			  <!--img src="{{=URL('static','images/french_flag.png')}}"/--> 
 			  <img src="{{=URL('static','images/construction.png')}}"></h2>
@@ -180,7 +153,7 @@
 			  </div>
 {{end}}
 
-<!-- =====================================sidebar============================================ -->
+<!-- =====================================right sidebar============================================ -->
 {{block right_sidebar}}
 <!------------------------------SideNav --------------------------------------------------->
 {{block li1}} <!--li 1 empty--> {{end}}
@@ -195,9 +168,7 @@
 {{block li10}} <!--li 10 empty--> {{end}}
 {{block li11}} <!--li 11 empty--> {{end}}
 {{block li12}} <!--li 12 empty--> {{end}}
-<div align="center" class="sidebar-right-list-item last-item" style="margin-top:2em">
-	<img src="{{=URL('static','images/fanion.png')}}">
-</div>
+<div align="center" class="sidebar-right-list-item last-item" style="margin-top:2em"> <img src="{{=URL('static','images/fanion.png')}}"></div>
 {{end}}
 
 {{block li1}}
