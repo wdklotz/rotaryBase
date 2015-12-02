@@ -71,6 +71,8 @@ right_columns  = 'span'+str(right_columns)
 
 <!-- <body {{response.write('id="fluid_green"',False) if response.fluid else response.write('')}}>-->
 <body>
+{{#=globals()['auth']}}
+{{#=auth.navbar(mode="dropdown", referrer_actions=None)}}
 <!-- NAVBAR ================================================== -->
   <div class="container">
   <div class="navbar-wrapper">

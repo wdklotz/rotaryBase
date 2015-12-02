@@ -12,7 +12,7 @@
 
 def index():
 	request.vars.request_is = "/"+appVars.items["version"]+"/default/index()"
-	response.rotary_banner= True
+	# response.rotary_banner= True
 	return dict()
 
 def fluid():
@@ -29,7 +29,6 @@ def user():
 def new_registration():
 	request_is = "/"+appVars.items["version"]+"/default/new_registration()"
 	request.vars.request_is = request_is
-	
 #	default id_photo
 	default_identity_photo = 'auth_user.identity_photo.8b2b9c234feb78ce.66616365312e706e67.png'
 

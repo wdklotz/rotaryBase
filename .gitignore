@@ -2,3 +2,5 @@ sessions/*
 *~
 *.swp
 *.bak
+errors/*
+*.log

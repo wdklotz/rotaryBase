@@ -24,10 +24,10 @@ response.google_analytics_id = None
 ## this is the main application menu add/remove items as required
 #########################################################################
 
-# response.menu = [
-# #     (IMG(_src="../static/images/rotary.png"), False, URL('default', 'index'), []),
-#     (T('Home'), False, URL('default', 'index'), [])
-# ]
+response.menu = [
+    (IMG(_src=URL('static','images/rotary324x24.png')), False, URL('default', 'index'), []),
+    # (T('Home'), False, URL('default', 'index'), [])
+    ]
 
 DEVELOPMENT_MENU = True
 DEVELOPMENT_MENU = False
