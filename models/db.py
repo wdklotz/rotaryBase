@@ -1,7 +1,18 @@
 # -*- coding: utf-8 -*-
 
+# AppVars hold global application variables
 from appVars import AppVars
 appVars = AppVars()
+
+# logging
+import logging
+logger = logging.getLogger(request.application)
+logger.setLevel(logging.CRITICAL)
+logger.setLevel(logging.ERROR)
+logger.setLevel(logging.WARNING)
+logger.setLevel(logging.INFO)
+# logger.setLevel(logging.DEBUG)
+# logger.setLevel(logging.NOTSET)
 
 #db = DAL('sqlite://storage.sqlite',pool_size=1,check_reserved=['all'])
 db = DAL("sqlite://storage.sqlite")
