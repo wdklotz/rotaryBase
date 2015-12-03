@@ -1,19 +1,8 @@
 # -*- coding: utf-8 -*-
-# this file is released under public domain and you can use without limitations
-#
-#
-#########################################################################
-## This is a sample controller
-## - index is the default action of any application
-## - user is required for authentication and authorization
-## - download is for downloading files uploaded in the db (does streaming)
-## - call exposes all registered services (none by default)
-#########################################################################
 
 def index():
-	request.vars.request_is = "/"+appVars.items["version"]+"/default/index()"
-	# response.rotary_banner= True
-	return dict()
+    request.vars.request_is = "/"+appVars.items["version"]+"/default/index()"
+    return dict()
 
 def fluid():
 	request.vars.request_is = "/"+appVars.items["version"]+"/default/fluid()"
@@ -66,7 +55,6 @@ def members():
 		for address in db(db.address.user_id == user_id).select():
 			member_addresses.append(address)
 		members.append(member_addresses)
-# 	print members
 	request.members = members #a list of lists: [[{auth_user},{address},{address},...],...]
 	return dict()
 	

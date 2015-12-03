@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+from appVars import AppVars
+appVars = AppVars()
+
 #db = DAL('sqlite://storage.sqlite',pool_size=1,check_reserved=['all'])
 db = DAL("sqlite://storage.sqlite")
 

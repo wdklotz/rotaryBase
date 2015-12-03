@@ -4,3 +4,4 @@ sessions/*
 *.bak
 errors/*
 *.log
+*.pyc
