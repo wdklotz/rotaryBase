@@ -2,7 +2,8 @@
 
 def index():
     logger.debug("%s",'('+appVars.items['version']+')/default/index()')
-    return dict()
+    # response.flash = T("Hello World")
+    return dict(message=T('Welcome to web2py!'))
 
 def fluid():
     logger.debug("%s",'('+appVars.items['version']+')/default/fluid()')

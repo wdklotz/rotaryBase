@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<head>
-    <meta charset="utf-8" />
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="{{=T.accepted_language or 'en'}}"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
     <!-- www.phpied.com/conditional-comments-block-downloads/ -->
     <!-- Always force latest IE rendering engine
          (even in intranet) & Chrome Frame
@@ -19,12 +20,9 @@
          http://google.com/webmasters -->
     <meta name="google-site-verification" content="">
     <!-- include stylesheets -->
-    <link rel="stylesheet" href="{{=URL('static','css/web2py.css')}}"/>
     <link rel="stylesheet" href="{{=URL('static','css/bootstrap.min.css')}}"/>
-    <link rel="stylesheet" href="{{=URL('static','css/bootstrap-responsive.min.css')}}"/>
-    <link rel="stylesheet" href="{{=URL('static','css/web2py_bootstrap.css')}}"/>
-    <link rel="stylesheet" href="{{=URL('static','css/web2py_bootstrap_nojs.css')}}"/>
-    <link rel="stylesheet" href="{{=URL('static','css/application.css')}}"/>  <!-- styles specific to this application -->
+    <link rel="stylesheet" href="{{=URL('static','css/bootstrap-theme.min.css')}}"/>
+    <link rel="stylesheet" href="{{=URL('static','css/web2py-bootstrap3.css')}}"/>
     <link rel="shortcut icon" href="{{=URL('static','images/favicon.ico')}}" type="image/x-icon">
     <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
     <!-- All JavaScript at the bottom, except for Modernizr which enables
@@ -33,147 +31,95 @@
     <!--[if lt IE 9]>
         <script src="{{=URL('static','js/respond-1.4.2.min.js')}}"></script>
         <![endif]-->
+    <!-- this app's stylesheets -->
+    <link rel="stylesheet" href="{{=URL('static','css/this-app.css')}}"/>
     {{include 'web2py_ajax.html'}} <!-- this includes jquery.js, calendar.js/.css and web2py.js -->
     {{block head}}{{end}}
     {{
     # using sidebars need to know what sidebar you want to use
-    left_sidebar_enabled = globals().get('left_sidebar_enabled',False)
-    right_sidebar_enabled = globals().get('right_sidebar_enabled',False)
-    left_columns = 2    # span2
-    middle_columns = 12 # span12 max
-    right_columns = 3   # span3
-    if left_sidebar_enabled:
-        middle_columns -= left_columns
-        pass
-    if right_sidebar_enabled:
-        middle_columns -= right_columns
-        pass
-    left_columns   = 'span'+str(left_columns)
-    middle_columns = 'span'+str(middle_columns)
-    right_columns  = 'span'+str(right_columns)
-    }}
-</head>
-
-<body>
-<!-- the NAVBAR ================================================== -->
-  <div class="container">
-  <div class="navbar-wrapper">
-  <div class="navbar navbar-inverse">
-    <div class="flash">{{=response.flash or ''}}</div>
-    <div class="navbar-inner">
-      <div class="container">
-        {{is_mobile=request.user_agent().is_mobile}}
-        <!-- the next tag is necessary for bootstrap menus, do not remove -->
-        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse" style="{{='display:none;' if not is_mobile else ''}}">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <ul id="navbar" class="nav pull-right">{{='auth' in globals() and auth.navbar(mode="dropdown", referrer_actions=None) or ''}}</ul>
-        <div class="{{='nav-collapse' if is_mobile else 'nav'}}">
+    mc0 = 'col-md-12'
+    mc1 = 'col-md-9'
+    mc2 = 'col-md-6'
+    left_sidebar_enabled = globals().get('left_sidebar_enabled', False)
+    right_sidebar_enabled = globals().get('right_sidebar_enabled', False)
+    middle_column = {0: mc0, 1: mc1, 2: mc2}[
+    (left_sidebar_enabled and 1 or 0)+(right_sidebar_enabled and 1 or 0)]
+    }}   
+  </head>
+  
+  <body>
+    <!--[if lt IE 8]><p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->
+    <div class="flash alert alert-dismissable">{{=response.flash or ''}}</div>
+    <!-- Navbar ======================================= -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          {{=response.logo or ''}}
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            {{='auth' in globals() and auth.navbar('Welcome',mode='dropdown') or ''}}
+          </ul>
           {{if response.menu:}}
-          {{=MENU(response.menu, _class='mobile-menu nav' if is_mobile else 'nav',mobile=is_mobile,li_class='dropdown',ul_class='dropdown-menu')}}
+          {{=MENU(response.menu, _class='nav navbar-nav',li_class='dropdown',ul_class='dropdown-menu')}}
           {{pass}}
-        </div><!--/.nav-collapse -->
+        </div>
       </div>
-    </div>
-  </div>
-  </div>
-  </div>
-
-<div class="container">
-<!-- the masthead ================================================== -->
-    <header class="mastheader row" id="header">
-        <!-- the blue rotary banner ==================================== -->
-        {{if rotary_banner_enabled:}}
-            <div class="row">
-                <div class="span12">
-                    <img src="{{=URL('static','images/rotary_banner_1.png')}}" style="margin-left:30px; margin-top:-5px"/>
-                </div>
-            </div>
-        <!-- the carousel ================================================== -->
-        <div class="row" style="margin-left:0px; margin-top:5px">
-        <div class='span12'>
-            <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                  <!-- Indicators -->
-                  <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="1"></li>
-                    <li data-target="#myCarousel" data-slide-to="2"></li>
-                    <li data-target="#myCarousel" data-slide-to="3"></li>
-                  </ol>
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img class="first-slide" src="{{=URL('static','images/pic01.png')}}" alt="First slide">
-                    </div>
-                    <div class="item">
-                      <img class="second-slide" src="{{=URL('static','images/pic02.jpg')}}" alt="Second slide">
-                    </div>
-                    <div class="item">
-                      <img class="second-slide" src="{{=URL('static','images/pic03.jpg')}}" alt="Second slide">
-                    </div>
-                    <div class="item">
-                      <img class="second-slide" src="{{=URL('static','images/pic04.jpg')}}" alt="Second slide">
-                    </div>
-                  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                    <span class="sr-only"><</span></span>
-                  </a>
-                  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                    <span class="sr-only">></span></span>
-                  </a>
-                  </div>
-            </div>
-        </div>
-        </div>
-        {{pass}}
-    </header>
-    <!-- the left sidebar ================================================== -->
-    <section id="main" class="main row">
-        {{if left_sidebar_enabled:}}
-        <div class="{{=left_columns}} left-sidebar">
+    </nav>
+    
+    <div id='wrapper'>
+    <!-- Masthead -->    
+    {{block header}}
+    {{end}}
+    
+    <!-- Main Begin page content -->
+    <div class="container-fluid main-container">
+      {{if left_sidebar_enabled:}}
+        <div class="col-md-3">
             {{block left_sidebar}}
-            {{include}}
+            <h3>Left Sidebar</h3>
+            <p></p>
             {{end}}
         </div>
-        {{pass}}
-    <!-- the main panel ================================================== -->
-        <div class="{{=middle_columns}}">
-                {{block center}}
-                {{include}}
-                {{end}}
-        </div>
-    <!-- the right sidebar ================================================== -->
-        {{if right_sidebar_enabled:}}
-        <div class="{{=right_columns}} right-sidebar">
-            {{block right_sidebar}}
-            {{include}}
-            {{end}}
-        </div>
-        {{pass}}
-    </section>
-    <!-- the footer ================================================== -->
-    <div class="row">
-        <footer class="footer span12">
-            <div class="footer-content">
-                {{block footer}} <!-- this is default footer -->
-                <div class="copyright pull-left">{{=T('Copyright')}} &#169; {{=request.now.year}} W.-D.Klotz, International Rotary Club of Gréoux-les-Bains, France. ({{=appVars.items['version']}})</div>
-                <div id="poweredBy" class="pull-right">
-                    {{=T('Powered by')}}
-                    <a href="http://www.web2py.com/">web2py</a></div>
-                </div>
-                {{end}}
-        </footer>
-    </div>
-</div>
+      {{pass}}
 
-    <!-- the javascript ============================================ -->
-    <!--(Placed at the end of the document so the pages load faster) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script>window.jQuery</script>
-    <script src="{{=URL('static','js/bootstrap.min3.3.6.js')}}"></script>
-    <!--script src="{{=URL('static','js/web2py_bootstrap.js')}}"></script-->
+      <div class="{{=middle_column}} middle_column">
+        {{block center}}
+        {{include}}
+        {{end}}
+      </div>
+
+      {{if right_sidebar_enabled:}}
+        <div class="col-md-3">
+            {{block right_sidebar}}
+            <h3>Right Sidebar</h3>
+            <p></p>
+            {{end}}
+        </div>
+      {{pass}}
+    </div>
+
+    {{#block footer}} <!-- this is default footer -->      
+    <footer class="footer">
+      <div class="container-fluid" style="margin:0px">
+        <div class="copyright pull-left">{{=T('Copyright')}} &#169; {{=request.now.year}} W.-D.Klotz, International Rotary Club of Gréoux-les-Bains, France. ({{=appVars.items['version']}})</div>
+          <div id="poweredBy" class="pull-right" style='margin-right:30px'>
+            {{=T('Powered by')}}
+            <a href="http://www.web2py.com/">web2py</a>
+          </div>
+        </div>
+    </footer>
+    {{#end}}
+    </div>
+
+    <script src="{{=URL('static','js/bootstrap.min.js')}}"></script>
+    <script src="{{=URL('static','js/web2py-bootstrap3.js')}}"></script>
     {{block page_js}}{{end page_js}}
     {{if response.google_analytics_id:}}
     <!-- Analytics ==================================== -->
@@ -185,6 +131,6 @@
     </script>
     {{pass}}
     <!-- Share ============================y============ -->
-    <script src="{{=URL('static','js/share.js',vars=dict(static=URL('static','images')))}}"></script>
-</body>
+    <!-- <script src="{{=URL('static','js/share.js',vars=dict(static=URL('static','images')))}}"></script> -->
+  </body>
 </html>
