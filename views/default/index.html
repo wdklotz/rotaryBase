@@ -88,79 +88,35 @@
     <!-- <li class="list-group-item" align="center"><img src="{{=URL('static','images/fanion.png')}}"></li> -->
   </ul>
 </div>
-<!-- <div align="center" class="sidebar-right-list-item last-item" style="margin-top:2em"> <img src="{{=URL('static','images/fanion.png')}}"></div> -->
+<div align="center" class="sidebar-right-list-item last-item" style="margin-top:2em"> <img src="{{=URL('static','images/fanion.png')}}"></div>
 {{end}}
 <!---------------------------- middle panel -------------------------------------->
 <div id="middle_outer_wrap">
     <!-- ------------- 1 ---------------- -->
     <div id="row_outer_wrap">
         <div id="middle_left_col">
-        <h2 class='top_actuality_header'><img src="{{=URL('static','images/french_flag.png')}}"/> 
-        Le Club</h2>
-        <div class='transparent'>
-          <p> 
-            Un Club regroupant des membres de la région de la vallée de la Durance en Haute Provence et qui accueille hommes et femmes....</p>
-          <p>
-            <a class="btn btn-default" href="{{=URL('fluid')}}#row1" role="button">View details &raquo;</a></p>
-        </div>
+        {{include '../private/mainr1c1.html'}}
         </div>
         <div id="middle_right_col">
-        <h2 class='top_actuality_header'><img src="{{=URL('static','images/english_flag.png')}}"/> 
-        The Club</h2>
-          <div class='transparent'>
-              <p> 
-                A recently formed Rotary club which draws members from the Durance Valley area of Haute Provence and especially welcomes both genders....</p>
-              <p>
-              <a class="btn btn-default" href="{{=URL('fluid')}}#row1" role="button">View details &raquo;</a></p>
-          </div>
+        {{include '../private/mainr1c2.html'}}
         </div>
     </div>
     <!-- ------------- 2 ---------------- -->
     <div id="row_outer_wrap">
         <div id="middle_left_col">
-        <h2 class='top_actuality_header'><img src="{{=URL('static','images/french_flag.png')}}"/> 
-        Action espoir en tête</h2>
-          <div class='transparent'>
-              <p>
-                Une action des rotariens français au service de la recherche sur le cerveau...</p>
-              <p>
-                <a class="btn btn-default" href="{{=URL('fluid')}}#row3" role="button">View details &raquo;</a></p>
-          </div>
+        {{include '../private/mainr2c1.html'}}
         </div>
         <div id="middle_right_col">
-        <h2 class='top_actuality_header'><img src="{{=URL('static','images/english_flag.png')}}"/> 
-        Saving Mr Banks</h2>
-          <div class='transparent'>
-              <p>
-                An action by French Rotarians in aid of brain disease research...</p>
-              <p>
-                <a class="btn btn-default" href="{{=URL('fluid')}}#row3" role="button">View details &raquo;</a></p>
-          </div>
+        {{include '../private/mainr2c2.html'}}
         </div>
     </div>
     <!-- ------------- 3 ---------------- -->
     <div id="row_outer_wrap">
         <div id="middle_left_col">
-        <h2 class='top_actuality_header'>
-        <!--img src="{{=URL('static','images/french_flag.png')}}"/--> 
-        <img src="{{=URL('static','images/construction.png')}}"></h2>
-          <div class='transparent'>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac diam sed mauris euismod iaculis sed sit amet velit. Mauris adipiscing ...</p>				  
-            <p>
-                <a class="btn btn-default" href="{{=URL('fluid')}}#row4" role="button">View details &raquo;</a></p>
-          </div>
+        {{include '../private/mainr3c1.html'}}
         </div>
-        <div id="right_col">
-        <h2 class='top_actuality_header'>
-        <!--img src="{{=URL('static','images/french_flag.png')}}"/--> 
-        <img src="{{=URL('static','images/construction.png')}}"></h2>
-          <div class='transparent'>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac diam sed mauris euismod iaculis sed sit amet velit. Mauris adipiscing ...</p>				  
-            <p>
-                <a class="btn btn-default" href="{{=URL('fluid')}}#row4" role="button">View details &raquo;</a></p>
-          </div>
+        <div id="middle_right_col">
+        {{include '../private/mainr3c2.html'}}
         </div>
     </div>
 </div>

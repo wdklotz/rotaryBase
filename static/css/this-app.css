@@ -1,7 +1,7 @@
 body {
     margin-bottom: 0px;
 }
-div#wrapper{
+div#max-wrapper{
     background-color:yellow;
 }
 .background , .main-container {
@@ -22,15 +22,20 @@ div#left_panel, div#right_panel{
     height:25px;
     border-top:3px yellow solid;
  }
+ /* sidebar background  */
 div[name='sidebar'].panel-heading, div[name='sidebar'].panel-body, ul[name='sidebar'] li{
     background: yellow;
 }
+ /* 2 row lauout in middle panel  */
 #middle_outer_wrap {
    margin:0 auto;
    background-color: white;
 }
  #row_outer_wrap {
     clear:both;
+    display:flex;
+    flex-direction:row
+    flex-wrap:nowrap;
  }
 #middle_left_col {
    float:left;
@@ -42,6 +47,7 @@ div[name='sidebar'].panel-heading, div[name='sidebar'].panel-body, ul[name='side
    width:50%;
    background-color: white;
 }
+ /* carousel  */
 .carousel {
   height: 250px;
   margin-bottom: 30px;
