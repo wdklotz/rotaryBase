@@ -1,6 +1,79 @@
 {{#=BEAUTIFY(request)}}
 {{left_sidebar_enabled,right_sidebar_enabled, rotary_banner_enabled = True,True,True}}
 {{extend 'layout.html'}}
+
+<!-------Modal: about---------------------------------------------------------------->
+<div class="modal fade" id="aboutModal" role="dialog">
+<div class="modal-dialog">
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h3 class="modal-title">The Club</h3>
+    </div>
+        <div class="modal-body">
+        {{include '../private/about.html'}}
+        </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+</div>
+<!-------Modal: executive------------------------------------------------------------->
+<div class="modal fade" id="executiveModal" role="dialog">
+<div class="modal-dialog">
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h3 class="modal-title">The club's excutive committee</h3>
+    </div>
+        <div class="modal-body">
+        {{include '../private/executive.html'}}
+        </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+</div>
+<!-------Modal: ethics---------------------------------------------------------------->
+<div class="modal fade" id="ethicsModal" role="dialog">
+<div class="modal-dialog">
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h3 class="modal-title">Ethics</h3>
+    </div>
+        <div class="modal-body">
+        {{include '../private/ethics.html'}}
+        </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+</div>
+<!-------Modal: meetingsh---------------------------------------------------------------->
+<div class="modal fade" id="meetingshModal" role="dialog">
+<div class="modal-dialog">
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h3 class="modal-title">Weekly meeting shedule</h3>
+    </div>
+        <div class="modal-body">
+        {{include '../private/meetingsh.html'}}
+        </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+</div>
 <!--------------------------------------------------------------------------------->
 {{block header}}
     <header class="container-fluid background" style="height:210px">
@@ -44,7 +117,7 @@
     </a>
     </div>
 </div>
-<!-- =====================================left sidebar============================================ -->
+<!----left sidebar -->
 {{block left_sidebar}}
 <div class="panel panel-info" id="left_panel">
   <div class="panel-heading" name="sidebar"><h3 class="panel-title">
@@ -56,11 +129,11 @@
     <!-- {{=T("Invitations")}} -->
   <!-- </div> -->
   <ul class="list-group" name="sidebar">
-    <li class="list-group-item">{{=A(T("About"), _href=URL(request.application,'default','index'))}}</li>
-    <li class="list-group-item">{{=A(T("Executive committee"),_href=URL('fluid')+"#row2")}}</li>
+    <li class="list-group-item"><a href="index#aboutModal" data-toggle="modal" data-target="#aboutModal">About</a></li>
+    <li class="list-group-item"><a href="index#executiveModal" data-toggle="modal" data-target="#executiveModal">Excecutive committee</a></li>
     <li class="list-group-item">{{=A(T("Press"), _href=URL(request.application,'default','index'))}}</li>
-    <li class="list-group-item">{{=A(T("Ethics"), _href=URL(request.application,'default','index'))}}</li>
-    <li class="list-group-item">{{=A(T("Weekly meeting shedule"),_href=URL('fluid')+"#row2")}}</li>
+    <li class="list-group-item"><a href="index#ethicsModal" data-toggle="modal" data-target="#ethicsModal">Ethics</a></li>
+    <li class="list-group-item"><a href="index#meetingshModal" data-toggle="modal" data-target="#meetingshModal">Meetings</a></li>
     <!-- <li class="list-group-item">{{=A(T("What's' new?"),_href='#')}}</li> -->
     <li class="list-group-item">{{=A(T("Contact"), _href=URL(request.application,'default','index'))}}</li>
     <li class="list-group-item">{{=A(T("Invitations"), _href=URL(request.application,'default','index'))}}</li>
@@ -68,7 +141,7 @@
   </ul>
 </div>
 {{end}}
-<!-- =====================================right sidebar============================================ -->
+<!----right sidebar -->
 {{block right_sidebar}}
 <div class="panel panel-info" id="right_panel">
     <div class="panel-heading" name="sidebar"><h3 class="panel-title">
@@ -83,14 +156,14 @@
     <li class="list-group-item">{{=A(T("Rotary Int. Headquaters"),_href='https://www.rotary.org/en/')}}</li>
     <li class="list-group-item">{{=A(T("District 1760"),_href='http://www.rotary-d1760.com/')}}</li>
     <li class="list-group-item">{{=A(T("Meeting minutes"), _href="https://drive.google.com/drive/folders/0B_-2Mp8GY48qUlNqTjdDa1VtWTg")}}</li>
-    <li class="list-group-item">{{=A(T("Shared Documents"),_href='https://drive.google.com/?utm_medium=et&utm_source=about&utm_campaign=et-about#folders/0B_-2Mp8GY48qYWs1SjlUcHF2ejA')}}</li>
-    <li class="list-group-item">{{=A(T("Club meeting doodle"),_href='http://www.doodle.com/ed9nmd2txrpezd9g')}}</li>
+    <li class="list-group-item">{{=A(T("Shared documents"),_href='https://drive.google.com/?utm_medium=et&utm_source=about&utm_campaign=et-about#folders/0B_-2Mp8GY48qYWs1SjlUcHF2ejA')}}</li>
+    <li class="list-group-item">{{=A(T("Meeting doodle"),_href='http://www.doodle.com/ed9nmd2txrpezd9g')}}</li>
     <!-- <li class="list-group-item" align="center"><img src="{{=URL('static','images/fanion.png')}}"></li> -->
   </ul>
 </div>
 <div align="center" class="sidebar-right-list-item last-item" style="margin-top:2em"> <img src="{{=URL('static','images/fanion.png')}}"></div>
 {{end}}
-<!---------------------------- middle panel -------------------------------------->
+<!----middle panel -->
 <div id="middle_outer_wrap">
     <!-- ------------- 1 ---------------- -->
     <div id="row_outer_wrap">
