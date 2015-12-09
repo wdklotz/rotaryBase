@@ -97,9 +97,29 @@
 
       {{if right_sidebar_enabled:}}
         <div class="col-md-3">
+            <!----right sidebar -->
             {{block right_sidebar}}
-            <h3>Right Sidebar</h3>
-            <p></p>
+            <div class="panel panel-info" id="right_panel">
+                <div class="panel-heading" name="sidebar"><h3 class="panel-title">
+                <!-- <a class="btn-block" href="{{=URL('admin','default','index')}}"> -->
+                    <i class="glyphicon glyphicon-cog"></i> {{=T("useful links")}}
+                <!-- </a> -->
+                </h3></div>
+              <!-- <div class="panel-body" name="sidebar"> -->
+                <!-- {{=T("Don't know what to do?")}} -->
+              <!-- </div> -->
+              <ul class="list-group" name="sidebar">
+                <li class="list-group-item">{{=A(T("Rotary Int. Headquaters"),_href='https://www.rotary.org/en/')}}</li>
+                <li class="list-group-item">{{=A(T("District 1760"),_href='http://www.rotary-d1760.com/')}}</li>
+                <li class="list-group-item">{{=A(T("Meeting minutes"), _href="https://drive.google.com/drive/folders/0B_-2Mp8GY48qUlNqTjdDa1VtWTg")}}</li>
+                <li class="list-group-item">{{=A(T("Shared documents"),_href='https://drive.google.com/?utm_medium=et&utm_source=about&utm_campaign=et-about#folders/0B_-2Mp8GY48qYWs1SjlUcHF2ejA')}}</li>
+                <li class="list-group-item">{{=A(T("Meeting doodle"),_href='http://www.doodle.com/ed9nmd2txrpezd9g')}}</li>
+                <!-- <li class="list-group-item" align="center"><img src="{{=URL('static','images/fanion.png')}}"></li> -->
+              </ul>
+            </div>
+            {{if not rotary_banner_enabled:}}
+                <div align="center" class="sidebar-right-list-item last-item" style="margin-top:2em"> <img src="{{=URL('static','images/fanion.png')}}"></div>
+            {{pass}}
             {{end}}
         </div>
       {{pass}}

@@ -2,6 +2,6 @@
 
 class AppVars:
 	items = dict (
-		version = "rotaryBase3v0.3a1",
+		version = "rotaryBase3v0.3u2",
 		title = "Rotary Intl. Gréoux-les-Bains"
 		)

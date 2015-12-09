@@ -1,133 +1,28 @@
-{{left_sidebar_enabled,right_sidebar_enabled, rotary_banner_enabled = False,False,False}}
+{{#=BEAUTIFY(request.vars)}}
+{{left_sidebar_enabled,right_sidebar_enabled, rotary_banner_enabled = False,True,False}}
 {{extend 'layout.html'}}
 {{block center}}
-{{#=BEAUTIFY(request.vars)}}
-<!-- =========================== ROW 1 ============================================== -->
-<a name='row1'><p>&nbsp;</p><p>&nbsp;</p></a>
+<!-- -------------------------------------------------------------- -->
+<div  id="row1" style="height:50px;"></div>
 <div class="row-fluid">
-	<div class="span6 well">
-	{{block 1.1}} <!--block 1.1 empty--> {{end}}
-	</div>
-	<div class="span6 well">
-	{{block 1.2}} <!--block 1.2 empty--> {{end}}
-	</div>
-</div>
-
-<!-- =========================== ROW 2 ============================================== -->
-<a name='row2'><p>&nbsp;</p><p>&nbsp;</p></a>
-<div class="row-fluid">
-	<div class="span6 well">
-	{{block 2.1}} <!--block 2.1 empty--> {{end}}
-	</div>
-	<div class="span6 well">
-	{{block 2.2}} <!--block 2.2 empty--> {{end}}
-	</div>
-</div>
-
-<!-- =========================== ROW 3 ============================================== -->
-<a name='row3'><p>&nbsp;</p><p>&nbsp;</p></a>
-<div class="row-fluid">
-	<div class="span12 well">
-	{{block 3}} <!--block 3 empty--> {{end}}
-	</div>
-</div>
-
-<!-- =========================== ROW 4 ============================================== -->
-<a name='row4'><p>&nbsp;</p><p>&nbsp;</p></a>
-<div class="row-fluid">
-	<div class="span12 content-block-grey">
-	{{block lorem-ipsum}} <!--block 6.1 empty--> {{end}}
-	</div>
-</div>
-{{end}}
-
-{{block 1.1}}
-    <h3>
-        <img src="{{=URL('static','images/french_flag.png')}}"> Un club regroupant des membres de la région de la vallée de la Durance en Haute Provence et qui accueille hommes et femmes.</h3>
-    <hr/>
-    <p>
-        Le Club Rotary Gréoux-les-Bains est un club bilingue (français et anglais), et nous comptons parmi nos membres des nationalités différentes et des domaines très variés, 
-        ainsi qu’un certain nombre de membres du réacteur thermonucléaire expérimental international (<a href="http://www.iter.org/">ITER</a>).</p>
-    <p>					
-        Le Rotary International compte 1,2 millions de membres répartis sur 34 000 clubs dans plus de 200 pays. Cette organisme sans but lucratif permet aux voisins et amis, 
-        ainsi que les leaders communautaires et professionnels de se rencontrer afin de créer un changement positif durable dans nos communautés et partout dans le monde.
-        Notre but principal est d’organiser des œuvres de bienfaisance, mais nous encourageons également la croissance personnelle, le réseautage et la tenue d'événements 
-        sociaux tout au long de l'année, souvent avec des membres de clubs voisins, ainsi que des invités spéciaux.</p>
-    <p>
-        En tant que nouveau Club Rotary en Provence, nous invitons les membres de la communauté à nous rejoindre. Si vous êtes un Rotarien en visite dans la région, 
-        vous serez accueilli dans l'une de nos réunions le mardi soir à Gréoux-les-Bains.</p>
-    <p>
-        Pour en savoir plus sur notre club visitez <a href="#">Que ce passe-t-il?</a> ou <a href="#">Réunions hebdomadaires</a>.</p>
-    <p>
-        Vous êtes curieux et vous avez besoin de plus de renseignements sur le Club Rotary Gréoux-les-Bains ? <a href='#'>Contactez nous</a> et nous vous inviterons à assister à une 
-        de nos réunions en tant que "visiteur".</p>
-{{end}}
-{{block 1.2}}
-    <h3>
-        <img src="{{=URL('static','images/english_flag.png')}}"> A recently formed Rotary club which draws members from the Durance Valley area of Haute Provence and especially welcomes both genders.</h3>
-    <hr/>
-    <p>
-        Our Rotary Club is bilingual, i.e. French and English. This stems from our multi-cultural aspirations. We have several members 
-        of various nationalities and from different walks of life, including a number of members from the nearby International Thermonuclear Experimental Reactor (<a href="http://www.iter.org/">ITER</a>).</p>
-    <p>
-        Rotary International consists of 1.2 million members in 34,000 clubs in over 200 countries in the world.It is a voluntary non-profit organization where 
-        neighbours, friends, community and professional leaders come together to create positive, lasting change in our communities and all over the world.
-        We meet primarily to organize charitable works. We also encourage personal growth, networking and hold social events throughout the year, often with members 
-        of nearby clubs, and special guests.</p>
-    <p>
-        As a new Rotary Club in Provence we invite interested members of the community to join us. If you are a Rotarian visiting the area, you will be 
-        welcome at one of our meetings on Tuesday evenings in Gréoux-les-Bains.</p>
-    <p>
-        Want more information about our club? Browse <a href="#">What happens at Rotary?</a> or <a href='#'>Meeting details</a>.</p>
-    <p>
-        Became curious and want to get a life feeling about the Gréoux-les-Bains Rotary Club? <a href="#">Get in contact</a> with us, and we will arrange for you to attend one of our 
-        meetings as a "visitor".</p>
-    <p>
-        Rotary International works with "The World Health Organisation", "UNICEF", the "US Centers for Disease Control" and the "Bill Melinda Gates 
-        Foundation" on the <em>Global Polio Eradication Initiative</em>. This action has helped to immunize more than 2.5 billion children against this dreaded disease.</p>
-{{end}}
-{{block 2.1}}
-    <style>
-        td.img-in-table-cell {text-align:center;}
-    </style>
-    <h3>
-        <img src="{{=URL('static','images/french_flag.png')}}"/> Les dirigeants du club</h3>
-    <table border=0 style='font-weight: bold;'>
-    <tr>
-        <td>President:</td><td>Axel Winter</td><td class="img-in-table-cell"><img src="{{=URL('static','images/AW.png')}}"></td>
-        <td>Secrétaire:</td><td>Stefan Simrock</td><td class="img-in-table-cell"><img src="{{=URL('static','images/face1.png')}}"></td></tr>
-    <tr>
-        <td>Trésorier:</td><td>Paulo Pinheiro</td><td class="img-in-table-cell"><img src="{{=URL('static','images/face1.png')}}"></td>
-        <td>Protocol:</td><td>Franck Scola</td><td class="img-in-table-cell"><img src="{{=URL('static','images/face1.png')}}"></td></tr>
-    </table>
-{{end}}
-{{block 2.2}}
-    <h3>
-        <img src="{{=URL('static','images/english_flag.png')}}"/> <img src="{{=URL('static','images/french_flag.png')}}"/> Réunions hebdomadaires</h3>
-    <hr/>
-    <p>
-        Nous nous réunissons tous les mardi soirs à partir de 19:30 à l'hotel "Le Mas de La Crémaillère Gréoux-les-Bains 04800".</p>
-    <p>
-        We meet every Thursday evening at the hotel "Le Mas de La Crémaillère Gréoux-les-Bains 04800", starting at 19:30.</p>
-{{end}}
-{{block 3}}
+	<div class="well" style="margin-top:20px;">
     <h3>
         <img src="{{=URL('static','images/french_flag.png')}}"> ACTION: Espoir en tête </h3>					
     <hr/>
     <p>
-        Dans l'ombre de Mary " en avant-première pour "Espoir en tête".
-        Un action des Rotariens Français au service de la recherche sur la cerveau le <b>04/02/2014</b>.</p>
+        <strong><sup>Le</sup>Livre<sub>de la</sub>Jungle</strong> en avant-première pour <a href="http://www.espoir-en-tete.org/105_p_43351/le-livre-de-la-jungle-images-et-bandes-annonces.html">"Espoir en tête"</a>.
+        Un action des Rotariens Français au service de la recherche sur la cerveau le 10 Avril 2016.</p>
     <h4>
         De quoi s'agit-il ?</h4>
     <p>
         Grace à un partenariat avec les studios Disney, chaque année depuis 8 ans, les rotariens organisent une projection cinématographique et 
         reversent les bénéfices à la Fondation pour la Recherche sur le Cerveau</p>
     <p>
-        En juin 2013, 987 420 € ont été remis à la FRC (6 613 462 € reversé depuis 2005).
-        Cette année l'objectif est d'atteindre le million d'euros.</p>
+        Avec vous, plusieurs dizaines de milliers de spectateurs assistent à une avant-première du film d'un grand distributeur, dans toute la France, les mêmes jours, à l'appel des Rotariens français.
+        Par l'achat d'une place 
+        à 15 euros, vous en donnez au moins 8 à la recherche sur le cerveau, le système nerveux et leurs pathologies.</p>
     <h4>
         Pourquoi cette action ?</h4>
-            
     <ul>
         <li>Parce que les maladies cérébrales peuvent toucher tout le monde et sont encore mal connues.</li>
         <li>Parce que le cinéma est un médium populaire et qui permet facilement de passer un agréable moment tout en faisant une bonne action.</li></ul>
@@ -141,18 +36,16 @@
     <h3>
         <img src="{{=URL('static','images/english_flag.png')}}"> An action by French Rotarians in aid of brain disease research</h3>
     <p>
-        Dans l'ombre de Mary (Released in English as "Saving Mr Banks") will premier exclusively for Espoir en tête on <b>04/02/2014</b>.</p>
+        <strong><sup>Le</sup>Livre<sub>de la</sub>Jungle</strong> will premier exclusively for 
+        <a href="http://www.espoir-en-tete.org/105_p_43351/le-livre-de-la-jungle-images-et-bandes-annonces.html">"Espoir en tête"</a> 
+        on April 10,2016.</p>
     <h4>
         What is it ?</h4>
     <p>
         The Rotary Club has been in partnership with Disney studios for the last 8 years to organize the viewing of a film. The proceeds 
         go to the Foundation for Brain Research (Fondation pour la Recherche sur le Cerveau).</p>
-    <p>
-        In June 2013, a total of € 987,420 went to the FRC ( € 6,613,462 have been donated since 2005).
-        This year the goal is one million euros</p>
     <h4>
         Why this action?</h4>
-
     <ul>
         <li>Because brain diseases can affect everyone and not much is about them yet.</li>
         <li>Because cinema is a popular medium and can easily provide a good time while doing a good deed.</li></ul>
@@ -161,8 +54,12 @@
     <p>
         Links for further information: <a href="http://www.frc.asso.fr/">Fondation pour la Recherche sur le Cerveau</a> and
             <a href="http://www.espoir-en-tete.org/105_p_36015/l-association-espoir-en-tete.html">Association Espoir en Tête</a>.</p>
-{{end}}
-{{block lorem-ipsum}}
+	</div>
+</div>
+
+<!-- -------------------------------------------------------------- -->
+<div class="row-fluid">
+    <div class="well" id="row2">
     <h3>
         Suspendisse ac luctus nibh. Nam laoreet convallis....</h3>
     <p>
@@ -171,10 +68,7 @@
         Suspendisse ac luctus nibh. Nam laoreet convallis arcu quis mattis. Integer a sapien iaculis, malesuada diam id, facilisis sapien. Praesent facilisis ante iaculis rutrum rhoncus. Duis in nibh tincidunt, molestie ante non, gravida neque. Morbi elementum diam in elementum viverra. Duis imperdiet rutrum urna placerat ornare. Donec facilisis velit sit amet lacinia gravida. Donec non tincidunt quam. Nulla tortor metus, blandit in molestie ut, ultrices et ligula. Etiam malesuada commodo ligula in blandit. Sed tempor quam metus, a pellentesque diam sodales non. Nulla turpis nisi, luctus nec placerat non, facilisis eget nisl. Cras ornare mi sit amet nisi volutpat, vel viverra mauris commodo.</p>
     <p>
         Sed malesuada elit sit amet justo malesuada eleifend. Nulla molestie, quam aliquam ultricies elementum, ipsum lorem dapibus nisl, id egestas urna nunc et quam. Pellentesque tincidunt nisl sit amet posuere accumsan. Curabitur vel sapien sit amet metus sodales luctus vel sit amet massa. Praesent elit leo, commodo quis molestie nec, facilisis et nibh. Curabitur ut turpis nulla. Quisque id convallis est. Curabitur aliquam tortor eget odio pellentesque, ut fermentum libero mollis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum faucibus malesuada purus vestibulum congue. Nullam quis porttitor mauris. Ut risus nisi, dapibus facilisis mi quis, ullamcorper auctor neque. Vivamus a mauris leo.</p>
+	</div>
+</div>
 {{end}}
-{{block no-heading-sense}}
-    <h2>
-    No sense ...</h2>
-    <p>
-    Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-{{end}}
+

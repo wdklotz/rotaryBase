@@ -21,6 +21,7 @@ div#left_panel, div#right_panel{
 .footer {
     height:25px;
     border-top:3px yellow solid;
+    position:inherit;
  }
  /* sidebar background  */
 div[name='sidebar'].panel-heading, div[name='sidebar'].panel-body, ul[name='sidebar'] li{
@@ -46,6 +47,7 @@ div[name='sidebar'].panel-heading, div[name='sidebar'].panel-body, ul[name='side
    float:right;
    width:50%;
    background-color: white;
+   margin-left:5px;
 }
  /* carousel  */
 .carousel {

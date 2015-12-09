@@ -1,9 +1,8 @@
-{{left_sidebar_enabled,right_sidebar_enabled, rotary_banner_enabled = False,False,False}}
+{{#=BEAUTIFY(request.vars)}}
+{{left_sidebar_enabled,right_sidebar_enabled, rotary_banner_enabled = False,True,False}}
 {{extend 'layout.html'}}
 
 {{block center}}
-{{#=BEAUTIFY(request.vars)}}
-
 <h3>Members<small> (Total members = {{=len(request.members)}})</small></h3>
 {{for i in range(len(request.members)):}}  {{#loop over all members}}
 	{{member_row = request.members[i]}}
@@ -25,33 +24,37 @@
 			short_description = member['short_description'];
 			}}
 			<a class="pull-left" href="#">
-				<img class="media-object" src="{{=URL('download',args=identity_photo)}}">
+            {{#=URL('download',args=identity_photo)}}
+				<img class="media-object" src="{{=URL('download',args=identity_photo)}}" width="65" height="65">
 			</a>
 			<div class="media-body">
 				<h4 class="media-heading">
 					{{=first_name}} {{=last_name}}
-					<small>{{=telephone}}</small>
+					<div>
+                    <small>{{=telephone}}</small>
 					<small>{{=mobile}}</small>
 					<small>{{=email}}</small>
 					<small>{{=email2}}</small>
+                    </div>
 				</h4>
-			<table class='address_list'>
+			<table class="table table-condensed">
             <tr>
             {{elif j != 0:}}   {{# remaing dictionaries are addresses}}
- 			<td class='address_list'>
+ 			<td>
  				<p>{{="{0}, {1}".format(member['number'],member['street'])}}</p>
-				<p class='underline'>{{="{0} - {1}".format(member['zip_code'],member['town'])}}</p>
+				<p style="text-decoration:underline">{{="{0} - {1}".format(member['zip_code'],member['town'])}}</p>
 				<p>{{="{0}".format(member['country'])}}</p>
 				<p>{{="tel.: {0}".format(member['tel_number']) if member['tel_number'] else ''}}</p>
  			</td>
-		{{pass}}
+            {{pass}}
 	{{pass}}  {{#loop over list of dictionaries per member}}
 	{{if short_description:}}
 		<tr class='short_description'>
 			<p>{{=short_description}}</p>
 		</tr>
 	{{pass}}
-	</tr></table>
-	</div></div>
+            </tr></table>
+        </div>
+    </div>
 {{pass #loop over all members}}
 {{end}}
