@@ -1,7 +1,13 @@
+{{#=BEAUTIFY(request.args)}}
 {{left_sidebar_enabled,right_sidebar_enabled, rotary_banner_enabled = False,False,False}}
 {{extend 'layout.html'}}
 
-{{#=BEAUTIFY(request.vars)}}
+<!-- override style used in layout.html -->
+<style>
+    .middle_column{background-color:{{=appVars.items['r_blue']}};}
+</style>
+
+<!-- page content -->
 <h2>{{=T( request.args(0).replace('_',' ').capitalize() )}}</h2>
 <div id="web2py_user_form">
 {{
@@ -17,9 +23,11 @@ if request.args(0)=='profile':
 	form.add_button(T('Manage your addresses'),URL('edit_addresses'),_class='btn')
 	form.add_button(T('Add a new address'),URL('register_address'),_class='btn')
 pass
-=form
 }}
+<!-- login form -->
+{{=form}}
 </div>
+
 <script language="javascript">
 <!--
 jQuery("#web2py_user_form input:visible:enabled:first").focus();

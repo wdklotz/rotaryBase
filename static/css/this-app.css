@@ -1,11 +1,13 @@
 body {
     margin-bottom: 0px;
+    height:100vh;
+    background-color:#4BABE8;
 }
 div#max-wrapper{
     background-color:yellow;
 }
 .background , .main-container {
-    background-color: #4BABE8;
+    background-color:#4BABE8;
     margin-top: 0px;
     padding: 20px 0 0 0;
 }
@@ -21,7 +23,7 @@ div#left_panel, div#right_panel{
 .footer {
     height:25px;
     border-top:3px yellow solid;
-    position:inherit;
+    position:fixed;
  }
  /* sidebar background  */
 div[name='sidebar'].panel-heading, div[name='sidebar'].panel-body, ul[name='sidebar'] li{

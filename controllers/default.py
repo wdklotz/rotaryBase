@@ -14,7 +14,7 @@ def user():
     logger.debug("%s",'('+appVars.items['version']+')/default/user()')
     if request.args[0] == "register":
         request.vars._next=URL("new_registration")
-    return dict(form=auth())
+    return dict(form=auth())  # same as: return {'form':auth()}
 
 def new_registration():
     logger.debug("%s",'('+appVars.items['version']+')/default/new_registration()')
