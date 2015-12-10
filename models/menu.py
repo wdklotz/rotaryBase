@@ -1,6 +1,20 @@
 # -*- coding: utf-8 -*-
 # this file is released under public domain and you can use without limitations
 
+# AppVars hold global application variables
+from appVars import AppVars
+appVars = AppVars()
+
+# logging
+import logging
+logger = logging.getLogger(request.application)
+logger.setLevel(logging.CRITICAL)
+logger.setLevel(logging.ERROR)
+logger.setLevel(logging.WARNING)
+logger.setLevel(logging.INFO)
+# logger.setLevel(logging.DEBUG)
+# logger.setLevel(logging.NOTSET)
+
 #########################################################################
 ## Customize your APP title, subtitle and menus here
 #########################################################################

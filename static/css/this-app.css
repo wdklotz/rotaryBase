@@ -3,11 +3,11 @@ body {
     height:100vh;
     background-color:#4BABE8;
 }
-div#max-wrapper{
-    background-color:yellow;
+#max-wrapper{
+    /* background-color:yellow; */
 }
 .background , .main-container {
-    background-color:#4BABE8;
+    /* background-color:#4BABE8; */
     margin-top: 0px;
     padding: 20px 0 0 0;
 }
@@ -34,7 +34,7 @@ div[name='sidebar'].panel-heading, div[name='sidebar'].panel-body, ul[name='side
    margin:0 auto;
    background-color: white;
 }
- #row_outer_wrap {
+#row_outer_wrap {
     clear:both;
     display:flex;
     flex-direction:row
@@ -43,12 +43,12 @@ div[name='sidebar'].panel-heading, div[name='sidebar'].panel-body, ul[name='side
 #middle_left_col {
    float:left;
    width:50%;
-   background-color: white;
+   /* background-color: white; */
 }
 #middle_right_col {
    float:right;
    width:50%;
-   background-color: white;
+   /* background-color: white; */
    margin-left:5px;
 }
  /* carousel  */
@@ -70,7 +70,7 @@ div[name='sidebar'].panel-heading, div[name='sidebar'].panel-body, ul[name='side
   background-color: #777;
 }
 .carousel-inner > .item {
-    background-color: white;
+    /* background-color: white; */
 }
 .carousel-inner > .item > img {
   position: absolute;
