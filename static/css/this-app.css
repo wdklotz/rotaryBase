@@ -29,7 +29,7 @@ div#left_panel, div#right_panel{
 div[name='sidebar'].panel-heading, div[name='sidebar'].panel-body, ul[name='sidebar'] li{
     background: yellow;
 }
- /* 2 row lauout in middle panel  */
+ /* 2 row layout in middle panel  */
 #middle_outer_wrap {
    margin:0 auto;
    background-color: white;

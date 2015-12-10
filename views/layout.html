@@ -37,13 +37,14 @@
     {{block head}}{{end}}
     {{
     # using sidebars need to know what sidebar you want to use
-    mc0 = 'col-md-12'
-    mc1 = 'col-md-9'
-    mc2 = 'col-md-6'
+    mc0 = 'col-md-12'   # 100%
+    #mc1 = 'col-md-9'   # 100%-25%
+    #mc2 = 'col-md-6'   # 100%-50%
+    mc1 = 'col-md-10'   # 100%-17%
+    mc2 = 'col-md-8'    # 100%-34%
     left_sidebar_enabled = globals().get('left_sidebar_enabled', False)
     right_sidebar_enabled = globals().get('right_sidebar_enabled', False)
-    middle_column = {0: mc0, 1: mc1, 2: mc2}[
-    (left_sidebar_enabled and 1 or 0)+(right_sidebar_enabled and 1 or 0)]
+    middle_column = {0: mc0, 1: mc1, 2: mc2}[(left_sidebar_enabled and 1 or 0)+(right_sidebar_enabled and 1 or 0)]
     }}   
   </head>
   
@@ -81,7 +82,7 @@
     <!-- Main Begin page content -->
     <div class="container-fluid main-container">
       {{if left_sidebar_enabled:}}
-        <div class="col-md-3">
+        <div class="col-md-2">
             {{block left_sidebar}}
             <h3>Left Sidebar</h3>
             <p></p>
@@ -96,7 +97,7 @@
       </div>
 
       {{if right_sidebar_enabled:}}
-        <div class="col-md-3">
+        <div class="col-md-2">
             <!----right sidebar -->
             {{block right_sidebar}}
             <div class="panel panel-info" id="right_panel">
@@ -118,7 +119,9 @@
               </ul>
             </div>
             {{if not rotary_banner_enabled:}}
-                <div align="center" class="sidebar-right-list-item last-item" style="margin-top:2em"> <img src="{{=URL('static','images/fanion.png')}}"></div>
+                <div align="center" class="sidebar-right-list-item last-item" style="margin-top:2em"> 
+                    <img src="{{=URL('static','images/fanion.png')}}" width="129px" height="202px">
+                </div>
             {{pass}}
             {{end}}
         </div>
@@ -127,12 +130,16 @@
 
     {{#block footer}} <!-- this is default footer -->      
     <footer class="footer">
-      <div class="container-fluid" style="margin:0px">
-        <div class="copyright pull-left">{{=T('Copyright')}} &#169; {{=request.now.year}} W.-D.Klotz, International Rotary Club of Gréoux-les-Bains, France. ({{=appVars.items['version']}})</div>
-          <div id="poweredBy" class="pull-right" style='margin-right:30px'>
+        <div class="container-fluid" style="margin:0px">
+            <div class="copyright pull-left">
+                {{=T('Copyright')}} &#169; {{=request.now.year}} 
+                W.-D.Klotz, International Rotary Club of Gréoux-les-Bains, France. 
+                ({{=version()}})
+            </div>
+            <div id="poweredBy" class="pull-right" style='margin-right:30px'>
             {{=T('Powered by')}}
             <a href="http://www.web2py.com/">web2py</a>
-          </div>
+            </div>
         </div>
     </footer>
     {{#end}}

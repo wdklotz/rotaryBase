@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 # this file is released under public domain and you can use without limitations
 
-# AppVars hold global application variables
-from appVars import AppVars
-appVars = AppVars()
+# module AppVars holds global application variables
+from appVars import version
+# appVars = AppVars()   kaput?
 
 # logging
-import logging
-logger = logging.getLogger(request.application)
-logger.setLevel(logging.CRITICAL)
-logger.setLevel(logging.ERROR)
-logger.setLevel(logging.WARNING)
-logger.setLevel(logging.INFO)
+# import logging
+# logger = logging.getLogger("web2py")
+# logger.setLevel(logging.CRITICAL)
+# logger.setLevel(logging.ERROR)
+# logger.setLevel(logging.WARNING)
+# logger.setLevel(logging.INFO)
 # logger.setLevel(logging.DEBUG)
 # logger.setLevel(logging.NOTSET)
 
@@ -46,7 +46,7 @@ response.menu = [
     (T('Dashboard'), False, URL('default', 'fluid'), [])
 ]
 
-DEVELOPMENT_MENU = False
+DEVELOPMENT_MENU = True
 
 #########################################################################
 ## provide shortcuts for development. remove in production

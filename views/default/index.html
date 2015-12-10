@@ -1,7 +1,9 @@
 {{#=BEAUTIFY(request)}}
+<!-- pure python  -->
 {{left_sidebar_enabled,right_sidebar_enabled, rotary_banner_enabled = True,True,True}}
+<!-- web2py specific: extend -->
 {{extend 'layout.html'}}
-
+<!-- HTML code -->
 <!-------Modal: about---------------------------------------------------------------->
 <div class="modal fade" id="aboutModal" role="dialog">
 <div class="modal-dialog">
@@ -94,7 +96,7 @@
 </div>
 <!--------------------------------------------------------------------------------->
 {{block header}}
-    <header class="container-fluid background" style="height:210px">
+    <header class="container-fluid background" style="height:140px">
       <!-- <div class="jumbotron text-center">
         {{if response.title:}}
         <h1>{{=response.title}}
