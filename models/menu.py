@@ -1,9 +1,18 @@
 # -*- coding: utf-8 -*-
 # this file is released under public domain and you can use without limitations
 
+# this does not work correctly when deployed to pythonanywhere: solution read file VERSION.txt, see menu.py
 # module AppVars holds global application variables
-from appVars import version
-# appVars = AppVars()   kaput?
+#from appVars import version
+#appVars = AppVars()   kaputt?
+
+def version():
+    try:
+        with open("applications/"+request.application+"/private/VERSION.txt","r") as file:
+            data = file.read()
+    except IOError:
+        data = "version unknown"
+    return data
 
 # logging
 # import logging
