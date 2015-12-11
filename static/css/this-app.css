@@ -53,17 +53,19 @@ div[name='sidebar'].panel-heading, div[name='sidebar'].panel-body, ul[name='side
 }
  /* carousel  */
 .carousel {
-  height: 260px;
+  height: 220px;
+  width:330px;
+  margin-top:26px;
   /* margin-bottom: 30px; */
-  margin-left:-16px;
-  margin-right:-16px;
+  /* margin-left:-16px; */
+  /* margin-right:-16px; */
   /* padding-top:10px; */
-  background-color:#4BABE8;
+  /* background-color:#4BABE8; */
 }
 .carousel-inner{
     margin: auto;
-    height:250px;
-    width:375px;
+    height:220px;
+    width:330px;
 }
 .carousel-caption {
   z-index: 10;

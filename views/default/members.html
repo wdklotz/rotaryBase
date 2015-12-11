@@ -6,7 +6,7 @@
 <h3>Members<small> (Total members = {{=len(request.members)}})</small></h3>
 {{for i in range(len(request.members)):}}  {{#loop over all members}}
 	{{member_row = request.members[i]}}
-	<div class="media">
+	<div class="media" style="padding-bottom:20px;">
 	{{for j in range(len(member_row)):}}   {{#loop over list of dictionaries per member}}
 		{{member = member_row[j]}}
 		{{if j == 0:}}  {{# 1st dictionary is auth_user record}}

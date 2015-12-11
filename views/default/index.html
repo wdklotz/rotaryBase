@@ -76,6 +76,24 @@
   </div>
 </div>
 </div>
+<!-------Modal: press---------------------------------------------------------------->
+<div class="modal fade" id="pressModal" role="dialog">
+<div class="modal-dialog">
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h3 class="modal-title">Our club in the press</h3>
+    </div>
+        <div class="modal-body">
+        {{include '../private/press.html'}}
+        </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+</div>
 <!-------Modal: meetingsh---------------------------------------------------------------->
 <div class="modal fade" id="meetingshModal" role="dialog">
 <div class="modal-dialog">
@@ -105,38 +123,6 @@
       </div> -->
     </header>
 {{end}}
-<!----the carousel----------------------------------------------------->
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-        <li data-target="#myCarousel" data-slide-to="3"></li>
-    </ol>
-    <div class="carousel-inner" role="listbox">
-    <div class="item active">
-        <img class="first-slide img-circleXXX" src="{{=URL('static','images/pic01.png')}}"  alt="{{=URL('static','images/pic01.png')}}">
-    </div>
-    <div class="item">
-        <img class="second-slide img-circleXXX" src="{{=URL('static','images/pic02.jpg')}}" alt="{{=URL('static','images/pic01.png')}}">
-    </div>
-    <div class="item">
-        <img class="third-slide img-circleXXX" src="{{=URL('static','images/pic03.jpg')}}"  alt="{{=URL('static','images/pic01.png')}}">
-    </div>
-    <div class="item">
-        <img class="fourth-slide img-circleXXX" src="{{=URL('static','images/pic04.jpg')}}" alt="{{=URL('static','images/pic01.png')}}">
-    </div>
-    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only"><</span></span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">></span></span>
-    </a>
-    </div>
-</div>
 <!----left sidebar -->
 {{block left_sidebar}}
 <div class="panel panel-info" id="left_panel">
@@ -152,7 +138,7 @@
     <li class="list-group-item"><a href="index#aboutModal" data-toggle="modal" data-target="#aboutModal"><img src="{{=URL('static','images/english_flag.png')}}"> About</a></li>
     <li class="list-group-item"><a href="index#aboutModalfr" data-toggle="modal" data-target="#aboutModalfr"><img src="{{=URL('static','images/french_flag.png')}}"> À propos ...</a></li>
     <li class="list-group-item"><a href="index#executiveModal" data-toggle="modal" data-target="#executiveModal">Excecutive committee</a></li>
-    <li class="list-group-item">{{=A(T("Press"), _href=URL(request.application,'default','index'))}}</li>
+    <li class="list-group-item"><a href="index#pressModal" data-toggle="modal" data-target="#pressModal">Press</a></li>
     <li class="list-group-item"><a href="index#ethicsModal" data-toggle="modal" data-target="#ethicsModal">Ethics</a></li>
     <li class="list-group-item"><a href="index#meetingshModal" data-toggle="modal" data-target="#meetingshModal">Meetings</a></li>
     <!-- <li class="list-group-item">{{=A(T("What's' new?"),_href='#')}}</li> -->
@@ -168,10 +154,52 @@
     <!-- ------------- 1 ---------------- -->
     <div id="row_outer_wrap">
         <div id="middle_left_col">
-        {{include '../private/mainr1c1.html'}}
+        {{block carousel}}
+        <!----the carousel----------------------------------------------------->
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+                <li data-target="#myCarousel" data-slide-to="3"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img class="first-slide img-circleXXX" src="{{=URL('static','images/pic01.png')}}"  alt="{{=URL('static','images/pic01.png')}}">
+            </div>
+            <div class="item">
+                <img class="second-slide img-circleXXX" src="{{=URL('static','images/pic02.jpg')}}" alt="{{=URL('static','images/pic01.png')}}">
+            </div>
+            <div class="item">
+                <img class="third-slide img-circleXXX" src="{{=URL('static','images/pic03.jpg')}}"  alt="{{=URL('static','images/pic01.png')}}">
+            </div>
+            <div class="item">
+                <img class="fourth-slide img-circleXXX" src="{{=URL('static','images/pic04.jpg')}}" alt="{{=URL('static','images/pic01.png')}}">
+            </div>
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only"><</span></span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">></span></span>
+            </a>
+            </div>
+        </div>
+        {{end}}
         </div>
         <div id="middle_right_col">
         {{include '../private/mainr1c2.html'}}
+        </div>
+    </div>
+    <!-- ------------- 2 ---------------- -->
+    <div id="row_outer_wrap">
+        <div id="middle_right_col">
+        {{include '../private/mainr2c1.html'}}
+        </div>
+        <div id="middle_right_col">
+        {{include '../private/lorem_ipsum.html'}}
         </div>
     </div>
 </div>
