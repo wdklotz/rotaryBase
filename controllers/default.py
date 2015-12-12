@@ -3,7 +3,12 @@
 def index():
     # logger.debug("%s",'('+request.application+')/default/index()')
     # response.flash = T("Hello World")
+    if False:
+        redirect(URL('site_closed'))
     return dict(message=T('Welcome to web2py!'))
+
+def site_closed():
+    return dict()
 
 def fluid():
     # logger.debug("%s",'('+request.application+')/default/fluid()')
