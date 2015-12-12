@@ -76,13 +76,12 @@
     
     <div id='max-wrapper'>
     <!-- Masthead -->    
-    {{block header}}
-    {{end}}
+    {{block header}}{{end}}
     
     <!-- Main Begin page content -->
     <div class="container-fluid main-container">
       {{if left_sidebar_enabled:}}
-        <div class="col-md-2">
+        <div class="col-md-2">    <!-- span 2 -->
             {{block left_sidebar}}
             <h3>Left Sidebar</h3>
             <p></p>
