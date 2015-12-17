@@ -6,13 +6,15 @@
 #from appVars import version
 #appVars = AppVars()   kaputt?
 
-def version():
+def _version():  # remark: one underscore means module private, two class private
     try:
         with open("applications/"+request.application+"/private/VERSION.txt","r") as file:
             data = file.read()
     except IOError:
-        data = "version unknown"
+        data = "v.none"
     return data
+
+globals()['version']= _version();
 
 # logging
 # import logging
