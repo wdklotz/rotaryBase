@@ -1,9 +1,7 @@
-{{=BEAUTIFY(request.args)}}
 {{left_sidebar_enabled,right_sidebar_enabled=False,False}}
-{{#extend 'layout.html'}}
+{{extend 'layout.html'}}
 
-<!-- page content -->
 <div id="web2py_user_form">
-<h2>{{=T( request.args(0).replace('_',' ').capitalize() )}}</h2>
-{{#=form}}
+	<h2>{{='register an address'.capitalize()}}</h2>
+	{{=form}}
 </div>
