@@ -70,7 +70,7 @@ def register_address():
     if form.process().accepted:
         response.flash = 'address accepted'
         id = form.vars.id
-        db.address[id] = dict(user_id = auth.user_id)
+        db.address[id] = dict(user_id = auth.user_id)  # link address entry with current user
     elif form.errors:
         response.flash = 'address has errors'
     else:

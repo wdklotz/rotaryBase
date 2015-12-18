@@ -33,28 +33,6 @@ div#left_panel, div#right_panel{
 div[name='sidebar'].panel-heading, div[name='sidebar'].panel-body, ul[name='sidebar'] li{
     /* background: yellow; */
 }
- /* 2 row layout in middle panel  */
-#middle_outer_wrap {
-   margin:0 auto;
-   background-color: white;
-}
-#row_outer_wrap {
-    clear:both;
-    display:flex;
-    flex-direction:row
-    flex-wrap:nowrap;
- }
-#middle_left_col {
-   float:left;
-   width:50%;
-   /* background-color: white; */
-}
-#middle_right_col {
-   float:right;
-   width:50%;
-   /* background-color: white; */
-   margin-left:5px;
-}
  /* carousel  */
 .carousel {
   height: 220px;

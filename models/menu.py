@@ -1,11 +1,6 @@
 # -*- coding: utf-8 -*-
 # this file is released under public domain and you can use without limitations
 
-# this does not work correctly when deployed to pythonanywhere: solution read file VERSION.txt, see menu.py
-# module AppVars holds global application variables
-#from appVars import version
-#appVars = AppVars()   kaputt?
-
 def _version():  # remark: one underscore means module private, two class private
     try:
         with open("applications/"+request.application+"/private/VERSION.txt","r") as file:
