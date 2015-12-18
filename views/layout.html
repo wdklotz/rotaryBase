@@ -76,25 +76,25 @@
       </div>
     </nav>
     
+    <!-- include modals -->
+    {{include}}
+
     <div id='max-wrapper'>
     <!-- Masthead -->    
     {{block header}}{{end}}
     
-    <!-- Main Begin page content -->
+    <!-- Begin main page content -->
     <div class="container-fluid main-container">
       {{if left_sidebar_enabled:}}
         <div class="col-md-2">    <!-- span 2 -->
             {{block left_sidebar}}
             <h3>Left Sidebar</h3>
-            <p></p>
             {{end}}
         </div>
       {{pass}}
 
       <div class="{{=middle_column}} middle_column">
-        {{block center}}
-        {{include}}
-        {{end}}
+        {{block center}}{{end}}
       </div>
 
       {{if right_sidebar_enabled:}}

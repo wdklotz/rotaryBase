@@ -2,30 +2,25 @@
 {{left_sidebar_enabled,right_sidebar_enabled, rotary_banner_enabled = False,False,False}}
 {{extend 'layout.html'}}
 
-<!-- override style used in layout.html -->
-<style>
-    .middle_column{background-color:#4BABE8;}
-</style>
-
 <!-- page content -->
-<h2>{{=T( request.args(0).replace('_',' ').capitalize() )}}</h2>
 <div id="web2py_user_form">
-{{
-if request.args(0)=='login':
-    if not 'register' in auth.settings.actions_disabled:
-        form.add_button(T('Register'),URL(args='register', vars={'_next': request.vars._next} if request.vars._next else None),_class='btn')
-    pass
-    if not 'request_reset_password' in auth.settings.actions_disabled:
-        form.add_button(T('Lost Password'),URL(args='request_reset_password'),_class='btn')
-    pass
-pass
-if request.args(0)=='profile':
-	form.add_button(T('Manage your addresses'),URL('edit_addresses'),_class='btn')
-	form.add_button(T('Add a new address'),URL('register_address'),_class='btn')
-pass
-}}
-<!-- login form -->
-{{=form}}
+	<h2>{{=T( request.args(0).replace('_',' ').capitalize() )}}</h2>
+	{{
+	if request.args(0)=='login':
+	    if not 'register' in auth.settings.actions_disabled:
+	        form.add_button(T('Register'),URL(args='register', vars={'_next': request.vars._next} if request.vars._next else None),_class='btn')
+	    pass
+	    if not 'request_reset_password' in auth.settings.actions_disabled:
+	        form.add_button(T('Lost Password'),URL(args='request_reset_password'),_class='btn')
+	    pass
+	pass
+	if request.args(0)=='profile':
+		form.add_button(T('Manage your addresses'),URL('edit_addresses'),_class='btn')
+		form.add_button(T('Add a new address'),URL('register_address'),_class='btn')
+	pass
+	}}
+	<!-- login form -->
+	{{=form}}
 </div>
 
 <script language="javascript">

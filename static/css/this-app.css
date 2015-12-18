@@ -66,6 +66,9 @@ div[name='sidebar'].panel-heading, div[name='sidebar'].panel-body, ul[name='side
   /* padding-top:10px; */
   /* background-color:#4BABE8; */
 }
+#web2py_user_form{
+	margin-left:100px;
+}
 .carousel-inner{
     margin: auto;
     height:220px;

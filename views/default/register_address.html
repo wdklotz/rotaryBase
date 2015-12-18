@@ -1,10 +1,9 @@
+{{=BEAUTIFY(request.args)}}
 {{left_sidebar_enabled,right_sidebar_enabled=False,False}}
-{{extend 'layout.html'}}
+{{#extend 'layout.html'}}
 
-{{block center}}
-{{=form}}
-<!-- 
-<h4>submitted variables</h4>
-{{#=BEAUTIFY(request.vars)}}
- -->
-{{end}}
+<!-- page content -->
+<div id="web2py_user_form">
+<h2>{{=T( request.args(0).replace('_',' ').capitalize() )}}</h2>
+{{#=form}}
+</div>

@@ -3,7 +3,8 @@
 {{left_sidebar_enabled,right_sidebar_enabled, rotary_banner_enabled = True,True,True}}
 <!-- web2py specific: extend -->
 {{extend 'layout.html'}}
-<!-- HTML code -->
+
+<!-- page content -->
 <!-------Modal: about---------------------------------------------------------------->
 <div class="modal fade" id="aboutModal" role="dialog">
 <div class="modal-dialog">
@@ -40,7 +41,7 @@
   </div>
 </div>
 </div>
-<!-------Modal: executive------------------------------------------------------------->
+<!-------Modal: executive------------------------------------------------------------>
 <div class="modal fade" id="executiveModal" role="dialog">
 <div class="modal-dialog">
   <!-- Modal content-->
@@ -58,7 +59,7 @@
   </div>
 </div>
 </div>
-<!-------Modal: ethics---------------------------------------------------------------->
+<!-------Modal: ethics--------------------------------------------------------------->
 <div class="modal fade" id="ethicsModal" role="dialog">
 <div class="modal-dialog">
   <!-- Modal content-->
@@ -94,7 +95,7 @@
   </div>
 </div>
 </div>
-<!-------Modal: meetingsh---------------------------------------------------------------->
+<!-------Modal: meetingsh------------------------------------------------------------>
 <div class="modal fade" id="meetingshModal" role="dialog">
 <div class="modal-dialog">
   <!-- Modal content-->
@@ -112,59 +113,19 @@
   </div>
 </div>
 </div>
-<!--------------------------------------------------------------------------------->
-{{block header}}
-    <header class="container-fluid background" style="height:140px">
-      <!-- <div class="jumbotron text-center">
-        {{if response.title:}}
-        <h1>{{=response.title}}
-          <small>{{=response.subtitle or ''}}</small></h1>
-        {{pass}}
-      </div> -->
-    </header>
-{{end}}
-<!----left sidebar -->
-{{block left_sidebar}}
-<div class="panel panel-info" id="left_panel">
-  <div class="panel-heading" name="sidebar"><h3 class="panel-title">
-  <!-- <a class="btn-block" href="{{=URL('admin','default','index')}}"> -->
-      <i class="glyphicon glyphicon-cog"></i> {{=T("read more")+" ..."}}
-    <!-- </a> -->
-    </h3></div>
-  <!-- <div class="panel-body" name="sidebar"> -->
-    <!-- {{=T("Invitations")}} -->
-  <!-- </div> -->
-  <ul class="list-group" name="sidebar">
-    <li class="list-group-item"><a href="index#aboutModal" data-toggle="modal" data-target="#aboutModal"><img src="{{=URL('static','images/english_flag.png')}}"> About</a></li>
-    <li class="list-group-item"><a href="index#aboutModalfr" data-toggle="modal" data-target="#aboutModalfr"><img src="{{=URL('static','images/french_flag.png')}}"> À propos ...</a></li>
-    <li class="list-group-item"><a href="index#executiveModal" data-toggle="modal" data-target="#executiveModal">Excecutive committee</a></li>
-    <li class="list-group-item"><a href="index#pressModal" data-toggle="modal" data-target="#pressModal">Press</a></li>
-    <li class="list-group-item"><a href="index#ethicsModal" data-toggle="modal" data-target="#ethicsModal">Ethics</a></li>
-    <li class="list-group-item"><a href="index#meetingshModal" data-toggle="modal" data-target="#meetingshModal">Meetings</a></li>
-    <!-- <li class="list-group-item">{{=A(T("What's' new?"),_href='#')}}</li> -->
-    <!-- <li class="list-group-item">{{=A(T("Contact"), _href=URL(request.application,'default','index'))}}</li> -->
-    <li class="list-group-item"><a href="http://www.rotary-site.org/contact.php?SiteID=400&lang=fr">Contact</a></li>
-    <li class="list-group-item">{{=A(T("Invitations"), _href=URL(request.application,'default','index'))}}</li>
-    <li class="list-group-item">{{=A(IMG(_src=URL('static','images/end_polio_now.png'),_width='100px'), _href='http://www.endpolio.org/')}}</li>
-  </ul>
-</div>
-{{end}}
-<!----middle panel -->
-<div id="middle_outer_wrap">
-    <!-- ------------- 1 ---------------- -->
-    <div id="row_outer_wrap">
-        <div id="middle_left_col">
-        {{block carousel}}
-        <!----the carousel----------------------------------------------------->
-        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
-                <li data-target="#myCarousel" data-slide-to="3"></li>
-            </ol>
-            <div class="carousel-inner" role="listbox">
+
+{{block center}}
+<div class='col-md-6'>
+    <!----the carousel----------------------------------------------------->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
             <div class="item active">
                 <img class="first-slide img-circleXXX" src="{{=URL('static','images/pic01.png')}}"  alt="{{=URL('static','images/pic01.png')}}">
             </div>
@@ -185,21 +146,52 @@
                 <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                 <span class="sr-only">></span></span>
             </a>
-            </div>
-        </div>
-        {{end}}
-        </div>
-        <div id="middle_right_col">
-        {{include '../private/mainr1c2.html'}}
-        </div>
-    </div>
-    <!-- ------------- 2 ---------------- -->
-    <div id="row_outer_wrap">
-        <div id="middle_right_col">
-        {{include '../private/mainr2c1.html'}}
-        </div>
-        <div id="middle_right_col">
-        {{include '../private/lorem_ipsum.html'}}
         </div>
     </div>
 </div>
+<div class='col-md-6'>
+    {{include '../private/mainr1c2.html'}}
+</div>
+<div class='col-md-6'>
+    {{include '../private/mainr2c1.html'}}
+</div>
+<div class='col-md-6'>
+    {{include '../private/lorem_ipsum.html'}}
+</div>
+{{end}}
+
+{{block header}}
+    <header class="container-fluid background" style="height:140px">
+      <!-- <div class="jumbotron text-center">
+        {{if response.title:}}
+        <h1>{{=response.title}}
+          <small>{{=response.subtitle or ''}}</small></h1>
+        {{pass}}
+      </div> -->
+    </header>
+{{end}}
+
+{{block left_sidebar}}
+<div class="panel panel-info" id="left_panel">
+    <div class="panel-heading" name="sidebar">
+        <h3 class="panel-title">
+            <!-- <a class="btn-block" href="{{=URL('admin','default','index')}}"> -->
+            <i class="glyphicon glyphicon-cog"></i> {{=T("read more")+" ..."}}
+            <!-- </a> -->
+        </h3>
+    </div>
+  <ul class="list-group" name="sidebar">
+    <li class="list-group-item"><a href="index#aboutModal" data-toggle="modal" data-target="#aboutModal"><img src="{{=URL('static','images/english_flag.png')}}"> About</a></li>
+    <li class="list-group-item"><a href="index#aboutModalfr" data-toggle="modal" data-target="#aboutModalfr"><img src="{{=URL('static','images/french_flag.png')}}"> À propos ...</a></li>
+    <li class="list-group-item"><a href="index#executiveModal" data-toggle="modal" data-target="#executiveModal">Excecutive committee</a></li>
+    <li class="list-group-item"><a href="index#pressModal" data-toggle="modal" data-target="#pressModal">Press</a></li>
+    <li class="list-group-item"><a href="index#ethicsModal" data-toggle="modal" data-target="#ethicsModal">Ethics</a></li>
+    <li class="list-group-item"><a href="index#meetingshModal" data-toggle="modal" data-target="#meetingshModal">Meetings</a></li>
+    <!-- <li class="list-group-item">{{=A(T("What's' new?"),_href='#')}}</li> -->
+    <!-- <li class="list-group-item">{{=A(T("Contact"), _href=URL(request.application,'default','index'))}}</li> -->
+    <li class="list-group-item"><a href="http://www.rotary-site.org/contact.php?SiteID=400&lang=fr">Contact</a></li>
+    <li class="list-group-item">{{=A(T("Invitations"), _href=URL(request.application,'default','index'))}}</li>
+    <li class="list-group-item">{{=A(IMG(_src=URL('static','images/end_polio_now.png'),_width='100px'), _href='http://www.endpolio.org/')}}</li>
+  </ul>
+</div>
+{{end}}
