@@ -49,7 +49,8 @@ response.menu = [
     # (IMG(_src=URL('static','images/rotary324x24.png')), False, URL('default', 'index'), []),
     (T('Home'),      False, URL('default', 'index'), []),
     (T('Members'),   False, URL('default', 'members'), []),
-    (T('Dashboard'), False, URL('default', 'fluid'), [])
+    (T('Dashboard'), False, URL('default', 'fluid'), []),
+    (T('[content]'), False, URL('default', 'content/_create'), [])
 ]
 
 DEVELOPMENT_MENU = False

@@ -7,6 +7,9 @@ def index():
         redirect(URL('site_closed'))
     return dict(message=T('Welcome to web2py!'))
 
+def content():
+    return auth.wiki(function='content',render='html')
+
 def site_closed():
     return dict()
 

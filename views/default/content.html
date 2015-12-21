@@ -1,0 +1,23 @@
+{{left_sidebar_enabled,right_sidebar_enabled, rotary_banner_enabled = False,True,False}}
+{{extend 'layout.html'}}
+{{block center}}
+{{=content}}
+{{if request.args[0] == '_create':}}
+<div class='well'>	
+	<h3>
+		<p>You entered successfully the <b>Wiki</b> of this site. You will be able to create 
+		new content (pages), search them (by title), and edit them.</p>
+		<p>In fact, the wiki capabilities include text and media attachments in <b>html</b> format.</p>
+		<p>You are, either or both, member of a group called "wiki-editor" or "wiki-author"<sup>*</sup>.</p>
+		<p>Title your new content-page with a Slug<sup>**</sup>.</p></h3>
+</div>
+<p>
+	*) The difference between editors and authors is that the
+		editors can create pages, edit and delete any page, while the authors can
+		create pages (with some optional restrictions) and can only edit/delete the
+		pages they have created.</p>		
+<p>
+	**) In the publishing business, a slug is a short name given
+	to an article that is in production.</p>
+{{pass}}
+{{end}}

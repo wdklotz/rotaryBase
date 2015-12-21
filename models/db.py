@@ -92,3 +92,8 @@ db.address.id.readable=False
 
 ## after defining tables, uncomment below to enable auditing
 auth.enable_record_versioning(db)
+##To allow access to the wiki specific db setup within the model of your app you must add the
+##following sentence to your model file (i.e. db.py)
+# Make sure this is called after the auth instance is created
+# and before any change to the wiki tables
+auth.wiki(resolve=False,render='html')
