@@ -50,7 +50,8 @@ response.menu = [
     (T('Home'),      False, URL('default', 'index'), []),
     (T('Members'),   False, URL('default', 'members'), []),
     (T('Dashboard'), False, URL('default', 'fluid'), []),
-    (T('[content]'), False, URL('default', 'content/_create'), [])
+    (T('[content]'), False, URL('default', 'content/_create'), []),
+    (T('[moin-wiki]'), False, URL('default', 'moin'), []),
 ]
 
 DEVELOPMENT_MENU = False

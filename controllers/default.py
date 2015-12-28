@@ -1,8 +1,23 @@
 # -*- coding: utf-8 -*-
 
+import sys, os
+sys.path.insert(0, os.path.dirname(__file__)+"\..\private\moin")
+
+#instanciate the MoinMoin (WSGI compatible) application
+import MoinMoin.web.serving
+moinapp = MoinMoin.web.serving.make_application()
+
+#print a dictionary readable for humans
+def _dict_print(what):
+    for key, value in sorted(what.items()):
+        print(key,value)
+    
 def index():
     # logger.debug("%s",'('+request.application+')/default/index()')
     # response.flash = T("Hello World")
+#    _dict_print(request.wsgi.environ)
+#    print(request.wsgi.start_response)
+#    print(request.wsgi.middleware)
     if False:
         redirect(URL('site_closed'))
     return dict(message=T('Welcome to web2py!'))
@@ -87,3 +102,28 @@ def edit_addresses():
     headers={'address.number' : 'Bldg. Number'}
     grid = SQLFORM.grid(query,fields=fields, editable=True, csv=False, create=False, headers=headers, maxtextlength=40, details=True)
     return dict(grid=grid)
+
+#a minimalistic WSGI application and how to call from web2py, i.e. the rocket server
+#def app2(environ, start_response):
+#    start_response("200 OK", [])
+#    s = "<html>MESSAGE FROM APP2: You requested <strong>%s</strong></html>"
+#    s %= environ['PATH_INFO']
+#    return [s]
+#class LowercaseMiddleware:
+#    def __init__(self, application):
+#        self.application = application   # A WSGI application callable.
+#
+#    def __call__(self, environ, start_response):
+#        pass  # We could set an item in 'environ' or a local variable.
+#        for chunk in self.application(environ, start_response):
+#            yield chunk.lower()
+#def moin():
+#    app = LowercaseMiddleware(app2)
+#    return app(request.wsgi.environ,request.wsgi.start_response)
+
+def moin():
+    return moinapp(request.wsgi.environ,request.wsgi.start_response)
+
+
+
+

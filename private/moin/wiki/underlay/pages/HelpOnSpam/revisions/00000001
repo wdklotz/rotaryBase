@@ -1,0 +1,195 @@
+## Please edit system and help pages ONLY in the master wiki!
+## For more information, please see MoinMoin:MoinDev/Translation.
+##master-page:None
+##master-date:None
+#acl -All:write Default
+#format wiki
+#language en
+= Managing Spam =
+<<TableOfContents>>
+Wikispam is getting more and more annoying. Wiki pages get high ratings in search engines because of the strong linking between the pages (and each other via InterWiki links). This makes them a valuable target to increase the ranking of other pages.
+
+But you can use a strong wiki community and also some technical means to avoid or remove spam on your wiki.
+
+== Blocking Spam ==
+
+MoinMoin contains some technical features which block spam.
+
+=== TextChas ===
+
+==== What is a TextCHA? ====
+It is a pure text alternative to ''CAPTCHAs''. !MoinMoin uses it to prevent wiki spamming and it has proven to be very effective.
+
+Features:
+ * for page save, ask a random question
+ * match the given answer against a regular expression
+ * q and a can be configured in the wiki config
+ * multi language support: a user gets a textcha in his language or in language_default or in English (depending on availability of questions/answers for the language)
+
+Tips for answering:
+ * you need to answer the textcha for e.g.:
+  * page save
+  * attachment upload
+  * user profile creation
+
+ * you do not need to answer the textcha for e.g.:
+  * page preview (if you do, it will remember what you entered, though)
+  * user profile changes
+
+ * it is usually a simple/short answer
+ * it compares case-insensitive
+ * sometimes you can find the right answer by reading some important pages of the wiki
+ 
+==== TextCha Configuration ====
+
+Tips for configuration:
+ * have 1 word / 1 number answers
+ * ask questions that normal users of your site are likely to be able to answer
+ * do not ask too hard questions
+ * do not ask "computable" questions, like "1+1" or "2*3"
+ * do not ask too common questions
+ * do not share your questions with other sites / copy questions from other sites (or spammers might try to adapt to this) 
+ * you should at least give textchas for 'en' (or for your language_default, if that is not 'en') as this will be used as fallback if !MoinMoin does not find a textcha in the user's language
+
+In your wiki config, do something like this:
+{{{
+    textchas_disabled_group = u"TrustedEditorGroup" # members of this don't get textchas
+    textchas = {
+        'en': { # silly english example textchas (do not use them!)
+            u"Enter the first 9 digits of Pi.": ur"3\.14159265",
+            u"What is the opposite of 'day'?": ur"(night|nite)",
+            # ...
+        },
+        'de': { # some german textchas
+            u"Gib die ersten 9 Stellen von Pi ein.": ur"3\.14159265",
+            u"Was ist das Gegenteil von 'Tag'?": ur"nacht",
+            # ...
+        },
+        # you can add more languages if you like
+    }
+}}}
+
+Note that TrustedEditorGroup from above example can have groups as members.
+
+
+=== BadContent / LocalBadContent ===
+You can ban certain content within contributions by listing regular expressions on the your 'BadContent' page.
+
+If a user tries to save a page and its content matches any of these regular expressions, then saving that page will be denied (until the offending content is removed from the editor).
+
+You can also enable an automatic update of BadContent via your wikiconfig. This is enabled by this line:
+{{{
+    from MoinMoin.security.antispam import SecurityPolicy
+}}}
+see HelpOnConfiguration/SecurityPolicy
+
+=== Abuse Logging ===
+
+Moin 1.9.8 added abuse logging.  Events that often indicate the presence of a wiki spammer are logged.  Tools like fail2ban, swatch, logsurfer, or a custom script can be used to process the logs, identify the IP numbers from which spam is coming, and instruct the system firewall to block the spammers.  Linux iptables and its "recent" module is often used on the firewall side.
+
+==== Abuse Firewalling ====
+
+The firewalling approach outlined here uses Linux iptables and it's xt_recent module to keep track of and block the IP numbers of discovered spammers.  Swatch is used to monitor the abuse logs to identify spammers.
+
+Note that the example presented here is only a guide.  The details will vary depending on your requirements and your present firewall configuration.  They may also vary depending on your OS version or other factors.  Careful testing is required.
+
+{{{#!wiki warning
+Improper firewall configuration can lock you out of your system.   To recover physical access to the system console may be required.
+}}}
+
+As presented here, wikispam will be blocked only after system reboot.
+
+The general outline of the example is as follows:  The wiki logs user actions.  The swatch program monitors the logs and decides which actions taking place over what time period indicate the presence of a spammer.  When swatch finds a spammer it extracts the spammer's IP number from the log and puts it on a "block" list used by iptables' xt_recent module.  Iptables uses xt_recent to block the spammer for a given period of time.  After the time limit has passed the spammer's IP number is removed from the block list by iptables.  The OS must configure xt_recent to allow for a large number of blocked IPs.
+
+===== Configuring mod xt_recent =====
+
+The xt_recent module only tracks 100 IP numbers by default.  This is probably much too few.  Configure the module to track a
+larger number of IP numbers.
+
+On Red-Hat derived systems this is done by adding the following to {{{/etc/sysconfig/modules/iptables.modules}}}:
+
+{{{
+# ! / b i n / s h   <-- This needs to have the spaces removed
+# This file is /etc/sysconfig/modules/iptables.modules
+modprobe xt_recent ip_list_tot=1009
+}}}
+
+The above file should be made executable, {{{chmod a+x /etc/sysconfig/modules/iptables.modules}}}
+
+On Debian derived systems create the file {{{/etc/modprobe.d/xt_recent.conf}}}:
+
+{{{
+# This file is /etc/modprobe.d/xt_recent.conf
+options xt_recent ip_list_tot=1009
+}}}
+
+Without knowing the details, the choice of a prime number for ip_list_tot will always be good, since the module hashes the IP numbers.
+
+===== Blocking Wiki Spammers =====
+
+The following iptables rules blocks discovered spammers for 100 days.
+They are blocked from port 80, the http port, and so denied use
+of the webserver.
+
+{{{
+# Make chains to support spam blocking
+# (Newer kernels will have --reap and rules can be reworked to omit the spamfound chain.)
+iptables -N wikispam
+iptables -N spamfound
+
+# Drop if on the spam list within the last 100 days
+iptables -A wikispam -m recent \
+         --name wikispam --rcheck --seconds 8640000 -g spamfound
+
+# Remove abuser from spam list after 100 days
+iptables -A wikispam -m recent --name wikispam --remove -j RETURN
+
+# Found spam, drop packet
+iptables -A spamfound -j DROP
+
+# Use the wikispam chain to check all http traffic
+iptables -A INPUT -p tcp --dport 80 -j wikispam
+}}}
+
+These rules should be inserted at the appropriate
+point into the existing firewall rules.
+
+Note that this example includes no provision for saving the list of
+discovered spammers (in {{{/proc/net/xt_recent/wikispam}}})
+and restoring the list on reboot.  Rebooting the system
+empties the list of discovered spammers.
+
+===== Identifying Wiki Spammers =====
+
+The following {{{/etc/swatch.conf}}} file identifies as spammers those who are denied edit permission from wiki pages with more than 100 characters in their page name, at least 3 times within 1 day.
+
+{{{
+# This file is /etc/swatch.conf
+
+# 3 failed attempts to edit a page of more than 100 characters within 1 day
+watchfor / WARNING MoinMoin\.util\.abuse:37 : edit\/no permissions: status failure: [^:]*: ip ([.0123456789]*): page .{100,}/
+  threshold track_by=$1, type=both, count=3, seconds=86400
+     # exec 'logger -t swatch-wikispam -p local0.info "denied $1: 3 edits of a page having a name of 100 chars or more, within 1 day"'
+     exec 'echo +$1 >/proc/net/xt_recent/wikispam'
+     continue
+}}}
+
+Note that the above assumes no special abuse logging configuration.
+
+Finally, swatch must be started.  The following lines can be added to {{{/etc/rc.local}}}:
+
+{{{
+# Start the swatch daemon
+# (Adjust to watch your webserver's error log file.)
+swatch --daemon --tail-args '-F -n0' -c /etc/swatch.conf -t /var/log/httpd/error_log
+}}}
+
+
+== Removing Spam ==
+
+If you are a [[HelpOnSuperUser|SuperUser]], you can use the "Remove Spam" action to mass-revert changes of some spammer (or some other ''bad guy'').
+
+ 1. Select "Remove Spam" from the available actions.
+ 1. Select the user (usually part of the IP)
+ 1. Select "Revert All"
+ 1. You will see how moin tries to revert his edits. This does not work in every case, so you may have to clean up some of his edits manually.
