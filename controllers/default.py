@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+#add MoinMoin modules to search path
 import sys, os
 sys.path.insert(0, os.path.dirname(__file__)+"\..\private\moin")
 
@@ -13,11 +14,8 @@ def _dict_print(what):
         print(key,value)
     
 def index():
-    # logger.debug("%s",'('+request.application+')/default/index()')
     # response.flash = T("Hello World")
 #    _dict_print(request.wsgi.environ)
-#    print(request.wsgi.start_response)
-#    print(request.wsgi.middleware)
     if False:
         redirect(URL('site_closed'))
     return dict(message=T('Welcome to web2py!'))
