@@ -30,7 +30,7 @@ class LocalConfig(DefaultConfig):
     #          things from some debugger's web interface!
     # For convenience, the default behaviour (see below) is to read the
     # environment variable MOIN_DEBUGGER. If not set, it means the same as 'off'.
-    #debug = os.environ.get('MOIN_DEBUGGER', 'off')
+    #debug = os.environ.get('MOIN_DEBUGGER', 'web')
 
     # should the exception evaluation feature be enabled?
     #use_evalex = True

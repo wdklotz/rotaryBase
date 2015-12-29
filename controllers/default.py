@@ -2,7 +2,7 @@
 
 import logging
 logger = log.getLogger('/'+request.application+'/default')
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 
 #print a dictionary readable for humans
 def _dict_print(what):

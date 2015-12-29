@@ -1,3 +1,5 @@
 *~
 *bak
-data/**
+data/
+**/event-log
+**/edit-lock
