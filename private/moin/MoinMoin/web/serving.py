@@ -88,6 +88,7 @@ def make_application(shared=None, trusted_proxies=None):
         from MoinMoin.web.static import make_static_serving_app
         application = make_static_serving_app(application, shared)
 
+#    logging.info("make_application")
     return application
 
 def switch_user(uid, gid=None):

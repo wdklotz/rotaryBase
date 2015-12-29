@@ -50,8 +50,8 @@ from os.path import join, abspath, dirname, isdir
 from MoinMoin import config
 from werkzeug import SharedDataMiddleware
 
-#from MoinMoin import version, log
-#logging = log.getLogger(__name__)
+from MoinMoin import version, log
+logging = log.getLogger(__name__)
 
 STATIC_FILES_PATH = join(abspath(dirname(__file__)), 'htdocs')
 
@@ -66,7 +66,7 @@ def make_static_serving_app(application, shared):
                     If True, use builtin static files from STATIC_FILES_PATH.
     @returns: wrapped WSGI application
     """
-#    logging.info(shared)
+    logging.info("make_static_serving_app: "+shared)
     if not isinstance(shared, dict):
         if shared is True:
             shared = STATIC_FILES_PATH

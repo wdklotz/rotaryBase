@@ -1,12 +1,8 @@
 # -*- coding: utf-8 -*-
 
-#add MoinMoin modules to search path
-import sys, os
-sys.path.insert(0, os.path.dirname(__file__)+"\..\private\moin")
-
-#instanciate the MoinMoin (WSGI compatible) application
-import MoinMoin.web.serving
-moinapp = MoinMoin.web.serving.make_application()
+import logging
+logger = log.getLogger('/'+request.application+'/default')
+logger.setLevel(logging.DEBUG)
 
 #print a dictionary readable for humans
 def _dict_print(what):
@@ -14,31 +10,34 @@ def _dict_print(what):
         print(key,value)
     
 def index():
-    # response.flash = T("Hello World")
+    logger.debug("%s",'index()')
+#    response.flash = T("Hello World")
 #    _dict_print(request.wsgi.environ)
     if False:
         redirect(URL('site_closed'))
     return dict(message=T('Welcome to web2py!'))
 
 def content():
+    logger.debug("%s",'content()')
     return auth.wiki(function='content',render='html')
 
 def site_closed():
+    logger.debug("%s",'site_closed()')
     return dict()
 
 def fluid():
-    # logger.debug("%s",'('+request.application+')/default/fluid()')
+    logger.debug("%s",'fluid()')
     response.fluid = "fluid_green"
     return dict()
 
 def user():
-    # logger.debug("%s",'('+request.application+')/default/user()')
+    logger.debug("%s",'user()')
     if request.args[0] == "register":
         request.vars._next=URL("new_registration")
     return dict(form=auth())  # same as: return {'form':auth()}
 
 def new_registration():
-    # logger.debug("%s",'('+request.application+')/default/new_registration()')
+    logger.debug("%s",'new_registration()')
     request.vars.request_is = request_is
     #	default id_photo
     default_identity_photo = 'auth_user.identity_photo.8b2b9c234feb78ce.66616365312e706e67.png'
@@ -67,7 +66,7 @@ def download():
     return response.download(request, db)
     
 def members():
-    # logger.debug("%s",'('+request.application+')/default/members()')
+    logger.debug("%s",'members()')
     members = []
     rows = db(db.auth_user.is_member == True).select()
     for member in rows:
@@ -81,7 +80,7 @@ def members():
     return dict()
 
 def register_address():
-    # logger.debug("%s",'('+request.application+')/default/register_address()')
+    logger.debug("%s",'register_address()')
     form=SQLFORM(db.address)
     if form.process().accepted:
         response.flash = 'address accepted'
@@ -94,12 +93,21 @@ def register_address():
     return dict(form=form)
 	
 def edit_addresses():
-    # logger.debug("%s",'('+request.application+')/default/edit_addresses()')
+    logger.debug("%s",'edit_addresses()')
     query = (db.address.user_id == auth.user_id)
     fields = [db.address.number,db.address.street, db.address.zip_code, db.address.town, db.address.country]
     headers={'address.number' : 'Bldg. Number'}
     grid = SQLFORM.grid(query,fields=fields, editable=True, csv=False, create=False, headers=headers, maxtextlength=40, details=True)
     return dict(grid=grid)
+
+#----------------- the MoinMoin wiki ------------------------------\
+#add MoinMoin modules to search path                               \
+#import sys, os
+#sys.path.insert(0, os.path.dirname(__file__)+"\..\private\moin")
+
+#instanciate the MoinMoin (WSGI compatible) application
+import MoinMoin.web.serving
+moinapp = MoinMoin.web.serving.make_application()
 
 #a minimalistic WSGI application and how to call from web2py, i.e. the rocket server
 #def app2(environ, start_response):
@@ -120,7 +128,10 @@ def edit_addresses():
 #    return app(request.wsgi.environ,request.wsgi.start_response)
 
 def moin():
-    return moinapp(request.wsgi.environ,request.wsgi.start_response)
+    logger.debug("%s",'moin()')
+    moinapp_response = moinapp(request.wsgi.environ,request.wsgi.start_response)
+#    print moinapp_response
+    return moinapp_response
 
 
 

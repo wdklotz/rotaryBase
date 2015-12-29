@@ -11,15 +11,11 @@ def _version():  # remark: one underscore means module private, two class privat
 
 globals()['version']= _version();
 
-# logging
-# import logging
-# logger = logging.getLogger("web2py")
-# logger.setLevel(logging.CRITICAL)
-# logger.setLevel(logging.ERROR)
-# logger.setLevel(logging.WARNING)
-# logger.setLevel(logging.INFO)
-# logger.setLevel(logging.DEBUG)
-# logger.setLevel(logging.NOTSET)
+#make MoinMoin modules available
+import sys, os
+sys.path.insert(0, os.path.dirname(__file__)+"\..\private\moin")
+#make logging from MoinMoin wiki available to web2py.app
+from MoinMoin import log
 
 #########################################################################
 ## Customize your APP title, subtitle and menus here

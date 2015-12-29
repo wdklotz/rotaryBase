@@ -247,9 +247,6 @@ def setup_i18n_postauth(context):
     lang = i18n.userLanguage(context) or context.lang
     return lang
 
-from MoinMoin import log
-logging = log.getLogger(__name__)
-
 class Application(object):
     def __init__(self, app_config=None):
 
