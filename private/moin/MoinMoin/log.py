@@ -117,10 +117,11 @@ def load_config(conf_fname=None):
     """ load logging config from conffile """
     global configured
     err_msg = None
-    conf_fname = os.environ.get('MOINLOGGINGCONF', conf_fname)
+#    conf_fname = os.environ.get('MOINLOGGINGCONF', conf_fname)
     if conf_fname:
         try:
             conf_fname = os.path.abspath(conf_fname)
+#            print conf_fname
             # we open the conf file here to be able to give a reasonable
             # error message in case of failure (if we give the filename to
             # fileConfig(), it silently ignores unreadable files and gives
@@ -131,7 +132,8 @@ def load_config(conf_fname=None):
             finally:
                 f.close()
             configured = True
-            l = getLogger(__name__)
+#            l = getLogger(__name__)
+            l = getLogger('moin')
             l.info('using logging configuration read from "%s"' % conf_fname)
             warnings.showwarning = _log_warning
         except Exception, err: # XXX be more precise

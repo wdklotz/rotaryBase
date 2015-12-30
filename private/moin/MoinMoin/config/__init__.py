@@ -39,7 +39,6 @@ password_schemes_supported = password_schemes_configurable + ['{SHA}', '{APR1}',
 # * must NOT end with '/'!
 # * some servers expect '/' at beginning and only 1 level deep.
 url_prefix_static = '/moin_static' + version.release_short
-#url_prefix_static = 'rotaryBase_git_repository/static/htdocs'
 # Threads flag - if you write a moin server that use threads, import
 # config in the server and set this flag to True.
 use_threads = False
