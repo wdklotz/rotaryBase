@@ -100,10 +100,6 @@ def edit_addresses():
     grid = SQLFORM.grid(query,fields=fields, editable=True, csv=False, create=False, headers=headers, maxtextlength=40, details=True)
     return dict(grid=grid)
 
-#instanciate the MoinMoin (WSGI compatible) application
-import MoinMoin.web.serving
-moinapp = MoinMoin.web.serving.make_application()
-
 #a minimalistic WSGI application and how to call from web2py, i.e. the rocket server
 #def app2(environ, start_response):
 #    start_response("200 OK", [])
@@ -121,12 +117,6 @@ moinapp = MoinMoin.web.serving.make_application()
 #def moin():
 #    app = LowercaseMiddleware(app2)
 #    return app(request.wsgi.environ,request.wsgi.start_response)
-
-def moin():
-    logger.info("%s",'moin()')
-    moinapp_response = moinapp(request.wsgi.environ,request.wsgi.start_response)
-#    print moinapp_response
-    return moinapp_response
 
 
 

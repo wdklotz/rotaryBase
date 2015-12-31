@@ -11,14 +11,6 @@ def _version():  # remark: one underscore means module private, two class privat
 
 globals()['version']= _version();
  
-#----------------- the MoinMoin wiki ------------------------------\
-#make MoinMoin modules available
-import sys, os
-sys.path.insert(0, os.path.dirname(__file__)+"\..\private\moin")
-#make logging from MoinMoin wiki available to web2py.app
-from MoinMoin import log
-log.load_config('logging.conf')
-
 #########################################################################
 ## Customize your APP title, subtitle and menus here
 #########################################################################
@@ -49,7 +41,6 @@ response.menu = [
     (T('Members'),   False, URL('default', 'members'), []),
     (T('Dashboard'), False, URL('default', 'fluid'), []),
     (T('[content]'), False, URL('default', 'content/_create'), []),
-    (T('[moin-wiki]'), False, URL('default', 'moin'), []),
 ]
 
 DEVELOPMENT_MENU = False
