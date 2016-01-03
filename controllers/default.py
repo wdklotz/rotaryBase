@@ -2,13 +2,13 @@
 
 import logging
 logger = logging.getLogger('rotary')
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.WARNING)
 
 #print a dictionary readable for humans
 def _dict_print(what):
     for key, value in sorted(what.items()):
         print(key,value)
-    
+
 def index():
     logger.info("%s",'index()')
 #    response.flash = T("Hello World")
@@ -19,7 +19,8 @@ def index():
 
 def content():
     logger.info("%s",'content()')
-    return auth.wiki(function='content',render='html')
+#    return auth.wiki(function='content',render='html')
+    return auth.wiki(function='content')
 
 def site_closed():
     logger.info("%s",'site_closed()')
