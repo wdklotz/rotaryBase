@@ -93,9 +93,14 @@ db.address.id.readable=False
 ## after defining tables, uncomment below to enable auditing
 auth.enable_record_versioning(db)
 
+def mrkdwn2wrapper(text): #wrapper to get text from Storage (wdk)
+	import gluon.contrib.markdown.markdown2
+	body = text.body
+	return gluon.contrib.markdown.markdown2.Markdown().convert(body)
+
 #To allow access to the wiki specific db setup within the model of your app you must add the
 #    following sentence to your model file (i.e. db.py)
 # Make sure this is called after the auth instance is created
-#     and before any change to the wiki tables
+#     and before any change to the wiki tables (wdk)
 customMarkup = dict(sub=lambda x:'<sub>'+x+'</sub>',sup=lambda x:'<sup>'+x+'</sup>')
-auth.wiki(resolve=False,extra=customMarkup)
+auth.wiki(resolve=False,extra=customMarkup,render=mrkdwn2wrapper)
