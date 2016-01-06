@@ -17,12 +17,12 @@ def index():
         redirect(URL('site_closed'))
     return dict(message=T('Welcome to web2py!'))
 
-def content():
-    logger.info("%s",'content()')
-#    return auth.wiki(function='content',render='html')
-#    return auth.wiki(function='content',extra=dict(sub=lambda x:"<sub>%s</sub>" % (x)))
-#    return auth.wiki(extra=dict(sub=lambda x:'<sub>'+x+'</sub>'))
-    return auth.wiki()
+#def content():
+#    logger.info("%s",'content()')
+##    return auth.wiki(function='content',render='html')
+##    return auth.wiki(function='content',extra=dict(sub=lambda x:"<sub>%s</sub>" % (x)))
+##    return auth.wiki(extra=dict(sub=lambda x:'<sub>'+x+'</sub>'))
+#    return auth.wiki()
 
 def site_closed():
     logger.info("%s",'site_closed()')

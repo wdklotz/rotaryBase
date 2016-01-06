@@ -40,7 +40,11 @@ response.menu = [
     (T('Home'),      False, URL('default', 'index'), []),
     (T('Members'),   False, URL('default', 'members'), []),
     (T('Dashboard'), False, URL('default', 'fluid'), []),
-    (T('[content]'), False, URL('default', 'content/_create'), []),
+    (T('Content'), False, '#', [
+        (T('create'),False,URL('default','create_content')),
+        (T('manage'),False,URL('default','manage_content')),
+        (T('edit'),  False,URL('default','edit_content')),
+                                  ]),
 ]
 
 DEVELOPMENT_MENU = False
