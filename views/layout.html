@@ -48,7 +48,22 @@
     right_sidebar_enabled = globals().get('right_sidebar_enabled', False)
     middle_column = {0: mc0, 1: mc1, 2: mc2}[(left_sidebar_enabled and 1 or 0)+(right_sidebar_enabled and 1 or 0)]
     }}   
-  </head>
+    <script type="text/javascript" src="{{=URL('static','js/tinymce/tinymce.min.js')}}"></script>
+  <script type="text/javascript">
+  tinymce.init({
+    selector: 'textarea#wiki_page_body_XXX.text',
+    theme: 'modern',
+    plugins: [
+      'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
+      'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+      'save table contextmenu directionality emoticons template paste textcolor'
+    ],
+    toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons',
+    convert_urls: false,
+    relative_urls: true,
+  });
+  </script>
+</head>
   
   <body>
     <!--[if lt IE 8]><p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->

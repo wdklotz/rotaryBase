@@ -93,14 +93,26 @@ db.address.id.readable=False
 ## after defining tables, uncomment below to enable auditing
 auth.enable_record_versioning(db)
 
-def mrkdwn2wrapper(text): #wrapper to get text from Storage (wdk)
-	import gluon.contrib.markdown.markdown2
-	body = text.body
-	return gluon.contrib.markdown.markdown2.Markdown().convert(body)
+def use_html():
+	return auth.wiki(resolve=False,render='html')
+def use_markdown():
+	def mrkdwn2wrapper(text): #wrapper to get text from Storage (wdk)
+		import gluon.contrib.markdown.markdown2
+		body = text.body
+		return gluon.contrib.markdown.markdown2.Markdown().convert(body)
+	return auth.wiki(resolve=False,render=mrkdwn2wrapper)
+#	return auth.wiki(resolve=False,render="markdown")
+def use_markmin():
+	customMarkup = dict(sub=lambda x:'<sub>'+x+'</sub>',sup=lambda x:'<sup>'+x+'</sup>')
+	return auth.wiki(resolve=False,extra=customMarkup)
+
+use_render=dict(html=use_html,markdown=use_markdown,markmin=use_markmin)
 
 #To allow access to the wiki specific db setup within the model of your app you must add the
 #    following sentence to your model file (i.e. db.py)
 # Make sure this is called after the auth instance is created
 #     and before any change to the wiki tables (wdk)
-customMarkup = dict(sub=lambda x:'<sub>'+x+'</sub>',sup=lambda x:'<sup>'+x+'</sup>')
-auth.wiki(resolve=False,extra=customMarkup,render=mrkdwn2wrapper)
+
+#use_render['markmin']()
+#use_render['markdown']()
+use_render['html']()
