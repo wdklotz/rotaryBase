@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<title>WIKI</title>
+{{left_sidebar_enabled,right_sidebar_enabled, rotary_banner_enabled = False,True,False}}
+{{extend 'layout.html'}}
+{{#=response.toolbar()}}
+{{block center}}
+	<h1>Image: {{=image.title}}</h1>
+	<div style="text-align:center">
+		<img width="200px" src="{{=URL('download', args=image.file)}}" />
+	</div>
+{{end}}

@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<title>WIKI</title>
+{{left_sidebar_enabled,right_sidebar_enabled, rotary_banner_enabled = False,True,False}}
+{{extend 'layout.html'}}
+{{#=response.toolbar()}}
+{{block center}}
+	<h2>WIKI media manager</h2>
+	{{=grid}}
+	<hr>
+	<p>(1) Copy media address to clipboard (you then can paste this address into page content).</p>
+{{end}}

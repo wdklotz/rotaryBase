@@ -4,6 +4,8 @@ import logging
 logger = logging.getLogger('rotary')
 logger.setLevel(logging.WARNING)
 
+import pyperclip  # the clipboard module
+
 #print a dictionary readable for humans
 def _dict_print(what):
     for key, value in sorted(what.items()):
@@ -11,18 +13,63 @@ def _dict_print(what):
 
 def index():
     logger.info("%s",'index()')
-#    response.flash = T("Hello World")
-#    _dict_print(request.wsgi.environ)
     if False:
         redirect(URL('site_closed'))
     return dict(message=T('Welcome to web2py!'))
 
-#def content():
-#    logger.info("%s",'content()')
-##    return auth.wiki(function='content',render='html')
-##    return auth.wiki(function='content',extra=dict(sub=lambda x:"<sub>%s</sub>" % (x)))
-##    return auth.wiki(extra=dict(sub=lambda x:'<sub>'+x+'</sub>'))
-#    return auth.wiki()
+@auth.requires_login()
+def create_page():
+#    create new page content
+    if len(request.args) == 0:
+        form=dict()
+    elif request.args[0] == '_create':
+        form=SQLFORM(db.cm_pages)
+        if form.process().accepted:
+            page_ID = form.vars.id
+            flash='form accepted'
+            redirect(URL(args=["_preview",page_ID,flash]))
+        elif form.errors:
+            response.flash='form has errors'
+        else:
+            response.flash='please fill out the form'  
+    elif request.args[0] == '_preview':
+        page_ID=request.args[1]
+        response.flash=request.args[2]
+        page_record=db(db.cm_pages.id == page_ID).select()[0]
+        return dict(body = XML(page_record.body))
+    return dict(form=form)
+
+@auth.requires_login()
+def manage_pages():
+    view_button_xml = \
+        XML('<span class="icon magnifier icon-zoom-in glyphicon glyphicon-eye-open"></span><span class="buttontext button" title="Preview"> !</span>')
+    custom_links = [
+       dict(header='Preview¹',body=lambda row:A(view_button_xml,_class='button btn btn-default', \
+                                        _href=URL('create_page',args=['_preview',row.id,'']))),]
+    rows=SQLFORM.grid(db.cm_pages, details=True, csv=False, create=False, links=custom_links)
+    return dict(rows=rows)
+
+@auth.requires_login()
+def manage_media():
+#    display media grid
+    custom_links = [
+       dict(header='Link¹',body=lambda row:A('copy',_href=URL('copy_media_link',args=[row.id]))),]
+    grid = SQLFORM.grid(db.cm_images,csv=False,create=False,links=custom_links)
+    return dict(grid=grid)
+
+def show_media():
+#    display individual media
+    image = db.cm_images(request.args(0,cast=int)) or redirect(URL('index'))
+    return locals()
+
+def copy_media_link():
+#    copy the media link to the clipboard
+    image_ID=request.args(0,cast=int)
+    image = db(db.cm_images.id == image_ID).select()[0]
+    image_link='<img src="'+URL('download', scheme=True, host=True, args=image.file)+'"/>'
+    pyperclip.copy(image_link)
+    redirect(URL('manage_media'))
+    return
 
 def site_closed():
     logger.info("%s",'site_closed()')

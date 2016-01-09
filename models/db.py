@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
 
+import inspect
+def lineno():
+    """Returns the current line number in our program."""
+    return inspect.currentframe().f_back.f_lineno
+
 #db = DAL('sqlite://storage.sqlite',pool_size=1,check_reserved=['all'])
 db = DAL("sqlite://storage.sqlite")
 
@@ -34,9 +39,9 @@ mail = auth.settings.mailer
 # mail.settings.server = 'logging' or 'smtp.gmail.com:587'
 mail.settings.server = 'smtp.gmail.com:587'
 mail.settings.sender = 'wdklotz@gmail.com'
-mail.settings.login = "wdklotz@gmail.com:SV@lbard2598"
+mail.settings.login = "wdklotz@gmail.com:Orang!na"
 # mail.settings.tls = False
-# mail.settings.ssl = True
+mail.settings.ssl = True
 
 ## configure auth policy
 # auth.settings.registration_requires_verification = False
@@ -71,7 +76,6 @@ auth.settings.extra_fields['auth_user'] = [
 	Field('email2',label="E-mail(alt.)")
 ]
 ## before auth.define_tables(username=False, signature=False)
-
 auth.define_tables(username=False, signature=False)
 
 db.define_table('address',
@@ -89,6 +93,21 @@ db.auth_user.email.requires = [IS_NOT_EMPTY(error_message='please enter email!')
 db.auth_user.is_member.readable=db.auth_user.is_member.writable=False
 db.address.user_id.writable=db.address.user_id.readable=False
 db.address.id.readable=False
+
+db.define_table('cm_pages',
+	Field('slug',type='string',requires=[IS_NOT_EMPTY(error_message='please enter Slug!')]),
+	Field('title',type='string'),
+	Field('body',type='text'),
+	format='%(slug)s',
+			)
+#print('db.py %s - table: %s - fields: ' %(lineno(),'cm_pages'),db.cm_pages.fields)
+
+db.define_table('cm_images',
+   Field('title',type='string'),
+   Field('file', 'upload'),
+   format = '%(title)s')
+			
+#print('db.py %s - table: %s - fields: ' %(lineno(),'cm_images'),db.cm_images.fields)
 
 ## after defining tables, uncomment below to enable auditing
 auth.enable_record_versioning(db)

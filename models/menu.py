@@ -41,9 +41,11 @@ response.menu = [
     (T('Members'),   False, URL('default', 'members'), []),
     (T('Dashboard'), False, URL('default', 'fluid'), []),
     (T('Content'), False, '#', [
-        (T('create'),False,URL('default','create_content')),
-        (T('manage'),False,URL('default','manage_content')),
-        (T('edit'),  False,URL('default','edit_content')),
+        (T('Wiki'),       False,URL('default','create_page')),
+        LI(_class="divider"),
+        (T('New page'),       False,URL('default','create_page',args=['_create'])),
+        (T('Page manager'),   False,URL('default','manage_pages')),
+        (T('Media manager'),  False,URL('default','manage_media')),
                                   ]),
 ]
 

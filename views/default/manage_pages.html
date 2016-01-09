@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<title>WIKI</title>
+{{left_sidebar_enabled,right_sidebar_enabled, rotary_banner_enabled = False,True,False}}
+{{extend 'layout.html'}}
+{{#=response.toolbar()}}
+{{block center}}
+<h2>WIKI page manager</h2>
+{{=rows}}
+<hr>
+<p>(1) Preview rendered page content.</p>
+{{end}}
