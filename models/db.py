@@ -5,6 +5,18 @@ def lineno():
     """Returns the current line number in our program."""
     return inspect.currentframe().f_back.f_lineno
 
+import pyperclip  # the clipboard module
+#copy media link to clipboard
+def to_clipboard(media):
+    image_link='<img src="'+URL('download', scheme=True, host=True, args=media)+'"/>'
+    pyperclip.copy(image_link)
+    return
+
+#print a dictionary readable for humans
+def _dict_print(what):
+    for key, value in sorted(what.items()):
+        print(key,value)
+
 #db = DAL('sqlite://storage.sqlite',pool_size=1,check_reserved=['all'])
 db = DAL("sqlite://storage.sqlite")
 
@@ -104,28 +116,30 @@ db.define_table('cm_pages',
 
 db.define_table('cm_images',
    Field('title',type='string'),
-   Field('file', 'upload'),
-   format = '%(title)s')
-			
+   Field('file', 'upload',autodelete=True),
+   Field('in_page','reference cm_pages'),
+   format = '%(title)s')   
+db.cm_images.in_page.requires = IS_IN_DB(db,db.cm_pages.id,'%(slug)s')
+
 #print('db.py %s - table: %s - fields: ' %(lineno(),'cm_images'),db.cm_images.fields)
 
 ## after defining tables, uncomment below to enable auditing
 auth.enable_record_versioning(db)
 
-def use_html():
-	return auth.wiki(resolve=False,render='html')
-def use_markdown():
-	def mrkdwn2wrapper(text): #wrapper to get text from Storage (wdk)
-		import gluon.contrib.markdown.markdown2
-		body = text.body
-		return gluon.contrib.markdown.markdown2.Markdown().convert(body)
-	return auth.wiki(resolve=False,render=mrkdwn2wrapper)
-#	return auth.wiki(resolve=False,render="markdown")
-def use_markmin():
-	customMarkup = dict(sub=lambda x:'<sub>'+x+'</sub>',sup=lambda x:'<sup>'+x+'</sup>')
-	return auth.wiki(resolve=False,extra=customMarkup)
-
-use_render=dict(html=use_html,markdown=use_markdown,markmin=use_markmin)
+#def use_html():
+#	return auth.wiki(resolve=False,render='html')
+#def use_markdown():
+#	def mrkdwn2wrapper(text): #wrapper to get text from Storage (wdk)
+#		import gluon.contrib.markdown.markdown2
+#		body = text.body
+#		return gluon.contrib.markdown.markdown2.Markdown().convert(body)
+#	return auth.wiki(resolve=False,render=mrkdwn2wrapper)
+##	return auth.wiki(resolve=False,render="markdown")
+#def use_markmin():
+#	customMarkup = dict(sub=lambda x:'<sub>'+x+'</sub>',sup=lambda x:'<sup>'+x+'</sup>')
+#	return auth.wiki(resolve=False,extra=customMarkup)
+#
+#use_render=dict(html=use_html,markdown=use_markdown,markmin=use_markmin)
 
 #To allow access to the wiki specific db setup within the model of your app you must add the
 #    following sentence to your model file (i.e. db.py)
@@ -134,4 +148,4 @@ use_render=dict(html=use_html,markdown=use_markdown,markmin=use_markmin)
 
 #use_render['markmin']()
 #use_render['markdown']()
-use_render['html']()
+#use_render['html']()

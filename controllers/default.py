@@ -2,14 +2,8 @@
 
 import logging
 logger = logging.getLogger('rotary')
-logger.setLevel(logging.WARNING)
+logger.setLevel(logging.INFO)
 
-import pyperclip  # the clipboard module
-
-#print a dictionary readable for humans
-def _dict_print(what):
-    for key, value in sorted(what.items()):
-        print(key,value)
 
 def index():
     logger.info("%s",'index()')
@@ -26,48 +20,71 @@ def create_page():
         form=SQLFORM(db.cm_pages)
         if form.process().accepted:
             page_ID = form.vars.id
-            flash='form accepted'
+            flash='page accepted'
             redirect(URL(args=["_preview",page_ID,flash]))
         elif form.errors:
-            response.flash='form has errors'
+            response.flash='page has errors'
         else:
             response.flash='please fill out the form'  
     elif request.args[0] == '_preview':
-        page_ID=request.args[1]
-        response.flash=request.args[2]
-        page_record=db(db.cm_pages.id == page_ID).select()[0]
-        return dict(body = XML(page_record.body))
+        page_ID = request.args[1]
+        response.flash = request.args[2]
+        page_record = db(db.cm_pages.id == page_ID).select()[0]
+        return dict(title = page_record.title, body = XML(page_record.body))
     return dict(form=form)
 
 @auth.requires_login()
 def manage_pages():
+    if len(request.args) != 0 and request.args[0] == 'new':
+        form = SQLFORM(db.cm_pages)
+        if form.process().accepted:
+            session.flash="success: new page!"
+            redirect(URL())
+        elif form.errors:
+            response.flash='page form has errors'
+        else:
+            response.flash='please fill out the form'  
+        return dict(grid=form,media=False)
+
     view_button_xml = \
-        XML('<span class="icon magnifier icon-zoom-in glyphicon glyphicon-eye-open"></span><span class="buttontext button" title="Preview"> !</span>')
+        XML('<span class="icon magnifier icon-zoom-in glyphicon glyphicon-eye-open"></span><span class="buttontext button" title="Preview">''</span>')
     custom_links = [
        dict(header='Preview¹',body=lambda row:A(view_button_xml,_class='button btn btn-default', \
                                         _href=URL('create_page',args=['_preview',row.id,'']))),]
-    rows=SQLFORM.grid(db.cm_pages, details=True, csv=False, create=False, links=custom_links)
-    return dict(rows=rows)
+    grid=SQLFORM.grid(db.cm_pages, details=True, csv=False, create=True, links=custom_links)
+    return dict(grid=grid,media=True)
 
 @auth.requires_login()
 def manage_media():
-#    display media grid
+    if len(request.args) != 0 and request.args[0] == 'new':
+        form = SQLFORM(db.cm_images)
+        if form.process().accepted:
+            response.flash="success: new media link now on clipboard!"
+            to_clipboard(form.vars.file)
+            form.add_button("Page manager",URL('manage_pages'))
+#            redirect(URL())
+        elif form.errors:
+            response.flash='image form has errors'
+        else:
+            response.flash='please fill out the form'  
+        return dict(grid=form,pages=False)
+
     custom_links = [
        dict(header='Link¹',body=lambda row:A('copy',_href=URL('copy_media_link',args=[row.id]))),]
-    grid = SQLFORM.grid(db.cm_images,csv=False,create=False,links=custom_links)
-    return dict(grid=grid)
+    grid = SQLFORM.grid(db.cm_images,details=True,csv=False,create=True,links=custom_links)
+    return dict(grid=grid,pages=True)
 
-def show_media():
-#    display individual media
-    image = db.cm_images(request.args(0,cast=int)) or redirect(URL('index'))
-    return locals()
+#def show_media():
+##    display individual media
+#    image = db.cm_images(request.args(0,cast=int)) or redirect(URL('index'))
+#    return locals()
 
+@auth.requires_login()
 def copy_media_link():
 #    copy the media link to the clipboard
     image_ID=request.args(0,cast=int)
     image = db(db.cm_images.id == image_ID).select()[0]
-    image_link='<img src="'+URL('download', scheme=True, host=True, args=image.file)+'"/>'
-    pyperclip.copy(image_link)
+    to_clipboard(image.file)
     redirect(URL('manage_media'))
     return
 

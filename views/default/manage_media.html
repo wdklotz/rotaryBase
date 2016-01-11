@@ -4,8 +4,22 @@
 {{extend 'layout.html'}}
 {{#=response.toolbar()}}
 {{block center}}
-	<h2>WIKI media manager</h2>
+	<div style="margin-bottom: 20px" ><span style="font-size:x-large">WIKI media manager&nbsp;</span>
+	{{if pages:}}
+		<span>
+			<button class="btn btn-default" type="button">
+				<a href="{{=URL('manage_pages')}}">
+					<span class="icon magnifier icon-zoom-in glyphicon glyphicon-arrow-right">
+						 Page manager
+						 </span>
+						 </a>
+						 </button>
+						 </span>
+	{{pass}}
+	</div>
+
 	{{=grid}}
-	<hr>
-	<p>(1) Copy media address to clipboard (you then can paste this address into page content).</p>
+	
+ 	<hr>
+	<p>(1) Click to copy media address to clipboard. From there paste it into &#60; In Page &#62; 's body to embed it.</p>
 {{end}}
