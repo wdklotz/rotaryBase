@@ -33,6 +33,10 @@ div#left_panel, div#right_panel{
 div[name='sidebar'].panel-heading, div[name='sidebar'].panel-body, ul[name='sidebar'] li{
     /* background: yellow; */
 }
+.custom-button {
+	font-size:large;
+	color:black;
+}
  /* carousel  */
 .carousel {
   height: 220px;

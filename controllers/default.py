@@ -17,8 +17,8 @@ def create_page():
     if len(request.args) == 0:
         form=dict()
     elif request.args[0] == '_create':
-        form=SQLFORM(db.cm_pages)
-        if form.process().accepted:
+        form=SQLFORM(db.cm_pages).process()
+        if form.accepted:
             page_ID = form.vars.id
             flash='page accepted'
             redirect(URL(args=["_preview",page_ID,flash]))
@@ -36,8 +36,8 @@ def create_page():
 @auth.requires_login()
 def manage_pages():
     if len(request.args) != 0 and request.args[0] == 'new':
-        form = SQLFORM(db.cm_pages)
-        if form.process().accepted:
+        form = SQLFORM(db.cm_pages).process()
+        if form.accepted:
             session.flash="success: new page!"
             redirect(URL())
         elif form.errors:
@@ -57,8 +57,8 @@ def manage_pages():
 @auth.requires_login()
 def manage_media():
     if len(request.args) != 0 and request.args[0] == 'new':
-        form = SQLFORM(db.cm_images)
-        if form.process().accepted:
+        form = SQLFORM(db.cm_images).process()
+        if form.accepted:
             response.flash="success: new media link now on clipboard!"
             to_clipboard(form.vars.file)
             form.add_button("Page manager",URL('manage_pages'))
@@ -74,10 +74,10 @@ def manage_media():
     grid = SQLFORM.grid(db.cm_images,details=True,csv=False,create=True,links=custom_links)
     return dict(grid=grid,pages=True)
 
-#def show_media():
-##    display individual media
-#    image = db.cm_images(request.args(0,cast=int)) or redirect(URL('index'))
-#    return locals()
+def show_media():
+#    display individual media
+    image = db.cm_images(request.args(0,cast=int)) or redirect(URL('index'))
+    return locals()
 
 @auth.requires_login()
 def copy_media_link():
