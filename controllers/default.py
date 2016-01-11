@@ -16,7 +16,7 @@ def create_page():
 #    create new page content
     if len(request.args) == 0:
         form=dict()
-    elif request.args[0] == '_create':
+    elif '_create' in request.args:
         form=SQLFORM(db.cm_pages).process()
         if form.accepted:
             page_ID = form.vars.id
@@ -26,7 +26,7 @@ def create_page():
             response.flash='page has errors'
         else:
             response.flash='please fill out the form'  
-    elif request.args[0] == '_preview':
+    elif '_preview' in request.args:
         page_ID = request.args[1]
         response.flash = request.args[2]
         page_record = db(db.cm_pages.id == page_ID).select()[0]
@@ -35,7 +35,7 @@ def create_page():
 
 @auth.requires_login()
 def manage_pages():
-    if len(request.args) != 0 and request.args[0] == 'new':
+    if len(request.args) != 0 and 'new' in request.args:
         form = SQLFORM(db.cm_pages).process()
         if form.accepted:
             session.flash="success: new page!"
@@ -56,7 +56,7 @@ def manage_pages():
 
 @auth.requires_login()
 def manage_media():
-    if len(request.args) != 0 and request.args[0] == 'new':
+    if len(request.args) != 0 and 'new' in request.args:
         form = SQLFORM(db.cm_images).process()
         if form.accepted:
             response.flash="success: new media link now on clipboard!"
