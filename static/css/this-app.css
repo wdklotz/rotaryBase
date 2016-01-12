@@ -10,7 +10,7 @@ body {
 .background , .main-container {
     /* background-color:#4BABE8; */
     margin-top: 0px;
-    padding: 20px 0 0 0;
+    padding: 20px 0 20px 0;
 }
 header.background{
     background-color:#4BABE8;
@@ -37,6 +37,17 @@ div[name='sidebar'].panel-heading, div[name='sidebar'].panel-body, ul[name='side
 	font-size:large;
 	color:black;
 }
+#web2py_user_form{
+	margin-left:100px;
+}
+div#myCarousel {
+	float:left;
+	margin:0 0 0 15px;
+}
+div#passation{
+	float:right;
+	margin:0 15px 0 0;
+}
  /* carousel  */
 .carousel {
   height: 220px;
@@ -47,9 +58,6 @@ div[name='sidebar'].panel-heading, div[name='sidebar'].panel-body, ul[name='side
   /* margin-right:-16px; */
   /* padding-top:10px; */
   /* background-color:#4BABE8; */
-}
-#web2py_user_form{
-	margin-left:100px;
 }
 .carousel-inner{
     margin: auto;

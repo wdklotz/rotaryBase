@@ -107,20 +107,25 @@ db.address.user_id.writable=db.address.user_id.readable=False
 db.address.id.readable=False
 
 db.define_table('cm_pages',
-	Field('slug',type='string',requires=[IS_NOT_EMPTY(error_message='please enter Slug!')]),
-	Field('title',type='string'),
+	Field('slug',type='string',
+          requires=[
+                     IS_NOT_EMPTY(error_message='please enter a slug!'),
+                     IS_SLUG(maxlen=80, check=True, error_message='must be slug (allowing only alphanumeric characters and non-repeated dashes)')]),
+	Field('title',type='string',notnull=False),
 	Field('body',type='text'),
-	format='%(slug)s',
-			)
+    Field('publish',type='boolean',default=False),
+	format='%(slug)s')
+
+db.cm_pages.slug.requires = IS_NOT_IN_DB(db, db.cm_pages.slug)
 #print('db.py %s - table: %s - fields: ' %(lineno(),'cm_pages'),db.cm_pages.fields)
 
 db.define_table('cm_images',
    Field('title',type='string'),
-   Field('file', 'upload',autodelete=True),
+   Field('file', 'upload',autodelete=True,requires = IS_IMAGE(extensions=('jpeg', 'png','jpg'))),
    Field('in_page','reference cm_pages'),
    format = '%(title)s')   
-db.cm_images.in_page.requires = IS_IN_DB(db,db.cm_pages.id,'%(slug)s')
 
+db.cm_images.in_page.requires = [IS_IN_DB(db,db.cm_pages.id,'%(slug)s'),IS_NOT_EMPTY()]
 #print('db.py %s - table: %s - fields: ' %(lineno(),'cm_images'),db.cm_images.fields)
 
 ## after defining tables, uncomment below to enable auditing

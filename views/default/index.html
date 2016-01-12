@@ -117,7 +117,7 @@
 </div>
 
 {{block center}}
-<div class='col-md-6'>
+<div class='middle_column'>
     <!----the carousel----------------------------------------------------->
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
@@ -150,16 +150,33 @@
             </a>
         </div>
     </div>
+    <div id="passation">
+        {{include '../private/mainr1c2.html'}}
+    </div>
 </div>
-<div class='col-md-6'>
-    {{include '../private/mainr1c2.html'}}
-</div>
-<div class='col-md-6'>
-    {{include '../private/mainr2c1.html'}}
-</div>
-<div class='col-md-6'>
-    {{include '../private/lorem_ipsum.html'}}
-</div>
+<!-- 
+			<div class='col-md-6'>
+		    {{include '../private/mainr2c1.html'}}
+		</div>
+		<div class='col-md-6'>
+		    {{include '../private/mainr2c1.html'}}
+		</div>
+		<div class='col-md-6'>
+		    {{include '../private/lorem_ipsum.html'}}
+		</div>
+ -->
+<!------------wiki pages----------------------------------------------------------> 
+{{for page in pages:}}
+	<!--div class='col-md-12' style="border:1px solid #000;padding:2px"-->
+	<div class='col-md-12'>
+		{{if page.title != '':}}
+			<h2>{{=XML(page.title)}}</h2>
+		{{else:}}
+			<h2>&nbsp;</h2> <!-- no title: force empty space -->
+		{{pass}}
+		{{=XML(page.body)}}
+	</div>
+{{pass}}
 {{end}}
 
 {{block header}}
