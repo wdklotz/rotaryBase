@@ -112,7 +112,7 @@ db.define_table('cm_pages',
                      IS_NOT_EMPTY(error_message='please enter a slug!'),
                      IS_SLUG(maxlen=80, check=True, error_message='must be slug (allowing only alphanumeric characters and non-repeated dashes)')]),
 	Field('title',type='string',notnull=False),
-	Field('body',type='text'),
+	Field('body',type='text',length='65536'),  # 65K for text
     Field('publish',type='boolean',default=False),
 	format='%(slug)s')
 
