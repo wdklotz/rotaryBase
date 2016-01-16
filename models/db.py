@@ -125,12 +125,17 @@ db.define_table('cm_images',
    Field('in_page','reference cm_pages'),
    format = '%(title)s')   
 
-db.cm_images.in_page.requires = [IS_IN_DB(db,db.cm_pages.id,'%(slug)s'),IS_NOT_EMPTY()]
+#db.cm_images.in_page.requires = [IS_IN_DB(db,db.cm_pages.id,'%(slug)s'),IS_NOT_EMPTY()]
 #print('db.py %s - table: %s - fields: ' %(lineno(),'cm_images'),db.cm_images.fields)
 
-## after defining tables, uncomment below to enable auditing
-auth.enable_record_versioning(db)
+db.define_table('cm_defaults',
+    Field('caption'),
+    Field('default_identity_photo','upload'))
 
+## after defining tables, uncomment below to enable auditing
+#auth.enable_record_versioning(db)
+
+#--------------------------------old stuff--------------------------------------
 #def use_html():
 #	return auth.wiki(resolve=False,render='html')
 #def use_markdown():

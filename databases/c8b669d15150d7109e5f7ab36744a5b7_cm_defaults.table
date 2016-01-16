@@ -1,5 +1,5 @@
 (dp1
-S'group_id'
+S'caption'
 p2
 (dp3
 S'length'
@@ -10,19 +10,19 @@ p5
 I00
 sS'sortable'
 p6
-I3
+I2
 sS'sql'
 p7
-S'INTEGER REFERENCES auth_group (id) ON DELETE CASCADE  '
+S'CHAR(512)'
 p8
 sS'notnull'
 p9
 I00
 sS'type'
 p10
-S'reference auth_group'
+S'string'
 p11
-ssS'user_id'
+ssS'default_identity_photo'
 p12
 (dp13
 g4
@@ -30,14 +30,14 @@ I512
 sg5
 I00
 sg6
-I2
+I3
 sg7
-S'INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  '
+S'CHAR(512)'
 p14
 sg9
 I00
 sg10
-S'reference auth_user'
+S'upload'
 p15
 ssS'id'
 p16
@@ -54,5 +54,6 @@ p18
 sg9
 I00
 sg10
-g16
+S'id'
+p19
 ss.

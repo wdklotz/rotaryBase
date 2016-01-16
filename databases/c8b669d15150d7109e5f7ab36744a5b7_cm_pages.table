@@ -40,7 +40,7 @@ I00
 sg11
 S'string'
 p16
-ssS'slug'
+ssS'id'
 p17
 (dp18
 g4
@@ -48,14 +48,14 @@ I512
 sg6
 I00
 sg7
-I2
+I1
 sg8
-S'CHAR(512)'
+S'INTEGER PRIMARY KEY AUTOINCREMENT'
 p19
 sg10
 I00
 sg11
-g16
+g17
 ssS'publish'
 p20
 (dp21
@@ -73,7 +73,7 @@ I00
 sg11
 S'boolean'
 p23
-ssS'id'
+ssS'slug'
 p24
 (dp25
 g4
@@ -81,13 +81,12 @@ I512
 sg6
 I00
 sg7
-I1
+I2
 sg8
-S'INTEGER PRIMARY KEY AUTOINCREMENT'
+S'CHAR(512)'
 p26
 sg10
 I00
 sg11
-S'id'
-p27
+g16
 ss.

@@ -118,11 +118,10 @@ p30
 sg9
 I00
 sg10
-S'id'
-p31
+g28
 ssS'zip_code'
-p32
-(dp33
+p31
+(dp32
 g4
 I512
 sg5
@@ -131,10 +130,10 @@ sg6
 I4
 sg7
 S'INTEGER'
-p34
+p33
 sg9
 I00
 sg10
 S'integer'
-p35
+p34
 ss.
