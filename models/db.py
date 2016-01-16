@@ -114,6 +114,7 @@ db.define_table('cm_pages',
 	Field('title',type='string',notnull=False),
 	Field('body',type='text',length='65536'),  # 65K for text
     Field('publish',type='boolean',default=False),
+    singular="Page",plural='Pages',
 	format='%(slug)s')
 
 db.cm_pages.slug.requires = IS_NOT_IN_DB(db, db.cm_pages.slug)
@@ -123,9 +124,10 @@ db.define_table('cm_images',
    Field('title',type='string'),
    Field('file', 'upload',autodelete=True,requires = IS_IMAGE(extensions=('jpeg', 'png','jpg'))),
    Field('in_page','reference cm_pages'),
+   singular="Image",plural="Images",
    format = '%(title)s')   
 
-#db.cm_images.in_page.requires = [IS_IN_DB(db,db.cm_pages.id,'%(slug)s'),IS_NOT_EMPTY()]
+db.cm_images.in_page.requires = IS_IN_DB(db,'cm_pages.id','%(slug)s',zero='chose one')
 #print('db.py %s - table: %s - fields: ' %(lineno(),'cm_images'),db.cm_images.fields)
 
 db.define_table('cm_defaults',

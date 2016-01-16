@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <title>Rotary</title>
-{{#=BEAUTIFY(request)}}
 <!-- pure python  -->
-{{left_sidebar_enabled,right_sidebar_enabled, rotary_banner_enabled = True,True,True}}
-<!-- web2py specific: extend -->
+{{left_sidebar_enabled,right_sidebar_enabled, rotary_banner_enabled = True,False,False}}
+<!-------LAYOUT---------------------------------------------------------------->
 {{extend 'layout.html'}}
 
-<!-- page content -->
 <!-------Modal: about---------------------------------------------------------------->
 <div class="modal fade" id="aboutModal" role="dialog">
 <div class="modal-dialog">
@@ -117,100 +115,61 @@
 </div>
 
 {{block center}}
-<div class='middle_column'>
-    <!----the carousel----------------------------------------------------->
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-            <li data-target="#myCarousel" data-slide-to="3"></li>
-        </ol>
-        <div class="carousel-inner" role="listbox">
-            <div class="item active">
-                <img class="first-slide img-circleXXX" src="{{=URL('static','images/pic01.png')}}"  alt="{{=URL('static','images/pic01.png')}}">
-            </div>
-            <div class="item">
-                <img class="second-slide img-circleXXX" src="{{=URL('static','images/pic02.jpg')}}" alt="{{=URL('static','images/pic01.png')}}">
-            </div>
-            <div class="item">
-                <img class="third-slide img-circleXXX" src="{{=URL('static','images/pic03.jpg')}}"  alt="{{=URL('static','images/pic01.png')}}">
-            </div>
-            <div class="item">
-                <img class="fourth-slide img-circleXXX" src="{{=URL('static','images/pic04.jpg')}}" alt="{{=URL('static','images/pic01.png')}}">
-            </div>
-            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                <span class="sr-only"><</span></span>
-            </a>
-            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                <span class="sr-only">></span></span>
-            </a>
+<!----the carousel----------------------------------------------------->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img class="first-slide img-circleXXX" src="{{=URL('static','images/pic01.png')}}"  alt="{{=URL('static','images/pic01.png')}}">
         </div>
-    </div>
-    <div id="passation">
-        {{include '../private/mainr1c2.html'}}
+        <div class="item">
+            <img class="second-slide img-circleXXX" src="{{=URL('static','images/pic02.jpg')}}" alt="{{=URL('static','images/pic01.png')}}">
+        </div>
+        <div class="item">
+            <img class="third-slide img-circleXXX" src="{{=URL('static','images/pic03.jpg')}}"  alt="{{=URL('static','images/pic01.png')}}">
+        </div>
+        <div class="item">
+            <img class="fourth-slide img-circleXXX" src="{{=URL('static','images/pic04.jpg')}}" alt="{{=URL('static','images/pic01.png')}}">
+        </div>
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only"><</span></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">></span></span>
+        </a>
     </div>
 </div>
-<!-- 
-			<div class='col-md-6'>
-		    {{include '../private/mainr2c1.html'}}
-		</div>
-		<div class='col-md-6'>
-		    {{include '../private/mainr2c1.html'}}
-		</div>
-		<div class='col-md-6'>
-		    {{include '../private/lorem_ipsum.html'}}
-		</div>
- -->
-<!------------wiki pages----------------------------------------------------------> 
-{{for page in pages:}}
-	<!--div class='col-md-12' style="border:1px solid #000;padding:2px"-->
-	<div class='col-md-12'>
+<div id="passation">
+    {{include '../private/mainr1c2.html'}}
+</div>
+<div id="wiki_pages" class="col-md-12">
+	{{for page in pages:}}
 		{{if page.title != '':}}
 			<h2>{{=XML(page.title)}}</h2>
 		{{else:}}
 			<h2>&nbsp;</h2> <!-- no title: force empty space -->
 		{{pass}}
 		{{=XML(page.body)}}
-	</div>
-{{pass}}
+	{{pass}}
+</div>
 {{end}}
 
 {{block header}}
-    <header class="container-fluid background" style="height:140px">
-      <!-- <div class="jumbotron text-center">
-        {{if response.title:}}
-        <h1>{{=response.title}}
-          <small>{{=response.subtitle or ''}}</small></h1>
-        {{pass}}
-      </div> -->
-    </header>
+<header class="container-fluid background" style="height:140px">
+  <!-- <div class="jumbotron text-center">
+    {{if response.title:}}
+    <h1>{{=response.title}}
+      <small>{{=response.subtitle or ''}}</small></h1>
+    {{pass}}
+  </div> -->
+</header>
 {{end}}
 
-{{block left_sidebar}}
-<div class="panel panel-info" id="left_panel">
-    <div class="panel-heading" name="sidebar">
-        <h3 class="panel-title">
-            <!-- <a class="btn-block" href="{{=URL('admin','default','index')}}"> -->
-            <i class="glyphicon glyphicon-cog"></i> {{=T("read more")+" ..."}}
-            <!-- </a> -->
-        </h3>
-    </div>
-  <ul class="list-group" name="sidebar">
-    <li class="list-group-item"><a href="index#aboutModal" data-toggle="modal" data-target="#aboutModal"><img src="{{=URL('static','images/english_flag.png')}}"> About</a></li>
-    <li class="list-group-item"><a href="index#aboutModalfr" data-toggle="modal" data-target="#aboutModalfr"><img src="{{=URL('static','images/french_flag.png')}}"> À propos ...</a></li>
-    <li class="list-group-item"><a href="index#executiveModal" data-toggle="modal" data-target="#executiveModal">Excecutive committee</a></li>
-    <li class="list-group-item"><a href="index#pressModal" data-toggle="modal" data-target="#pressModal">Press</a></li>
-    <li class="list-group-item"><a href="index#ethicsModal" data-toggle="modal" data-target="#ethicsModal">Ethics</a></li>
-    <li class="list-group-item"><a href="index#meetingshModal" data-toggle="modal" data-target="#meetingshModal">Meetings</a></li>
-    <!-- <li class="list-group-item">{{=A(T("What's' new?"),_href='#')}}</li> -->
-    <!-- <li class="list-group-item">{{=A(T("Contact"), _href=URL(request.application,'default','index'))}}</li> -->
-    <li class="list-group-item"><a href="http://www.rotary-site.org/contact.php?SiteID=400&lang=fr">Contact</a></li>
-    <li class="list-group-item">{{=A(T("Invitations"), _href=URL(request.application,'default','index'))}}</li>
-    <li class="list-group-item">{{=A(IMG(_src=URL('static','images/end_polio_now.png'),_width='100px'), _href='http://www.endpolio.org/')}}</li>
-  </ul>
-</div>
-{{end}}

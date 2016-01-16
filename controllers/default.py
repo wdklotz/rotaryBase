@@ -56,7 +56,12 @@ def manage_pages():
     custom_links = [
        dict(header='Preview¹',body=lambda row:A(view_button_xml,_class='button btn btn-default', \
                                         _href=URL('create_page',args=['_preview',row.id,'']))),]
-    grid=SQLFORM.grid(db.cm_pages, details=True, csv=False, create=True, links=custom_links)
+    grid=SQLFORM.smartgrid(db.cm_pages, 
+                           details=True, 
+                           csv=False, 
+                           create=True, 
+                           linked_tables=['cm_images'],
+                           links=dict(cm_pages=custom_links,cm_images=[]))
     return dict(grid=grid,media=True)
 
 @auth.requires_login()
