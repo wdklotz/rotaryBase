@@ -129,8 +129,8 @@ db.define_table('cm_images',
 #print('db.py %s - table: %s - fields: ' %(lineno(),'cm_images'),db.cm_images.fields)
 
 db.define_table('cm_defaults',
-    Field('caption'),
-    Field('default_identity_photo','upload'))
+    Field('caption',default='def_id_photo'),
+    Field('def_id_photo','upload'))
 
 ## after defining tables, uncomment below to enable auditing
 #auth.enable_record_versioning(db)

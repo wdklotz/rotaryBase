@@ -114,7 +114,7 @@ def user():
 def new_registration():
     logger.debug("%s",'new_registration()')
     # default id_photo has caption=='def_id_photo' in cm_defaults
-    def_id_photo = db(db.cm_defaults.caption=='def_id_photo').select().first().default_identity_photo
+    def_id_photo = db(db.cm_defaults.caption=='def_id_photo').select().first().def_id_photo
     auth_record = db.auth_user(auth.user_id)
     # use default id_photo if none given
     if auth_record['identity_photo'] == '':
