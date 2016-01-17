@@ -170,6 +170,10 @@ def edit_addresses():
     grid = SQLFORM.grid(query,fields=fields, editable=True, csv=False, create=False, headers=headers, maxtextlength=40, details=True)
     return dict(grid=grid)
 
+#----------------------------------legacy and test stuff-------------------------------------------
+#def iframe():
+#    return XML('<iframe width="900" height="1200" scrolling="auto" src="http://matthewjamestaylor.com/blog/perfect-2-column-left-menu.htm"><p>Your browser does not support iframes.</p></iframe>')
+
 #a minimalistic WSGI application and how to call from web2py, i.e. the rocket server
 #def app2(environ, start_response):
 #    start_response("200 OK", [])

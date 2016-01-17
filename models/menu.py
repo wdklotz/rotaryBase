@@ -50,7 +50,7 @@ response.menu = [
 ]
 
 DEVELOPMENT_MENU = False
-#DEVELOPMENT_MENU = True
+DEVELOPMENT_MENU = True
 
 #########################################################################
 ## provide shortcuts for development. remove in production
