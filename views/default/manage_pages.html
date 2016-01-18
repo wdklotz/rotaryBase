@@ -7,11 +7,10 @@
 	<div style="margin-bottom:20px" ><span style="font-size:x-large">WIKI page manager&nbsp;</span>
 	{{if media:}}
 		<span>
-			{{url=URL('manage_media')}}
-			<button class="btn btn-default" type="button" onclick="document.location.href='{{=url}}'">
-					<span class="custom-button icon magnifier icon-zoom-in glyphicon glyphicon-hand-right"> 
-						Media
-						  </span></a></button></span>
+			<a href="{{=URL('manage_media')}}" class="btn btn-default">					
+				<span class="custom-button icon magnifier icon-zoom-in glyphicon glyphicon-hand-right"> 
+					Media
+					  </span></a></button></span>
 	{{pass}}
 	</div>
 

@@ -7,11 +7,10 @@
 	<div style="margin-bottom: 20px" ><span style="font-size:x-large">WIKI media manager&nbsp;</span>
 	{{if pages:}}
 		<span>
-			{{url=URL('manage_pages')}}
-			<button class="btn btn-default" type="button" onclick="document.location.href='{{=url}}'">
+			<a href="{{=URL('manage_pages')}}" class="btn btn-default">					
 					<span class="custom-button icon magnifier icon-zoom-in glyphicon glyphicon-hand-right">
-						 Pages
-						  </span></a></button></span>
+						Pages
+					  		</span></a></button></span>
 	{{pass}}
 	</div>
 
