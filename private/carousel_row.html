@@ -1,0 +1,41 @@
+<style>
+img.passation { width:330px;vertical-align:initial;float:right}
+img.faire_don { width:250px;margin-top:5px;display:block;margin-left:auto;margin-right:auto;}
+div.passation {float:right;padding:0;}
+div.faire_don {float:right;}
+</style>
+<div class="col-md-12"> <!----the carousel------------------->
+<div class="carousel slide col-md-4" id="myCarousel"  data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img class="first-slide img-circleXXX" src="{{=URL('static','images/pic01.png')}}"  alt="{{=URL('static','images/pic01.png')}}">
+        </div>
+        <div class="item">
+            <img class="second-slide img-circleXXX" src="{{=URL('static','images/pic02.jpg')}}" alt="{{=URL('static','images/pic01.png')}}">
+        </div>
+        <div class="item">
+            <img class="third-slide img-circleXXX" src="{{=URL('static','images/pic03.jpg')}}"  alt="{{=URL('static','images/pic01.png')}}">
+        </div>
+        <div class="item">
+            <img class="fourth-slide img-circleXXX" src="{{=URL('static','images/pic04.jpg')}}" alt="{{=URL('static','images/pic01.png')}}">
+        </div>
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only"><</span></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">></span></span>
+        </a>
+    </div>
+</div>
+<div class="faire_don col-md-4"><img class="faire_don" src="{{=URL('static','images/faire_don.png')}}"/></div>
+<div class="passation col-md-4"><img class="passation" src="{{=URL('static','images/passation.JPG')}}"/></div>
+</div>
