@@ -1,11 +1,11 @@
 <style>
-img.passation {width:330px;vertical-align:initial;float:right}
-img.faire_don {width:250px;margin-top:5px;display:block;margin-left:auto;margin-right:auto;}
-div.passation {float:right;padding:0;}
-div.faire_don {float:right;}
+img.passation {width:330px;vertical-align:initial;}
+img.faire_don {width:250px;margin-top:35px;display:block;margin-left:auto;margin-right:auto;}
+div.passation, div.faire_don, div#myCarousel {width:33%;}
 </style>
-<div class="col-md-12"> <!----the carousel------------------->
-<div class="carousel slide col-md-4" id="myCarousel"  data-ride="carousel">
+
+<div class="row"> <!----the carousel-row------------------->
+<div class="col-md-4 carousel slide" id="myCarousel"  data-ride="carousel">
     <!-- Indicators -->
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -36,6 +36,6 @@ div.faire_don {float:right;}
         </a>
     </div>
 </div>
-<div class="faire_don col-md-4"><img class="faire_don" src="{{=URL('static','images/faire_don.png')}}"/></div>
-<div class="passation col-md-4"><img class="passation" src="{{=URL('static','images/passation.JPG')}}"/></div>
+<div class="col-md-4 passation"><img class="passation" src="{{=URL('static','images/passation.JPG')}}"/></div>
+<div class="col-md-4 faire_don col"><img class="faire_don" src="{{=URL('static','images/faire_don270.png')}}"/></div>
 </div>
