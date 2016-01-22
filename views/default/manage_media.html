@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <title>Rotary WIKI</title>
+<style>
+	span.f-text {color:blue;}
+	span.g-text {color:red;}
+</style>
 {{left_sidebar_enabled,right_sidebar_enabled, rotary_banner_enabled = False,True,False}}
 {{extend 'layout.html'}}
 {{#=response.toolbar()}}
 {{block center}}
-	<div style="margin-bottom: 20px" ><span style="font-size:x-large">WIKI media manager&nbsp;</span>
+{{page_title='Media'}}
+	<div style="margin-bottom: 20px" ><span style="font-size:x-large">{{=page_title}}&nbsp;</span>
 	{{if pages:}}
 		<span>
 			<a href="{{=URL('manage_pages')}}" class="btn btn-default">					
@@ -14,8 +19,24 @@
 	{{pass}}
 	</div>
 
-	{{=grid}}
-	
+	{{=grid}}	
+
+ 	{{if pages:}}
  	<hr>
-	<p>(1) Click to copy media address to clipboard. From there paste it into &#60; In Page &#62; 's body to embed it.</p>
+ 	<div style="font-size:smaller">
+	    <p>[1] You can use the <span class="f-text">Add Record</span> action to upload a media file (for example an image) and link it to a page. 
+		Mind that media files are linked to pages and inherit access permission from the pages.</p> 
+		<p>This <span class="f-text">Media</span> page shows all media files uploaded and lists 
+		the proper page a file is linked to.</p>
+		<p>If, for example, you upload an image named <span class="f-text">test.jpg</span> with title <span class="f-text">beach</span>, 
+		the link expression will be something like: <span class="f-text">@////15/beach.jpg</span>.
+		The <span class="f-text">id</span> of the record storing the media file is 15, 
+		beach is its <span class="f-text">title</span>, .jpg is the <span class="f-text">extension</span> of the original file.
+		<span class='g-text'>When clicking <span class="f-text">copy</span>, this link expression is automatically 
+		pasted into the bottom of the wiki page. </span>Because it is pasted as html comment the page view does
+		not change.</p>
+		<p>To activate and position the image in the wiki page you have to edit the page source.</p>
+	</div>
+	{{pass}}
+
 {{end}}

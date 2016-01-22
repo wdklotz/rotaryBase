@@ -1,22 +1,44 @@
 # -*- coding: utf-8 -*-
-
+import re
 import inspect
+
 def lineno():
-    """Returns the current line number in our program."""
+    """ Returns the current line number in our program."""
     return inspect.currentframe().f_back.f_lineno
 
-import pyperclip  # the clipboard module
-#copy media link to clipboard
-def to_clipboard(media):
-    image_link='<img src="'+URL('download', scheme=True, host=True, args=media)+'"/>'
-    pyperclip.copy(image_link)
-    return
-
-#print a dictionary readable for humans
 def _dict_print(what):
+    """ Print a dictionary readable for humans """
     for key, value in sorted(what.items()):
         print(key,value)
 
+regex_URL=re.compile(r'@/(?P<a>\w*)/(?P<c>\w*)/(?P<f>\w*(\.\w+)?)(/(?P<args>[\w\.\-/]+))?')
+def replace_at_urls(text,url):
+    """
+    Transform media all links in a string into absolute urls
+    ex: text='src="@/a/c/f/15/image.jpg"' ==> r=src="http://localhost:8080/a/c/f/15/image.jpg"
+    This is taken from gluon/contrib/markmin/makmin2html.py
+    """
+    def pattern(match,url=url):
+        a,c,f,args = match.group('a','c','f','args')
+        r = url(a=a or None,c=c or None,f = f or None,
+                   args=(args or '').split('/'), scheme=True, host=True)
+        return r
+    r = regex_URL.sub(pattern,text)
+    return r    # String
+
+def URLx(a,c,f,args,scheme=False,host=False):
+    """
+    Special url generation. a/c/download/file
+    Called in regex_URL.sub(...) passed to replace_at_urls(text,ur1) as 2nd formal parameter.
+    [attention: only possible in functional programming - mind blowing functional hack!]
+    """
+    id = args[0]
+    real_filename = db.cm_images[id].file        
+#    print lineno(),id,real_filename
+    r = URL(a=a or None,c=c or None,f ='download',
+               args=[real_filename], scheme=scheme, host=host)
+    return r
+    
 #db = DAL('sqlite://storage.sqlite',pool_size=1,check_reserved=['all'])
 db = DAL("sqlite://storage.sqlite")
 
@@ -89,6 +111,7 @@ auth.settings.extra_fields['auth_user'] = [
 ]
 ## before auth.define_tables(username=False, signature=False)
 auth.define_tables(username=False, signature=False)
+#auth.wiki(resolve=False)
 
 db.define_table('address',
 	Field('street', requires=IS_NOT_EMPTY(error_message='please enter street!')),

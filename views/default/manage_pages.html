@@ -4,18 +4,29 @@
 {{extend 'layout.html'}}
 {{#=response.toolbar()}}
 {{block center}}
-	<div style="margin-bottom:20px" ><span style="font-size:x-large">WIKI page manager&nbsp;</span>
-	{{if media:}}
+{{
+	page_title=custom_items['page_title']
+	url=custom_items['button']['url']
+	label=custom_items['button']['label']
+	view=custom_items['view']
+}}
+
+	<div style="margin-bottom:20px" ><span style="font-size:x-large">{{=page_title}}&nbsp;</span>
+	{{if view:}}
 		<span>
-			<a href="{{=URL('manage_media')}}" class="btn btn-default">					
+			<a href="{{=url}}" class="btn btn-default">					
 				<span class="custom-button icon magnifier icon-zoom-in glyphicon glyphicon-hand-right"> 
-					Media
+					{{=label}}
 					  </span></a></button></span>
 	{{pass}}
 	</div>
 
 	{{=grid}}
 	
-	<hr>
-	<p>(1) Preview rendered page content.</p>
+	{{if page_title == 'Pages':}}
+		<hr>
+		<div style="font-size: smaller">
+		<p>[1] Preview rendered page content.</p>
+		</div>
+	{{pass}}
 {{end}}

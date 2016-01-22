@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-
+from string import  rsplit
 import logging
+
 logger = logging.getLogger('rotary')
 logger.setLevel(logging.INFO)
 
@@ -12,8 +13,9 @@ def index():
 #    pages = []    # test for empty table
     if len(pages) == 0:
         return dict(message=T('Welcome to web2py!'),pages=[])
-    else:
-        return dict(message=T('Welcome to web2py!'),pages=pages)
+    for page in pages:   # all published wiki pages
+        page.body = replace_at_urls(page.body,URLx)# here comes the hack! Function object URLx passed not URL!
+    return dict(message=T('Welcome to web2py!'),pages=pages)
 
 @auth.requires_login()
 def create_page():
@@ -33,57 +35,83 @@ def create_page():
             response.flash='please fill out the form'  
     elif '_preview' in request.args:
         page_ID = request.args[1]
-        page_record = db(db.cm_pages.id == page_ID).select().first()
-        return dict(title = page_record.title, body = XML(page_record.body))
+        page = db(db.cm_pages.id == page_ID).select().first()
+        page.body = replace_at_urls(page.body,URLx)# here comes the hack! Function object URLx passed not URL!
+        return dict(title = page.title, body = XML(page.body))
     return dict(form=form)
 
 @auth.requires_login()
 def manage_pages():
     logger.debug("%s",'manage_pages()')
-    if len(request.args) != 0 and 'new' in request.args:
-        form = SQLFORM(db.cm_pages).process()
-        if form.accepted:
+#    print lineno(),request.function,request.args
+    custom_items=dict(
+                      page_title='Pages',
+                      button=dict(
+                                  url=URL('manage_media'),
+                                  label='Media'),
+                      view=True)
+    if len(request.args) >= 2 and 'new' == request.args[1]:
+        grid = SQLFORM(db.cm_pages).process()
+        if grid.accepted:
             session.flash="success: new page!"
             redirect(URL())
-        elif form.errors:
+        elif grid.errors:
             response.flash='page form has errors'
         else:
             response.flash='please fill out the form'  
-        return dict(grid=form,media=False)
-
-    view_button_xml = \
-        XML('<span class="icon magnifier icon-zoom-in glyphicon glyphicon-eye-open"></span><span class="buttontext button" title="Preview">''</span>')
-    custom_links = [
-       dict(header='Preview¹',body=lambda row:A(view_button_xml,_class='button btn btn-default', \
-                                        _href=URL('create_page',args=['_preview',row.id,'']))),]
-    grid=SQLFORM.smartgrid(db.cm_pages, 
-                           details=True, 
-                           csv=False, 
-                           create=True, 
-                           linked_tables=['cm_images'],
-                           links=dict(cm_pages=custom_links,cm_images=[]))
-    return dict(grid=grid,media=True)
+    else:
+        view_button_xml = \
+            XML('<span class="icon magnifier icon-zoom-in glyphicon glyphicon-eye-open"></span><span class="buttontext button" title="Preview">''</span>')
+        custom_links = [
+                        dict(header='Preview¹',
+                        body=lambda row:A(view_button_xml,_class='button btn btn-default',
+                        _href=URL('create_page',args=['_preview',row.id,'']))),]
+        grid=SQLFORM.smartgrid(db.cm_pages, 
+                               details=True, 
+                               csv=False, 
+                               create=True, 
+                               linked_tables=['cm_images'],
+                               links=dict(cm_pages=custom_links,cm_images=[]))
+    if len(request.args) >=3 and 'cm_images.in_page' == request.args[1]:
+        custom_items=dict(
+                          page_title='Media-in-Page',
+                          button=dict(
+                                      url=URL('manage_pages'),
+                                      label='Pages'),
+                          view=True)
+    return dict(grid=grid,custom_items=custom_items)
 
 @auth.requires_login()
 def manage_media():
     logger.debug("%s",'manage_media()')
-    if len(request.args) != 0 and 'new' in request.args:
-        form = SQLFORM(db.cm_images).process()
-        if form.accepted:
+#    print lineno(),request.function,request.args
+    pages=True
+    if 'new' in request.args:
+        pages=False
+        form = SQLFORM(db.cm_images)
+        if form.process().accepted:
             response.flash="success: new media link now on clipboard!"
-            to_clipboard(form.vars.file)
             form.add_button("Page manager",URL('manage_pages'))
-#            redirect(URL())
         elif form.errors:
             response.flash='image form has errors'
         else:
             response.flash='please fill out the form'  
-        return dict(grid=form,pages=False)
+        return dict(grid=form,pages=pages)
+
+    if 'view' in request.args or 'edit' in request.args:
+        pages=False
 
     custom_links = [
-       dict(header='Link¹',body=lambda row:A('copy',_href=URL('copy_media_link',args=[row.id]))),]
-    grid = SQLFORM.grid(db.cm_images,details=True,csv=False,create=True,links=custom_links)
-    return dict(grid=grid,pages=True)
+                    dict(header='Media Link¹',
+                    body=lambda row: A('copy',_href=URL('copy_media_link',args=[row.id,row.title,row.file,row.in_page]))),
+                    ]
+    grid = SQLFORM.grid(db.cm_images,
+                             details=True,
+                             csv=False,
+                             create=True,
+                             links=custom_links)
+
+    return dict(grid=grid,pages=pages)
 
 def show_media():
 #    display individual media
@@ -93,12 +121,21 @@ def show_media():
 
 @auth.requires_login()
 def copy_media_link():
-#    copy the media link to the clipboard
+#    copy the media link to the page source
     logger.debug("%s",'copy_media_link()')
-    image_ID=request.args(0,cast=int)
-    image = db(db.cm_images.id == image_ID).select()[0]
-    to_clipboard(image.file)
-    redirect(URL('manage_media'))
+    args = request.args
+    args=dict(image_id=args[0],image_title=args[1],image_file=args[2],page_id=args[3])
+#    print lineno(),args
+    page = db.cm_pages[args['page_id']]
+    body = page.body
+    suffix = rsplit(args['image_file'],".",1)[1]
+    media_link="@////"+str(args['image_id'])+"/"+args['image_title']+"."+suffix
+#    print lineno(),media_link
+    body = body+"\n<!-- "+media_link+" -->"
+#    print lineno(),body
+    page.update_record(body=body)
+    session.flash="Link pasted to page \""+page.slug+"\""
+    redirect(URL('manage_pages'))
     return
 
 def site_closed():
