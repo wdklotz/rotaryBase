@@ -101,3 +101,4 @@ timestamp: 2016-01-16T10:49:38.110000
 ALTER TABLE cm_defaults ADD def_id_photo CHAR(512);
 success!
  
+success!
