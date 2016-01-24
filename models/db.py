@@ -28,7 +28,7 @@ def replace_at_urls(text,url):
 
 def URLx(a,c,f,args,scheme=False,host=False):
     """
-    Special url generation. a/c/download/file
+    Special dynamic url generation. http://..../[app]/default/download/[filename]
     Called in regex_URL.sub(...) passed to replace_at_urls(text,ur1) as 2nd formal parameter.
     [attention: only possible in functional programming - mind blowing functional hack!]
     """

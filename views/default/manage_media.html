@@ -10,7 +10,7 @@
 {{block center}}
 {{page_title='Media'}}
 	<div style="margin-bottom: 20px" ><span style="font-size:x-large">{{=page_title}}&nbsp;</span>
-	{{if pages:}}
+	{{if footnote:}}
 		<span>
 			<a href="{{=URL('manage_pages')}}" class="btn btn-default">					
 					<span class="custom-button icon magnifier icon-zoom-in glyphicon glyphicon-hand-right">
@@ -21,7 +21,7 @@
 
 	{{=grid}}	
 
- 	{{if pages:}}
+ 	{{if footnote:}}
  	<hr>
  	<div style="font-size:smaller">
 	    <p>[1] You can use the <span class="f-text">Add Record</span> action to upload a media file (for example an image) and link it to a page. 

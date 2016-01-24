@@ -12,14 +12,13 @@ def index():
     pages = db(db.cm_pages.id>0 and db.cm_pages.publish==True).select()
 #    pages = []    # test for empty table
     if len(pages) == 0:
-        return dict(message=T('Welcome to web2py!'),pages=[])
+        return dict(message=T('Welcome to Rotary!'),pages=[])
     for page in pages:   # all published wiki pages
         page.body = replace_at_urls(page.body,URLx)# here comes the hack! Function object URLx passed not URL!
-    return dict(message=T('Welcome to web2py!'),pages=pages)
+    return dict(message=T('Welcome to Rotary!'),pages=pages)
 
 @auth.requires_login()
 def create_page():
-#    create new page content
     logger.debug("%s",'create_page()')
     if len(request.args) == 0:
         form=dict()
@@ -44,6 +43,7 @@ def create_page():
 def manage_pages():
     logger.debug("%s",'manage_pages()')
 #    print lineno(),request.function,request.args
+    footnote = True
     custom_items=dict(
                       page_title='Pages',
                       button=dict(
@@ -73,19 +73,23 @@ def manage_pages():
                                linked_tables=['cm_images'],
                                links=dict(cm_pages=custom_links,cm_images=[]))
     if len(request.args) >=3 and 'cm_images.in_page' == request.args[1]:
+        footnote = False
         custom_items=dict(
                           page_title='Media-in-Page',
                           button=dict(
                                       url=URL('manage_pages'),
                                       label='Pages'),
                           view=True)
-    return dict(grid=grid,custom_items=custom_items)
+    if 'edit' in request.args or 'view' in request.args:
+        footnote = False
+        
+    return dict(grid=grid,custom_items=custom_items,footnote=footnote)
 
 @auth.requires_login()
 def manage_media():
     logger.debug("%s",'manage_media()')
 #    print lineno(),request.function,request.args
-    pages=True
+    footnote=True
     if 'new' in request.args:
         pages=False
         form = SQLFORM(db.cm_images)
@@ -96,10 +100,10 @@ def manage_media():
             response.flash='image form has errors'
         else:
             response.flash='please fill out the form'  
-        return dict(grid=form,pages=pages)
+        return dict(grid=form,footnote=footnote)
 
     if 'view' in request.args or 'edit' in request.args:
-        pages=False
+        footnote=False
 
     custom_links = [
                     dict(header='Media Link¹',
@@ -111,28 +115,28 @@ def manage_media():
                              create=True,
                              links=custom_links)
 
-    return dict(grid=grid,pages=pages)
+    return dict(grid=grid,footnote=footnote)
 
-def show_media():
-#    display individual media
-    logger.debug("%s",'show_media()')
-    image = db.cm_images(request.args(0,cast=int)) or redirect(URL('index'))
-    return locals()
+#def show_media():
+##    display individual media
+#    logger.debug("%s",'show_media()')
+#    image = db.cm_images(request.args(0,cast=int)) or redirect(URL('index'))
+#    return locals()
 
 @auth.requires_login()
 def copy_media_link():
-#    copy the media link to the page source
+    """ copy the media link to the page source """
     logger.debug("%s",'copy_media_link()')
     args = request.args
+    if len(args) != 4: 
+        session.flash = "Medium not linked to a page!"
+        redirect(URL('manage_media'))
     args=dict(image_id=args[0],image_title=args[1],image_file=args[2],page_id=args[3])
-#    print lineno(),args
     page = db.cm_pages[args['page_id']]
     body = page.body
     suffix = rsplit(args['image_file'],".",1)[1]
     media_link="@////"+str(args['image_id'])+"/"+args['image_title']+"."+suffix
-#    print lineno(),media_link
     body = body+"\n<!-- "+media_link+" -->"
-#    print lineno(),body
     page.update_record(body=body)
     session.flash="Link pasted to page \""+page.slug+"\""
     redirect(URL('manage_pages'))
