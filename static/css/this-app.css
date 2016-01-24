@@ -4,6 +4,12 @@ body {
     /* background-color:#4BABE8; */
     background-color:white;
 }
+#cm_pages_body {
+	height:20em;
+}
+#cm_pages_title, #cm_pages_body, #cm_images_title{
+	width:55em;
+}
 #max-wrapper{
     /* background-color:yellow; */
 }
