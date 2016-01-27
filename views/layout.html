@@ -36,7 +36,30 @@
 <!-- this app's stylesheets -->
 <link rel="stylesheet" href="{{=URL('static','css/this-app.css')}}"/>
 {{include 'web2py_ajax.html'}} <!-- this includes jquery.js, calendar.js/.css and web2py.js -->
+
 {{block head}}{{end}}
+
+<!--------- TINYMCE editor ------------>
+<script src="{{=URL('static','js/tinymce/tinymce.min.js')}}"></script>
+<script>
+tinymce.init({
+  selector: 'textarea',
+  height: 300,
+  width:767,
+  statusbar: false,
+  plugins: [
+    'advlist autolink lists link image charmap print preview anchor',
+    'searchreplace visualblocks code fullscreen',
+    'insertdatetime media table contextmenu paste code'
+  ],
+  toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+  content_css: [
+    '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
+    '//www.tinymce.com/css/codepen.min.css'
+  ]
+});	
+</script>
+
 {{
 # using sidebars need to know what sidebar you want to use
 mc0 = 'col-md-12'   # 100%
@@ -197,6 +220,7 @@ middle_column = {0: mc0, 1: mc1, 2: mc2}[(left_sidebar_enabled and 1 or 0)+(righ
   });
 </script>
 {{pass}}
+<!----------------- CKEDITOR relacement of textarea -------------------------->
 <!-- Share ============================y============ -->
 <!-- <script src="{{=URL('static','js/share.js',vars=dict(static=URL('static','images')))}}"></script> -->
 </body>

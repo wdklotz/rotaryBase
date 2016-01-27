@@ -38,7 +38,7 @@ def URLx(a,c,f,args,scheme=False,host=False):
     r = URL(a=a or None,c=c or None,f ='download',
                args=[real_filename], scheme=scheme, host=host)
     return r
-    
+
 #db = DAL('sqlite://storage.sqlite',pool_size=1,check_reserved=['all'])
 db = DAL("sqlite://storage.sqlite")
 
