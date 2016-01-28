@@ -39,6 +39,7 @@
 
 {{block head}}{{end}}
 
+{{if tinymce_enabled:}}
 <!--------- TINYMCE editor ------------>
 <script src="{{=URL('static','js/tinymce/tinymce.min.js')}}"></script>
 <script>
@@ -62,6 +63,7 @@ tinymce.init({
   ],
 });	
 </script>
+{{pass}}
 
 {{
 # using sidebars need to know what sidebar you want to use
