@@ -52,6 +52,7 @@ def manage_pages():
     if len(request.args) >= 2 and 'new' == request.args[1]:
         grid = SQLFORM(db.cm_pages).process()
         grid[0].insert(-3,tinymce_checkbutton)   # postion the tinymce checkbutton
+        footnote = False
         if grid.accepted:
             session.flash="success: new page!"
             redirect(URL())
@@ -94,7 +95,7 @@ def manage_media():
 #    print lineno(),request.function,request.args
     footnote=True
     if 'new' in request.args:
-        pages=False
+        footnote=False
         form = SQLFORM(db.cm_images)
         if form.process().accepted:
             response.flash="success: new media link now on clipboard!"
