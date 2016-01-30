@@ -1,7 +1,7 @@
 sessions/*
-*~
-*.swp
-*.bak
+**~
+**.swp
+**.bak
 errors/*
-*.log
-*.pyc
+**.log
+**.pyc
