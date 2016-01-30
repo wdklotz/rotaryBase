@@ -110,3 +110,4 @@ CREATE TABLE plugin_ckeditor_upload(
     upload CHAR(512)
 );
 success!
+success!
