@@ -48,7 +48,7 @@ def manage_pages():
     custom_items=dict(
                       page_title='Pages',
                       button=dict(url=URL('manage_media'),label='Media'),
-                      view=True)
+                      visible=True)
     if len(request.args) >= 2 and 'new' == request.args[1]:
         grid = SQLFORM(db.cm_pages).process()
         grid[0].insert(-3,tinymce_checkbutton)   # postion the tinymce checkbutton
@@ -61,11 +61,11 @@ def manage_pages():
         else:
             response.flash='please fill out the form'  
     else:
-        view_button_xml = \
+        view_btn = \
             XML('<span class="icon magnifier icon-zoom-in glyphicon glyphicon-eye-open"></span><span class="buttontext button" title="Preview">''</span>')
         custom_links = [
                         dict(header='Preview¹',
-                        body=lambda row:A(view_button_xml,_class='button btn btn-default',
+                        body=lambda row:A(view_btn,_class='button btn btn-default',
                         _href=URL('create_page',args=['_preview',row.id,'']))),]
         grid=SQLFORM.smartgrid(db.cm_pages, 
                                details=True, 
@@ -80,7 +80,7 @@ def manage_pages():
                           button=dict(
                                       url=URL('manage_pages'),
                                       label='Pages'),
-                          view=True)
+                          visible=True)
     if 'edit' in request.args:
         grid[2][0].insert(3,tinymce_checkbutton)   # postion the tinymce checkbutton
         footnote = False
@@ -121,12 +121,6 @@ def manage_media():
 
     return dict(grid=grid,footnote=footnote)
 
-#def show_media():
-##    display individual media
-#    logger.debug("%s",'show_media()')
-#    image = db.cm_images(request.args(0,cast=int)) or redirect(URL('index'))
-#    return locals()
-
 @auth.requires_login()
 def copy_media_link():
     """ copy the media link to the page source """
@@ -159,7 +153,7 @@ def user():
     logger.debug("%s",'user()')
     if request.args[0] == "register":
         request.vars._next=URL("new_registration") # next action after registration form
-    return dict(form=auth())  # same as: return {'form':auth()}
+    return dict(form=auth())  
 
 def new_registration():
     logger.debug("%s",'new_registration()')
@@ -174,10 +168,7 @@ def new_registration():
 
 @cache.action()
 def download():
-    """
-    allows downloading of uploaded files
-    http://..../[app]/default/download/[filename]
-    """
+    """ allows downloading of uploaded files http://..../[app]/default/download/[filename] """
     return response.download(request, db)
     
 def members():
@@ -216,6 +207,12 @@ def edit_addresses():
     return dict(grid=grid)
 
 #----------------------------------legacy and test stuff-------------------------------------------
+#def show_media():
+##    display individual media
+#    logger.debug("%s",'show_media()')
+#    image = db.cm_images(request.args(0,cast=int)) or redirect(URL('index'))
+#    return locals()
+
 #def iframe():
 #    return XML('<iframe width="900" height="1200" scrolling="auto" src="http://matthewjamestaylor.com/blog/perfect-2-column-left-menu.htm"><p>Your browser does not support iframes.</p></iframe>')
 
@@ -225,6 +222,7 @@ def edit_addresses():
 #    s = "<html>MESSAGE FROM APP2: You requested <strong>%s</strong></html>"
 #    s %= environ['PATH_INFO']
 #    return [s]
+
 #class LowercaseMiddleware:
 #    def __init__(self, application):
 #        self.application = application   # A WSGI application callable.
@@ -233,6 +231,7 @@ def edit_addresses():
 #        pass  # We could set an item in 'environ' or a local variable.
 #        for chunk in self.application(environ, start_response):
 #            yield chunk.lower()
+
 #def moin():
 #    app = LowercaseMiddleware(app2)
 #    return app(request.wsgi.environ,request.wsgi.start_response)

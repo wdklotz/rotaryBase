@@ -2,7 +2,7 @@
 import re
 import inspect
 
-# tinymce editor toggle button
+# TINYMCE-Editor toggle button
 tinymce_checkbutton_enabled = False
 tinymce_checkbutton = SPAN('WYSIWYG ',
                          INPUT(_type='checkbox',
@@ -75,8 +75,8 @@ response.generic_patterns = ['*'] if request.is_local else []
 #########################################################################
 # from gluon.tools import Auth, Crud, Service, PluginManager, prettydate
 # crud, service, plugins = Crud(db), Service(), PluginManager()
-
 from gluon.tools import Auth
+
 auth = Auth(db)
 
 ## configure email
@@ -122,7 +122,6 @@ auth.settings.extra_fields['auth_user'] = [
 ]
 ## before auth.define_tables(username=False, signature=False)
 auth.define_tables(username=False, signature=False)
-#auth.wiki(resolve=False)
 
 db.define_table('address',
 	Field('street', requires=IS_NOT_EMPTY(error_message='please enter street!')),
@@ -191,7 +190,6 @@ db.define_table('cm_defaults',
 #    following sentence to your model file (i.e. db.py)
 # Make sure this is called after the auth instance is created
 #     and before any change to the wiki tables (wdk)
-
 #use_render['markmin']()
 #use_render['markdown']()
 #use_render['html']()

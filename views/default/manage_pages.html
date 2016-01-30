@@ -8,11 +8,11 @@
 	page_title=custom_items['page_title']
 	url=custom_items['button']['url']
 	label=custom_items['button']['label']
-	view=custom_items['view']
+	visible=custom_items['visible']
 }}
 
 	<div style="margin-bottom:20px" ><span style="font-size:x-large">{{=page_title}}&nbsp;</span>
-	{{if view:}}
+	{{if visible:}}
 		<span>
 			<a href="{{=url}}" class="btn btn-default">					
 				<span class="custom-button icon magnifier icon-zoom-in glyphicon glyphicon-hand-right"> 

@@ -213,11 +213,13 @@ tinymce_settings = {
 	    '//www.tinymce.com/css/codepen.min.css'
 	  ],};
 </script>
+
 {{if tinymce_checkbutton_enabled: }}	
 <script>  
-	tinymce.init(tinymce_settings);	// init tinymce editor before page load
+	tinymce.init(tinymce_settings);	// init TINYMCE-Editor before page load
 </script>
 {{pass}}
+
 <script>
 function toggle_tinymce_checkbutton(checkButtonId,strItemId){
 var toggle = $('#'+checkButtonId);  // id if checkbutton w/o #
@@ -233,7 +235,7 @@ if(toggle.attr('value') == 'on') {
 </script>
 <!----end----- TINYMCE editor ------------>
 
-{{block page_js}}{{end page_js}}
+{{block page_js}}{{end}}
 {{if response.google_analytics_id:}}
 <!-- Analytics ==================================== -->
 	<script src="{{=URL('static','js/analytics.min.js')}}"></script>
