@@ -24,6 +24,7 @@ def create_page():
         form=dict()
     elif '_create' in request.args:
         form=SQLFORM(db.cm_pages).process()
+        form[0].insert(2,tinymce_checkbutton)   # postion the tinymce checkbutton
         if form.accepted:
             page_ID = form.vars.id
             session.flash='page accepted'
@@ -46,12 +47,11 @@ def manage_pages():
     footnote = True
     custom_items=dict(
                       page_title='Pages',
-                      button=dict(
-                                  url=URL('manage_media'),
-                                  label='Media'),
+                      button=dict(url=URL('manage_media'),label='Media'),
                       view=True)
     if len(request.args) >= 2 and 'new' == request.args[1]:
         grid = SQLFORM(db.cm_pages).process()
+        grid[0].insert(-3,tinymce_checkbutton)   # postion the tinymce checkbutton
         if grid.accepted:
             session.flash="success: new page!"
             redirect(URL())
@@ -80,7 +80,10 @@ def manage_pages():
                                       url=URL('manage_pages'),
                                       label='Pages'),
                           view=True)
-    if 'edit' in request.args or 'view' in request.args:
+    if 'edit' in request.args:
+        grid[2][0].insert(3,tinymce_checkbutton)   # postion the tinymce checkbutton
+        footnote = False
+    if 'view' in request.args:
         footnote = False
         
     return dict(grid=grid,custom_items=custom_items,footnote=footnote)

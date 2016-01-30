@@ -2,6 +2,17 @@
 import re
 import inspect
 
+# tinymce editor toggle button
+tinymce_checkbutton_enabled = False
+tinymce_checkbutton = SPAN('WYSIWYG ',
+                         INPUT(_type='checkbox',
+                               _class='boolean',
+                               _id='WYSIWYG',
+                               _value='on' if tinymce_checkbutton_enabled else 'off',
+                               _checked = tinymce_checkbutton_enabled,
+                               _onclick="toggle_tinymce_checkbutton('WYSIWYG','cm_pages_body')",
+                               ))
+
 def lineno():
     """ Returns the current line number in our program."""
     return inspect.currentframe().f_back.f_lineno

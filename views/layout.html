@@ -39,32 +39,6 @@
 
 {{block head}}{{end}}
 
-{{if tinymce_enabled:}}
-<!--------- TINYMCE editor ------------>
-<script src="{{=URL('static','js/tinymce/tinymce.min.js')}}"></script>
-<script>
-tinymce.init({
-  selector: 'textarea',
-  height: 300,
-  width:767,
-  statusbar: false,
-  convert_urls: false,
-  valid_children: '+body[style]',
-  plugins: [
-    'advlist autolink lists link image charmap print preview anchor',
-    'searchreplace visualblocks code fullscreen',
-    'insertdatetime media table contextmenu paste code',
-    'textcolor',
-  ],
-  toolbar: 'undo redo | styleselect | bold italic | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link code',
-  content_css: [
-    '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
-    '//www.tinymce.com/css/codepen.min.css'
-  ],
-});	
-</script>
-{{pass}}
-
 {{
 # using sidebars need to know what sidebar you want to use
 mc0 = 'col-md-12'   # 100%
@@ -215,19 +189,61 @@ middle_column = {0: mc0, 1: mc1, 2: mc2}[(left_sidebar_enabled and 1 or 0)+(righ
 
 <script src="{{=URL('static','js/bootstrap.min.js')}}"></script>
 <script src="{{=URL('static','js/web2py-bootstrap3.js')}}"></script>
+
+<!----block---- TINYMCE editor ------------>
+<script src="{{=URL('static','js/tinymce/tinymce.min.js')}}"></script>
+
+<script>
+tinymce_settings = {
+	  selector: '#cm_pages_body',
+	  height: 300,
+	  width:767,
+	  statusbar: false,
+	  convert_urls: false,
+	  valid_children: '+body[style]',
+	  plugins: [
+	    'advlist autolink lists link image charmap print preview anchor',
+	    'searchreplace visualblocks code fullscreen',
+	    'insertdatetime media table contextmenu paste code',
+	    'textcolor',
+	  ],
+	  toolbar: 'undo redo | styleselect | bold italic | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link code',
+	  content_css: [
+	    '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
+	    '//www.tinymce.com/css/codepen.min.css'
+	  ],};
+</script>
+{{if tinymce_checkbutton_enabled: }}	
+<script>  
+	tinymce.init(tinymce_settings);	// init tinymce editor before page load
+</script>
+{{pass}}
+<script>
+function toggle_tinymce_checkbutton(checkButtonId,strItemId){
+var toggle = $('#'+checkButtonId);  // id if checkbutton w/o #
+if(toggle.attr('value') == 'on') {
+	var editor = tinymce.EditorManager.get(strItemId); // strItemId = id of textarea w/o #
+	editor.remove();
+	toggle.attr('value','off');
+} else {
+	var editor = tinymce.EditorManager.createEditor(strItemId,tinymce_settings);
+	editor.render();
+	toggle.attr('value','on');}
+}
+</script>
+<!----end----- TINYMCE editor ------------>
+
 {{block page_js}}{{end page_js}}
 {{if response.google_analytics_id:}}
 <!-- Analytics ==================================== -->
-<script src="{{=URL('static','js/analytics.min.js')}}"></script>
-<script type="text/javascript">
-  analytics.initialize({
-  'Google Analytics':{trackingId:'{{=response.google_analytics_id}}'}
-  });
-</script>
+	<script src="{{=URL('static','js/analytics.min.js')}}"></script>
+	<script type="text/javascript">
+	  analytics.initialize({
+	  'Google Analytics':{trackingId:'{{=response.google_analytics_id}}'}
+	  });
+	</script>
 {{pass}}
-<!----------------- CKEDITOR relacement of textarea -------------------------->
 <!-- Share ============================y============ -->
 <!-- <script src="{{=URL('static','js/share.js',vars=dict(static=URL('static','images')))}}"></script> -->
 </body>
-
 </html>
