@@ -11,7 +11,7 @@ tinymce_checkbutton = SPAN('WYSIWYG ',
                                _id='WYSIWYG',
                                _value= session.tinymce_enabled,
                                _checked = True if session.tinymce_enabled == 'on' else False,
-                               _onclick="toggle_tinymce_checkbutton('WYSIWYG','cm_pages_body')",
+                               _onclick="toggle_tinymce_checkbutton('WYSIWYG','cm_pages_body');",
                                ))
 
 def lineno():

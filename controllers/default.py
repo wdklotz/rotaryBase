@@ -22,11 +22,14 @@ def create_page():
     logger.debug("%s",'create_page()')
 #    print lineno(),request.function,request.args,request.vars
 #    print lineno(),tinymce_checkbutton
+    if request.ajax and '_toggle' in request.args:       # $.post('_toggle',...) lands here
+        session.tinymce_enabled = request.vars.state
+        return
     if len(request.args) == 0:
         form=dict()
     elif '_create' in request.args:
         form=SQLFORM(db.cm_pages).process()
-        form[0].insert(2,tinymce_checkbutton)   # postion the tinymce checkbutton
+        form[0].insert(2,tinymce_checkbutton)   # position the tinymce checkbutton
         if form.accepted:
             page_ID = form.vars.id
             session.flash='page accepted'
@@ -40,24 +43,23 @@ def create_page():
         page = db(db.cm_pages.id == page_ID).select().first()
         page.body = replace_at_urls(page.body,URLx)# here comes the hack! Function object URLx passed not URL!
         return dict(title = page.title, body = XML(page.body))
-    elif '_toggle' in request.args:       # jQuery Ajax call lands here
-#        print lineno(),request.vars.state
-        session.tinymce_enabled = request.vars.state
-        return
     return dict(form=form)
 
 @auth.requires_login()
 def manage_pages():
     logger.debug("%s",'manage_pages()')
 #    print lineno(),request.function,request.args,request.vars
+    if request.ajax and '_toggle' in request.args:       # $.post('_toggle',...) lands here
+        session.tinymce_enabled = request.vars.state
+        return
     footnote = True
     custom_items=dict(
                       page_title='Pages',
                       button=dict(url=URL('manage_media'),label='Media'),
                       visible=True)
-    if len(request.args) >= 2 and 'new' == request.args[1] and '_toggle' not in request.args:
+    if len(request.args) >= 2 and 'new' == request.args[1]:
         grid = SQLFORM(db.cm_pages).process()
-        grid[0].insert(-3,tinymce_checkbutton)   # postion the tinymce checkbutton
+        grid[0].insert(-3,tinymce_checkbutton)   # position the tinymce checkbutton
         footnote = False
         if grid.accepted:
             session.flash="success: new page!"
@@ -66,10 +68,6 @@ def manage_pages():
             response.flash='page form has errors'
         else:
             response.flash='please fill out the form'  
-    elif '_toggle' in request.args:   # jQuery Ajax call lands here
-#        print lineno(),request.vars.state
-        session.tinymce_enabled = request.vars.state
-        return
     else:
         view_btn = \
             XML('<span class="icon magnifier icon-zoom-in glyphicon glyphicon-eye-open"></span><span class="buttontext button" title="Preview">''</span>')
