@@ -3,13 +3,14 @@ import re
 import inspect
 
 # TINYMCE-Editor toggle button
-tinymce_checkbutton_enabled = False
+if session.tinymce_enabled is None:
+    session.tinymce_enabled = 'off'
 tinymce_checkbutton = SPAN('WYSIWYG ',
                          INPUT(_type='checkbox',
                                _class='boolean',
                                _id='WYSIWYG',
-                               _value='on' if tinymce_checkbutton_enabled else 'off',
-                               _checked = tinymce_checkbutton_enabled,
+                               _value= session.tinymce_enabled,
+                               _checked = True if session.tinymce_enabled == 'on' else False,
                                _onclick="toggle_tinymce_checkbutton('WYSIWYG','cm_pages_body')",
                                ))
 

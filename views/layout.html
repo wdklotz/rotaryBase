@@ -27,12 +27,9 @@
 <link rel="stylesheet" href="{{=URL('static','css/web2py-bootstrap3.css')}}"/>
 <link rel="shortcut icon" href="{{=URL('static','images/favicon.ico')}}" type="image/x-icon">
 <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
-<!-- All JavaScript at the bottom, except for Modernizr which enables
-     HTML5 elements & feature detects -->
+<!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
 <script src="{{=URL('static','js/modernizr-2.8.3.min.js')}}"></script>
-<!--[if lt IE 9]>
-    <script src="{{=URL('static','js/respond-1.4.2.min.js')}}"></script>
-    <![endif]-->
+<!--[if lt IE 9]><script src="{{=URL('static','js/respond-1.4.2.min.js')}}"></script><![endif]-->
 <!-- this app's stylesheets -->
 <link rel="stylesheet" href="{{=URL('static','css/this-app.css')}}"/>
 {{include 'web2py_ajax.html'}} <!-- this includes jquery.js, calendar.js/.css and web2py.js -->
@@ -96,9 +93,7 @@ middle_column = {0: mc0, 1: mc1, 2: mc2}[(left_sidebar_enabled and 1 or 0)+(righ
 	<div class="panel panel-info" id="left_panel">
 	    <div class="panel-heading" name="sidebar">
 	        <h3 class="panel-title">
-	            <!-- <a class="btn-block" href="{{=URL('admin','default','index')}}"> -->
 	            <i class="glyphicon glyphicon-cog"></i> {{=T("read more")+" ..."}}
-	            <!-- </a> -->
 	        </h3>
 	    </div>
 	  <ul class="list-group" name="sidebar">
@@ -108,8 +103,6 @@ middle_column = {0: mc0, 1: mc1, 2: mc2}[(left_sidebar_enabled and 1 or 0)+(righ
 	    <li class="list-group-item"><a href="index#pressModal" data-toggle="modal" data-target="#pressModal">Press</a></li>
 	    <li class="list-group-item"><a href="index#ethicsModal" data-toggle="modal" data-target="#ethicsModal">Ethics</a></li>
 	    <li class="list-group-item"><a href="index#meetingshModal" data-toggle="modal" data-target="#meetingshModal">Meetings</a></li>
-	    <!-- <li class="list-group-item">{{=A(T("What's' new?"),_href='#')}}</li> -->
-	    <!-- <li class="list-group-item">{{=A(T("Contact"), _href=URL(request.application,'default','index'))}}</li> -->
 	    <li class="list-group-item"><a href="http://www.rotary-site.org/contact.php?SiteID=400&lang=fr">Contact</a></li>
 	    <li class="list-group-item">{{=A(T("Invitations"), _href=URL(request.application,'default','index'))}}</li>
 	    <li class="list-group-item">{{=A(IMG(_src=URL('static','images/end_polio_now.png'),_width='100px'), _href='http://www.endpolio.org/')}}</li>
@@ -117,20 +110,14 @@ middle_column = {0: mc0, 1: mc1, 2: mc2}[(left_sidebar_enabled and 1 or 0)+(righ
 	</div>
 	<div class="panel panel-info" id="left_panel">
 	    <div class="panel-heading" name="sidebar"><h3 class="panel-title">
-	    <!-- <a class="btn-block" href="{{=URL('admin','default','index')}}"> -->
 	        <i class="glyphicon glyphicon-cog"></i> {{=T("useful links")}}
-	    <!-- </a> -->
 	    </h3></div>
-	  <!-- <div class="panel-body" name="sidebar"> -->
-	    <!-- {{=T("Don't know what to do?")}} -->
-	  <!-- </div> -->
 	  <ul class="list-group" name="sidebar">
 	    <li class="list-group-item">{{=A(T("Rotary Int. Headquaters"),_href='https://www.rotary.org/en/')}}</li>
 	    <li class="list-group-item">{{=A(T("District 1760"),_href='http://www.rotary-d1760.com/')}}</li>
 	    <li class="list-group-item">{{=A(T("Meeting minutes"), _href="https://drive.google.com/drive/folders/0B_-2Mp8GY48qUlNqTjdDa1VtWTg")}}</li>
 	    <li class="list-group-item">{{=A(T("Shared documents"),_href='https://drive.google.com/?utm_medium=et&utm_source=about&utm_campaign=et-about#folders/0B_-2Mp8GY48qYWs1SjlUcHF2ejA')}}</li>
 	    <li class="list-group-item">{{=A(T("Meeting doodle"),_href='http://www.doodle.com/ed9nmd2txrpezd9g')}}</li>
-	    <!-- <li class="list-group-item" align="center"><img src="{{=URL('static','images/fanion.png')}}"></li> -->
 	  </ul>
 	</div>
 	{{if not rotary_banner_enabled:}}
@@ -214,7 +201,7 @@ tinymce_settings = {
 	  ],};
 </script>
 
-{{if tinymce_checkbutton_enabled: }}	
+{{if session.tinymce_enabled == 'on': }}	
 <script>  
 	tinymce.init(tinymce_settings);	// init TINYMCE-Editor before page load
 </script>
@@ -222,7 +209,7 @@ tinymce_settings = {
 
 <script>
 function toggle_tinymce_checkbutton(checkButtonId,strItemId){
-var toggle = $('#'+checkButtonId);  // id if checkbutton w/o #
+var toggle = $('#'+checkButtonId);  // checkButtonId = id of checkbutton w/o #
 if(toggle.attr('value') == 'on') {
 	var editor = tinymce.EditorManager.get(strItemId); // strItemId = id of textarea w/o #
 	editor.remove();
@@ -231,19 +218,22 @@ if(toggle.attr('value') == 'on') {
 	var editor = tinymce.EditorManager.createEditor(strItemId,tinymce_settings);
 	editor.render();
 	toggle.attr('value','on');}
+//alert(toggle.attr('value'));
+$.post('_toggle',{'state':toggle.attr('value')});  // jQuery Ajax call
 }
 </script>
 <!----end----- TINYMCE editor ------------>
 
 {{block page_js}}{{end}}
+
 {{if response.google_analytics_id:}}
 <!-- Analytics ==================================== -->
-	<script src="{{=URL('static','js/analytics.min.js')}}"></script>
-	<script type="text/javascript">
-	  analytics.initialize({
-	  'Google Analytics':{trackingId:'{{=response.google_analytics_id}}'}
-	  });
-	</script>
+<script src="{{=URL('static','js/analytics.min.js')}}"></script>
+<script type="text/javascript">
+  analytics.initialize({
+  'Google Analytics':{trackingId:'{{=response.google_analytics_id}}'}
+  });
+</script>
 {{pass}}
 <!-- Share ============================y============ -->
 <!-- <script src="{{=URL('static','js/share.js',vars=dict(static=URL('static','images')))}}"></script> -->
