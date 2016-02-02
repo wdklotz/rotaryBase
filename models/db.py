@@ -153,6 +153,7 @@ db.define_table('cm_pages',
 	Field('title',type='string',notnull=False),
 	Field('body',type='text',length='65536'),  # 65K for text
     Field('publish',type='boolean',default=False),
+    Field('dashboard',type='boolean',default=False),
     singular="Page",plural='Pages',
 	format='%(slug)s')
 

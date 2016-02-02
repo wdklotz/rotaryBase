@@ -59,10 +59,9 @@ def manage_pages():
     footnote = True
     custom_items=dict(page_title='Pages',button=dict(url=URL('manage_media'),label='Media'),visible=True)
 
-#    if len(request.args) >= 2 and 'new' == request.args[1]:
     if request.args == ['cm_pages', 'new', 'cm_pages']:
         grid = SQLFORM(db.cm_pages).process()
-        grid[0].insert(-3,tinymce_checkbutton)   # position the tinymce checkbutton
+        grid[0].insert(-4,tinymce_checkbutton)   # position the tinymce checkbutton
         footnote = False
         if grid.accepted:
             session.flash="page accepted"
@@ -114,10 +113,7 @@ def manage_media():
     if 'view' in request.args or 'edit' in request.args:
         footnote=False
 
-    custom_links = [
-                    dict(header='Media Link¹',
-                    body=lambda row: A('copy',_href=URL('copy_media_link',args=[row.id,row.title,row.file,row.in_page]))),
-                    ]
+    custom_links = [dict(header='Media Link¹',body=lambda row: A('copy',_href=URL('copy_media_link',args=[row.id,row.title,row.file,row.in_page]))),]
     grid = SQLFORM.grid(db.cm_images,
                              details=True,
                              csv=False,
@@ -152,8 +148,15 @@ def site_closed():
 
 def fluid():
     logger.debug("%s",'fluid()')
-    response.fluid = "fluid_green"
-    return dict()
+#    response.fluid = "fluid_green"
+#    return dict()
+    pages = db(db.cm_pages.id>0 and db.cm_pages.dashboard==True).select()
+#    pages = []    # test for empty table
+    if len(pages) == 0:
+        return dict(message=T('Welcome to Rotary!'),pages=[])
+    for page in pages:   # all dashboard pages
+        page.body = replace_at_urls(page.body,URLx)# here comes the hack! Function object URLx passed not URL!
+    return dict(pages=pages)
 
 def user():
     logger.debug("%s",'user()')
