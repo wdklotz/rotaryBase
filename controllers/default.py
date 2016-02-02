@@ -21,7 +21,6 @@ def index():
 def create_page():
     logger.debug("%s",'create_page()')
 #    print lineno(),request.function,request.args,request.vars
-#    print lineno(),tinymce_checkbutton
 
     if request.ajax and '_toggle' in request.args:       # $.post('_toggle',...) lands here
         session.tinymce_enabled = request.vars.state
@@ -58,6 +57,8 @@ def manage_pages():
 
     footnote = True
     custom_items=dict(page_title='Pages',button=dict(url=URL('manage_media'),label='Media'),visible=True)
+    view_btn = XML('<span class="icon magnifier icon-zoom-in glyphicon glyphicon-eye-open"></span><span class="buttontext button" title="Preview">''</span>')
+    custom_links = [dict(header='Preview¹',body=lambda row:A(view_btn,_class='button btn btn-default',_href=URL('create_page',args=['_preview',row.id,'']))),]
 
     if request.args == ['cm_pages', 'new', 'cm_pages']:
         grid = SQLFORM(db.cm_pages).process()
@@ -72,15 +73,13 @@ def manage_pages():
             response.flash='please fill out the form'  
 
     else:
-        view_btn = XML('<span class="icon magnifier icon-zoom-in glyphicon glyphicon-eye-open"></span><span class="buttontext button" title="Preview">''</span>')
-        custom_links = [dict(header='Preview¹',body=lambda row:A(view_btn,_class='button btn btn-default',_href=URL('create_page',args=['_preview',row.id,'']))),]
         grid=SQLFORM.smartgrid(db.cm_pages, 
-                               details=True, 
-                               csv=False, 
-                               create=True, 
-                               linked_tables=['cm_images'],
-                               links=dict(cm_pages=custom_links,cm_images=[]),
-                               oncreate=on_image_in_page_create,)
+           details=True, 
+           csv=False, 
+           create=True, 
+           linked_tables=['cm_images'],
+           links=dict(cm_pages=custom_links,cm_images=[]),
+           oncreate=on_image_in_page_create,)
 
     if 'edit' in request.args:
         grid[2][0].insert(3,tinymce_checkbutton)   # postion the tinymce checkbutton
@@ -96,29 +95,29 @@ def manage_media():
     logger.debug("%s",'manage_media()')
 #    print lineno(),request.function,request.args
     footnote=True
+    custom_links = [dict(header='Media Link¹',body=lambda row: A('copy',_href=URL('copy_media_link',args=[row.id,row.title,row.file,row.in_page]))),]
+
     if 'new' in request.args:
         footnote=False
-        form = SQLFORM(db.cm_images)
-        if form.process().accepted:
+        grid = SQLFORM(db.cm_images)
+        if grid.process().accepted:
             response.flash="media accepted"
-#            form.add_button("Page manager",URL('manage_pages'))
-            row = db(db.cm_images.id == form.vars.id).select().first()
+            row = db(db.cm_images.id == grid.vars.id).select().first()
             redirect(URL('copy_media_link',args=[row.id,row.title,row.file,row.in_page]))
-        elif form.errors:
+        elif grid.errors:
             response.flash='form has errors'
         else:
             response.flash='please fill out the form'  
-        return dict(grid=form,footnote=footnote)
+
+    else:
+        grid = SQLFORM.grid(db.cm_images,
+             details=True,
+             csv=False,
+             create=True,
+             links=custom_links)
 
     if 'view' in request.args or 'edit' in request.args:
         footnote=False
-
-    custom_links = [dict(header='Media Link¹',body=lambda row: A('copy',_href=URL('copy_media_link',args=[row.id,row.title,row.file,row.in_page]))),]
-    grid = SQLFORM.grid(db.cm_images,
-                             details=True,
-                             csv=False,
-                             create=True,
-                             links=custom_links)
 
     return dict(grid=grid,footnote=footnote)
 
@@ -148,9 +147,7 @@ def site_closed():
 
 def fluid():
     logger.debug("%s",'fluid()')
-#    response.fluid = "fluid_green"
-#    return dict()
-    pages = db(db.cm_pages.id>0 and db.cm_pages.dashboard==True).select()
+    pages = db(db.cm_pages.id > 0 and db.cm_pages.dashboard == True).select()
 #    pages = []    # test for empty table
     if len(pages) == 0:
         return dict(message=T('Welcome to Rotary!'),pages=[])
