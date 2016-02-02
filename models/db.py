@@ -51,6 +51,11 @@ def URLx(a,c,f,args,scheme=False,host=False):
                args=[real_filename], scheme=scheme, host=host)
     return r
 
+def on_image_in_page_create(form):
+#    print lineno(),form.vars
+    row = db(db.cm_images.id == form.vars.id).select().first()
+    redirect(URL('copy_media_link',args=[row.id,row.title,row.file,row.in_page]))
+
 #db = DAL('sqlite://storage.sqlite',pool_size=1,check_reserved=['all'])
 db = DAL("sqlite://storage.sqlite")
 

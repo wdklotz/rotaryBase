@@ -22,9 +22,11 @@ def create_page():
     logger.debug("%s",'create_page()')
 #    print lineno(),request.function,request.args,request.vars
 #    print lineno(),tinymce_checkbutton
+
     if request.ajax and '_toggle' in request.args:       # $.post('_toggle',...) lands here
         session.tinymce_enabled = request.vars.state
         return
+
     if len(request.args) == 0:
         form=dict()
     elif '_create' in request.args:
@@ -35,7 +37,7 @@ def create_page():
             session.flash='page accepted'
             redirect(URL(args=["_preview",page_ID]))
         elif form.errors:
-            response.flash='page has errors'
+            response.flash='form has errors'
         else:
             response.flash='please fill out the form'  
     elif '_preview' in request.args:
@@ -49,50 +51,43 @@ def create_page():
 def manage_pages():
     logger.debug("%s",'manage_pages()')
 #    print lineno(),request.function,request.args,request.vars
+
     if request.ajax and '_toggle' in request.args:       # $.post('_toggle',...) lands here
         session.tinymce_enabled = request.vars.state
         return
+
     footnote = True
-    custom_items=dict(
-                      page_title='Pages',
-                      button=dict(url=URL('manage_media'),label='Media'),
-                      visible=True)
-    if len(request.args) >= 2 and 'new' == request.args[1]:
+    custom_items=dict(page_title='Pages',button=dict(url=URL('manage_media'),label='Media'),visible=True)
+
+#    if len(request.args) >= 2 and 'new' == request.args[1]:
+    if request.args == ['cm_pages', 'new', 'cm_pages']:
         grid = SQLFORM(db.cm_pages).process()
         grid[0].insert(-3,tinymce_checkbutton)   # position the tinymce checkbutton
         footnote = False
         if grid.accepted:
-            session.flash="success: new page!"
+            session.flash="page accepted"
             redirect(URL())
         elif grid.errors:
-            response.flash='page form has errors'
+            response.flash='form has errors'
         else:
             response.flash='please fill out the form'  
+
     else:
-        view_btn = \
-            XML('<span class="icon magnifier icon-zoom-in glyphicon glyphicon-eye-open"></span><span class="buttontext button" title="Preview">''</span>')
-        custom_links = [
-                        dict(header='Preview¹',
-                        body=lambda row:A(view_btn,_class='button btn btn-default',
-                        _href=URL('create_page',args=['_preview',row.id,'']))),]
+        view_btn = XML('<span class="icon magnifier icon-zoom-in glyphicon glyphicon-eye-open"></span><span class="buttontext button" title="Preview">''</span>')
+        custom_links = [dict(header='Preview¹',body=lambda row:A(view_btn,_class='button btn btn-default',_href=URL('create_page',args=['_preview',row.id,'']))),]
         grid=SQLFORM.smartgrid(db.cm_pages, 
                                details=True, 
                                csv=False, 
                                create=True, 
                                linked_tables=['cm_images'],
-                               links=dict(cm_pages=custom_links,cm_images=[]))
-    if len(request.args) >=3 and 'cm_images.in_page' == request.args[1]:
-        footnote = False
-        custom_items=dict(
-                          page_title='Media-in-Page',
-                          button=dict(
-                                      url=URL('manage_pages'),
-                                      label='Pages'),
-                          visible=True)
+                               links=dict(cm_pages=custom_links,cm_images=[]),
+                               oncreate=on_image_in_page_create,)
+
     if 'edit' in request.args:
         grid[2][0].insert(3,tinymce_checkbutton)   # postion the tinymce checkbutton
         footnote = False
-    if 'view' in request.args:
+
+    if 'view' in request.args or 'cm_images.in_page' in request.args:
         footnote = False
         
     return dict(grid=grid,custom_items=custom_items,footnote=footnote)
@@ -106,10 +101,12 @@ def manage_media():
         footnote=False
         form = SQLFORM(db.cm_images)
         if form.process().accepted:
-            response.flash="success: new media link now on clipboard!"
-            form.add_button("Page manager",URL('manage_pages'))
+            response.flash="media accepted"
+#            form.add_button("Page manager",URL('manage_pages'))
+            row = db(db.cm_images.id == form.vars.id).select().first()
+            redirect(URL('copy_media_link',args=[row.id,row.title,row.file,row.in_page]))
         elif form.errors:
-            response.flash='image form has errors'
+            response.flash='form has errors'
         else:
             response.flash='please fill out the form'  
         return dict(grid=form,footnote=footnote)
@@ -133,6 +130,7 @@ def manage_media():
 def copy_media_link():
     """ copy the media link to the page source """
     logger.debug("%s",'copy_media_link()')
+#    print lineno(),request.function,request.args
     args = request.args
     if len(args) != 4: 
         session.flash = "Medium not linked to a page!"
