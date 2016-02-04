@@ -115,7 +115,25 @@
   </div>
 </div>
 </div>
-
+<!-------Modal: contac------------------------------------------------------------>
+<div class="modal fade" id="contactModal" role="dialog">
+<div class="modal-dialog">
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h3 class="modal-title">Send us an Email</h3>
+    </div>
+        <div class="modal-body">
+        {{include '../private/contact.html'}}
+        </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+</div>
+ 
 {{block center}}
 {{include '../private/carousel_row.html'}}
 <div id="wiki_pages" class="col-md-12"> <!----wiki pages------------------------>
