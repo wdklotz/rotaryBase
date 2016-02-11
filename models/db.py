@@ -1,19 +1,18 @@
 # -*- coding: utf-8 -*-
-import re
-import inspect
 
 # TINYMCE-Editor toggle button
 if session.tinymce_enabled is None:
     session.tinymce_enabled = 'off'
-tinymce_checkbutton = SPAN('WYSIWYG ',
-                         INPUT(_type='checkbox',
-                               _class='boolean',
-                               _id='WYSIWYG',
-                               _value= session.tinymce_enabled,
-                               _checked = True if session.tinymce_enabled == 'on' else False,
-                               _onclick="toggle_tinymce_checkbutton('WYSIWYG','cm_pages_body');",
-                               ))
+tinymce_checkbutton = \
+    SPAN('WYSIWYG ',INPUT(_type='checkbox',
+       _class='boolean',
+       _id='WYSIWYG',
+       _value= session.tinymce_enabled,
+       _checked = True if session.tinymce_enabled == 'on' else False,
+       _onclick="toggle_tinymce_checkbutton('WYSIWYG','cm_pages_body');",
+       ))
 
+import inspect
 def lineno():
     """ Returns the current line number in our program."""
     return inspect.currentframe().f_back.f_lineno
@@ -23,10 +22,11 @@ def _dict_print(what):
     for key, value in sorted(what.items()):
         print(key,value)
 
+import re
 regex_URL=re.compile(r'@/(?P<a>\w*)/(?P<c>\w*)/(?P<f>\w*(\.\w+)?)(/(?P<args>[\w\.\-/]+))?')
 def replace_at_urls(text,url):
     """
-    Transform media all links in a string into absolute urls
+    Transform all media links in a string into absolute urls
     ex: text='src="@/a/c/f/15/image.jpg"' ==> r=src="http://localhost:8080/a/c/f/15/image.jpg"
     This is taken from gluon/contrib/markmin/makmin2html.py
     """
@@ -40,9 +40,9 @@ def replace_at_urls(text,url):
 
 def URLx(a,c,f,args,scheme=False,host=False):
     """
-    Special dynamic url generation. http://..../[app]/default/download/[filename]
+    Dynamic url generation for this app. http://..../[app]/default/download/[filename]
     Called in regex_URL.sub(...) passed to replace_at_urls(text,ur1) as 2nd formal parameter.
-    [attention: only possible in functional programming - mind blowing functional hack!]
+    [remark(wdk): only possible in functional programming - mind blowing functional hack!]
     """
     id = args[0]
     real_filename = db.cm_images[id].file        

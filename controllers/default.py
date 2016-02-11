@@ -7,8 +7,11 @@ logger.setLevel(logging.INFO)
 
 def index():
     logger.debug("%s",'index()')
-    if False:
-        redirect(URL('site_closed'))
+    if False:   # site closed !
+        url  = URL('static','images/construction.png')
+        body = XML("<img src='"+url+"'/><p>Sorry site closed for maintenance!</p>")
+        return HTML(BODY(H1(body,_style="color: red;")))
+
     pages = db(db.cm_pages.id>0 and db.cm_pages.publish==True).select()
 #    pages = []    # test for empty table
     if len(pages) == 0:
@@ -140,10 +143,6 @@ def copy_media_link():
     session.flash="Link pasted to page \""+page.slug+"\""
     redirect(URL('manage_pages'))
     return
-
-def site_closed():
-    logger.debug("%s",'site_closed()')
-    return dict()
 
 def fluid():
     logger.debug("%s",'fluid()')
