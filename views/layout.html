@@ -27,11 +27,12 @@
 <link rel="stylesheet" href="{{=URL('static','css/web2py-bootstrap3.css')}}"/>
 <link rel="shortcut icon" href="{{=URL('static','images/favicon.ico')}}" type="image/x-icon">
 <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
+<!--[if lt IE 9]><script src="{{=URL('static','js/respond-1.4.2.min.js')}}"></script><![endif]-->
+<link rel="stylesheet" href="{{=URL('static','css/this-app.css')}}"/>
+
 <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
 <script src="{{=URL('static','js/modernizr-2.8.3.min.js')}}"></script>
-<!--[if lt IE 9]><script src="{{=URL('static','js/respond-1.4.2.min.js')}}"></script><![endif]-->
-<!-- this app's stylesheets -->
-<link rel="stylesheet" href="{{=URL('static','css/this-app.css')}}"/>
+
 {{include 'web2py_ajax.html'}} <!-- this includes jquery.js, calendar.js/.css and web2py.js -->
 
 {{block head}}{{end}}
@@ -108,7 +109,7 @@ middle_column = {0: mc0, 1: mc1, 2: mc2}[(left_sidebar_enabled and 1 or 0)+(righ
 	    <li class="list-group-item">{{=A(IMG(_src=URL('static','images/end_polio_now.png'),_width='100px'), _href='http://www.endpolio.org/')}}</li>
 	  </ul>
 	</div>
-	<div class="panel panel-info" id="left_panel">
+	<div class="panel panel-info" id="right_panel">
 	    <div class="panel-heading" name="sidebar"><h3 class="panel-title">
 	        <i class="glyphicon glyphicon-cog"></i> {{=T("useful links")}}
 	    </h3></div>

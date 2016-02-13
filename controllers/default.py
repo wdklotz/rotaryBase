@@ -80,6 +80,7 @@ def manage_pages():
            details=True, 
            csv=False, 
            create=True, 
+           paginate=10,
            linked_tables=['cm_images'],
            links=dict(cm_pages=custom_links,cm_images=[]),
            oncreate=on_image_in_page_create,)
@@ -117,6 +118,7 @@ def manage_media():
              details=True,
              csv=False,
              create=True,
+             paginate=10,
              links=custom_links)
 
     if 'view' in request.args or 'edit' in request.args:
