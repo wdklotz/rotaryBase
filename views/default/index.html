@@ -4,10 +4,10 @@
 <!-- python flags  -->
 {{left_sidebar_enabled,right_sidebar_enabled, rotary_banner_enabled = True,False,False}}
 
-<!-------LAYOUT---------------------------------------------------------------->
+<!--====LAYOUT================================================-->
 {{extend 'layout.html'}}
 
-<!-------Modal: about---------------------------------------------------------------->
+<!--====Modal: about================================================-->
 <div class="modal fade" id="aboutModal" role="dialog">
 <div class="modal-dialog">
   <!-- Modal content-->
@@ -25,7 +25,7 @@
   </div>
 </div>
 </div>
-<!-------Modal: about(fr)------------------------------------------------------------>
+<!-- ====Modal: about(fr)============================================ -->
 <div class="modal fade" id="aboutModalfr" role="dialog">
 <div class="modal-dialog">
   <!-- Modal content-->
@@ -43,7 +43,7 @@
   </div>
 </div>
 </div>
-<!-------Modal: executive------------------------------------------------------------>
+<!-- ====Modal: executive================================================ -->
 <div class="modal fade" id="executiveModal" role="dialog">
 <div class="modal-dialog">
   <!-- Modal content-->
@@ -61,7 +61,7 @@
   </div>
 </div>
 </div>
-<!-------Modal: ethics--------------------------------------------------------------->
+<!-- ====Modal: ethics================================================ -->
 <div class="modal fade" id="ethicsModal" role="dialog">
 <div class="modal-dialog">
   <!-- Modal content-->
@@ -79,7 +79,7 @@
   </div>
 </div>
 </div>
-<!-------Modal: press---------------------------------------------------------------->
+<!-- ====Modal: press================================================ -->
 <div class="modal fade" id="pressModal" role="dialog">
 <div class="modal-dialog">
   <!-- Modal content-->
@@ -97,7 +97,7 @@
   </div>
 </div>
 </div>
-<!-------Modal: meetingsh------------------------------------------------------------>
+<!-- ====Modal: meetingsh================================================ -->
 <div class="modal fade" id="meetingshModal" role="dialog">
 <div class="modal-dialog">
   <!-- Modal content-->
@@ -115,7 +115,7 @@
   </div>
 </div>
 </div>
-<!-------Modal: contac------------------------------------------------------------>
+<!-- ====Modal: contac================================================ -->
 <div class="modal fade" id="contactModal" role="dialog">
 <div class="modal-dialog">
   <!-- Modal content-->
@@ -136,7 +136,7 @@
  
 {{block center}}
 {{include '../private/carousel_row.html'}}
-<div id="wiki_pages" class="col-md-12"> <!----wiki pages------------------------>
+<div id="wiki_pages" class="col-md-12"> <!-- ==wiki pages================ -->
 	{{for page in pages:}}
 		{{if page.title != '':}}
 			<h2>{{=XML(page.title)}}</h2>
